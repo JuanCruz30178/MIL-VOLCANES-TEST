@@ -340,38 +340,15 @@
       if (row) setQty(row.dataset.id, parseInt(e.target.value, 10) || 1);
     });
 
-    // Checkout -> Netlify function -> Mercado Pago Checkout Pro
+    // Checkout -> Mercado Pago (link de pago)
+    var MP_LINK = "https://link.mercadopago.com.ar/milvolcaneswines";
     var checkoutBtn = $("[data-checkout]");
     if (checkoutBtn) {
       checkoutBtn.addEventListener("click", function () {
         var cart = readCart();
         if (!cart.length) return;
-        checkoutBtn.disabled = true;
-        checkoutBtn.textContent = "Redirigiendo…";
         if (errorEl) errorEl.hidden = true;
-
-        fetch("/.netlify/functions/create-preference", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ items: cart })
-        })
-          .then(function (r) {
-            var ok = r.ok;
-            return r.json().catch(function () { return null; }).then(function (data) { return { ok: ok, data: data }; });
-          })
-          .then(function (res) {
-            if (!res.data) throw new Error("El servicio de pagos no está disponible ahora mismo.");
-            if (!res.ok || !res.data.init_point) throw new Error(res.data.error || "No se pudo iniciar el pago.");
-            window.location.href = res.data.init_point;
-          })
-          .catch(function (err) {
-            checkoutBtn.disabled = false;
-            checkoutBtn.textContent = "Finalizar compra";
-            if (errorEl) {
-              errorEl.textContent = "No pudimos iniciar el pago. " + (err && err.message ? err.message : "Probá de nuevo en un momento.");
-              errorEl.hidden = false;
-            }
-          });
+        window.location.href = MP_LINK;
       });
     }
 
