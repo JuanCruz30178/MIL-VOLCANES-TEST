@@ -448,10 +448,36 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
    text stays fixed-light rather than following the (now dark) --cream* tokens. */
 .hero-kicker { justify-content: center; margin-bottom: 1.6rem; color: #E8C68A; }
 .hero-kicker::before { display: none; }
-.hero-title {
-  font-size: clamp(3.4rem, 10vw, 8rem);
-  line-height: .95;
+/* Logo lockup — plain styled text (not an image), so it is crisp at any
+   size, colors white by definition, and the hero photo shows through its
+   background with zero extra work. */
+.hero-logo { display: block; }
+.hero-logo-main {
+  display: block;
+  font-family: "Bebas Neue", "Oswald", var(--sans);
+  font-size: clamp(3.4rem, 11.5vw, 9rem);
+  letter-spacing: .02em;
+  line-height: .92;
   color: #FBF6EC;
+  text-shadow: 0 12px 46px rgba(0,0,0,.35);
+}
+.hero-logo-sub {
+  display: flex; align-items: baseline; justify-content: center; gap: .55rem;
+  margin-top: .3rem;
+  font-family: var(--sans);
+  font-size: clamp(.85rem, 1.6vw, 1.15rem);
+  font-weight: 700;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  color: rgba(246,240,228,.82);
+}
+.hero-logo-sub em {
+  font-family: "Alex Brush", "Cormorant Garamond", cursive;
+  font-style: normal;
+  font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+  letter-spacing: 0;
+  text-transform: none;
+  color: #E8C68A;
 }
 .hero-sub {
   margin: 1.6rem auto 0; max-width: 46ch;
