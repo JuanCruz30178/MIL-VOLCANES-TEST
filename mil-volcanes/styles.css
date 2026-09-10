@@ -633,13 +633,15 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
 @media (min-width: 720px) { .terroir-cols { grid-template-columns: 1fr 1fr; gap: 3.5rem; } }
 
 /* --- Bodega --- */
-.bodega-grid { display: grid; gap: 1.2rem; margin-top: 3rem; }
-@media (min-width: 720px) { .bodega-grid { grid-template-columns: 1.3fr 1fr; grid-template-rows: repeat(2,1fr); gap: 1.4rem; } }
-.bodega-grid figure { border-radius: 4px; overflow: hidden; position: relative; }
-.bodega-grid img { width: 100%; height: 100%; object-fit: cover; min-height: 220px; }
-@media (min-width: 720px) {
-  .bodega-grid .bodega-main { grid-row: span 2; }
-}
+/* Even 3-up grid on purpose — the source photos are modest resolution
+   (from a compressed PDF export), so none of them is stretched into a
+   single oversized "hero" slot the way a bigger asset could carry. */
+.bodega-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; margin-top: 3rem; }
+@media (min-width: 720px) { .bodega-grid { grid-template-columns: repeat(3, 1fr); gap: 1.4rem; } }
+.bodega-grid figure { border-radius: 4px; overflow: hidden; position: relative; aspect-ratio: 4 / 3; }
+.bodega-grid .bodega-main { grid-column: 1 / -1; }
+@media (min-width: 720px) { .bodega-grid .bodega-main { grid-column: auto; } }
+.bodega-grid img { width: 100%; height: 100%; object-fit: cover; }
 .bodega-grid figcaption {
   position: absolute; left: 0; bottom: 0; right: 0; padding: 1rem 1.2rem;
   background: linear-gradient(0deg, rgba(18,13,10,.88), transparent);
