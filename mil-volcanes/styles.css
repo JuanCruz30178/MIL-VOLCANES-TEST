@@ -620,10 +620,6 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
   background: linear-gradient(0deg, rgba(18,13,10,.88), transparent);
   font-size: .78rem; color: var(--cream-2);
 }
-.bodega-stats { display: flex; flex-wrap: wrap; gap: 2.4rem; margin-top: 2.6rem; }
-.bodega-stat-num { font-family: var(--serif); font-style: italic; font-size: 2.4rem; color: var(--gold-2); }
-.bodega-stat-label { font-size: .8rem; color: var(--cream-3); margin-top: .2rem; }
-
 /* --- Coleccion --- */
 .line-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1.5rem; margin-bottom: 2.6rem; }
 .line-head-dark {
@@ -631,7 +627,12 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
   background: linear-gradient(100deg, rgba(12,9,7,.9) 20%, rgba(12,9,7,.62)), url("assets/img/lava-rock-texture.webp") center 35% / cover;
   border: 1px solid var(--line-soft);
 }
-.line-head-dark .line-head-copy { color: var(--cream-3); }
+.line-head-dark h3 {
+  color: var(--gold-2);
+  text-shadow: 0 2px 12px rgba(0,0,0,.5);
+}
+.line-head-dark .line-head-copy { color: rgba(246,240,228,.72); }
+.line-head-dark .line-badge { border-color: rgba(246,240,228,.28); color: rgba(246,240,228,.85); }
 .line-head-copy { max-width: 46ch; font-size: .92rem; color: var(--cream-3); }
 .line-badge {
   display: inline-flex; align-items: center; gap: .5rem;
