@@ -257,14 +257,16 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
 
 .nav-mobile {
   position: fixed; inset: 0; z-index: 90;
-  background: var(--bg-2);
+  background:
+    linear-gradient(180deg, rgba(12,9,7,.88), rgba(12,9,7,.94)),
+    url("assets/img/lava-rock-texture.webp") center / cover;
   display: grid; place-items: center;
   clip-path: inset(0 0 100% 0);
   transition: clip-path .6s var(--ease-soft);
 }
 .nav-mobile[data-open="true"] { clip-path: inset(0); }
 .nav-mobile-list { display: flex; flex-direction: column; align-items: center; gap: 1.6rem; }
-.nav-mobile-list a { font-family: var(--serif); font-style: italic; font-size: 2rem; color: var(--cream); }
+.nav-mobile-list a { font-family: var(--serif); font-style: italic; font-size: 2rem; color: #FBF6EC; }
 
 /* --- Cards --- */
 .card {
@@ -589,19 +591,6 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
 .founder-chip-name { font-size: .86rem; color: var(--cream); font-weight: 700; }
 .founder-chip-role { font-size: .74rem; color: var(--cream-3); }
 
-.payunia-teaser {
-  margin-top: 2.4rem; display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem;
-  padding: 1.5rem 1.6rem; border-radius: 0;
-  background: transparent;
-  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
-  transition: border-color .4s var(--ease-out);
-}
-.payunia-teaser:hover { border-color: var(--cream); }
-.payunia-teaser-eyebrow { font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); width: 100%; }
-.payunia-teaser-title { font-family: var(--serif); font-style: italic; font-size: 1.25rem; color: var(--cream); flex: 1; }
-.payunia-teaser-arrow { font-size: 1.3rem; color: var(--cream); transition: transform .4s var(--ease-out); }
-.payunia-teaser:hover .payunia-teaser-arrow { transform: translate(3px, -3px); }
-
 /* --- Terroir --- */
 .terroir-figure { border-radius: 4px; overflow: hidden; margin-top: 3rem; aspect-ratio: 16/8; }
 .terroir-figure img {
@@ -639,7 +628,7 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
 .line-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1.5rem; margin-bottom: 2.6rem; }
 .line-head-dark {
   position: relative; padding: 2.2rem; border-radius: 6px; overflow: hidden;
-  background: linear-gradient(100deg, rgba(18,13,10,.94) 30%, rgba(18,13,10,.66)), url("assets/img/premium-dark-duo.webp") center 30% / cover;
+  background: linear-gradient(100deg, rgba(12,9,7,.9) 20%, rgba(12,9,7,.62)), url("assets/img/lava-rock-texture.webp") center 35% / cover;
   border: 1px solid var(--line-soft);
 }
 .line-head-dark .line-head-copy { color: var(--cream-3); }
@@ -677,20 +666,27 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
 .form-row { display: grid; gap: 0; }
 @media (min-width: 560px) { .form-row-2 { grid-template-columns: 1fr 1fr; gap: 0 1rem; } }
 
-/* --- Footer --- */
-.footer { border-top: 1px solid var(--line-soft); padding-block: 3.5rem 2rem; }
+/* --- Footer ---
+   Textured volcanic-rock backdrop, so its colors are fixed-light
+   (independent of the page's cream tokens) same as the hero. */
+.footer {
+  background:
+    linear-gradient(180deg, rgba(12,9,7,.86), rgba(12,9,7,.94)),
+    url("assets/img/lava-rock-texture.webp") center 70% / cover;
+  padding-block: 4rem 2rem;
+}
 .footer-grid { display: grid; gap: 2.6rem; }
 @media (min-width: 720px) { .footer-grid { grid-template-columns: 1.3fr 1fr 1fr; gap: 2rem; } }
-.footer-logo { font-family: var(--serif); font-style: italic; font-size: 1.6rem; color: var(--cream); }
-.footer-tag { font-size: .86rem; color: var(--cream-3); margin-top: .8rem; max-width: 32ch; }
-.footer-col-title { font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.1rem; }
+.footer-logo { font-family: var(--serif); font-style: italic; font-size: 1.6rem; color: #FBF6EC; }
+.footer-tag { font-size: .86rem; color: rgba(246,240,228,.62); margin-top: .8rem; max-width: 32ch; }
+.footer-col-title { font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-2); margin-bottom: 1.1rem; }
 .footer-links { display: grid; gap: .7rem; }
-.footer-links a { font-size: .88rem; color: var(--cream-3); transition: color .3s; }
-.footer-links a:hover { color: var(--cream); }
+.footer-links a { font-size: .88rem; color: rgba(246,240,228,.62); transition: color .3s; }
+.footer-links a:hover { color: #FBF6EC; }
 .footer-bottom {
-  margin-top: 3rem; padding-top: 1.6rem; border-top: 1px solid var(--line-soft);
+  margin-top: 3rem; padding-top: 1.6rem; border-top: 1px solid rgba(246,240,228,.14);
   display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between;
-  font-size: .76rem; color: var(--cream-3);
+  font-size: .76rem; color: rgba(246,240,228,.5);
 }
 .footer-social { display: inline-flex; align-items: center; gap: .5rem; }
 
