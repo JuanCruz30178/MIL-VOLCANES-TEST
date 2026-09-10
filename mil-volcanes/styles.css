@@ -711,6 +711,7 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
   width: 100%; height: 100%; object-fit: cover;
   animation: ambientZoom 40s ease-in-out infinite alternate;
 }
+.moment-bg video { width: 100%; height: 100%; object-fit: cover; }
 .moment-tint {
   position: absolute; inset: 0; z-index: 1;
   background: linear-gradient(0deg, rgba(15,11,8,.68) 0%, rgba(15,11,8,.1) 60%, rgba(246,240,228,.14) 100%);
