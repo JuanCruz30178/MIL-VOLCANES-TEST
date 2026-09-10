@@ -118,6 +118,11 @@ body.payunia-body { min-height: 100%; margin: 0; overflow-x: clip; background: #
 }
 .back-veg {
   z-index: 1; opacity: 1;
+  /* Fixed height + object-fit:cover instead of height:auto — the layer's
+     size must not depend on the source photo's aspect ratio, or swapping
+     in a differently-shaped image (as happened here) pushes it way past
+     where it should sit. */
+  height: 58vh; max-height: 620px; object-fit: cover;
   filter: blur(var(--bazaar-blur-px)) brightness(var(--bazaar-brightness)) saturate(var(--bazaar-saturation));
   transform: translate3d(-50%, var(--bazaar-y), 0) scale(0.86);
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 22%);
@@ -195,6 +200,11 @@ body.payunia-body { min-height: 100%; margin: 0; overflow-x: clip; background: #
   left: 50%; bottom: var(--bridge-bottom); z-index: 4; width: min(var(--bridge-width), 1500px); height: auto;
   transform: translate3d(var(--bridge-x), var(--bridge-y), 0) scale(var(--bridge-scale));
   transform-origin: 50% 48%;
+  /* Real photo, not a cutout illustration — feather the rectangle edges
+     so it reads as floating in the scene rather than a pasted photo. */
+  -webkit-mask-image: radial-gradient(65% 60% at 50% 55%, #000 55%, transparent 100%);
+  mask-image: radial-gradient(65% 60% at 50% 55%, #000 55%, transparent 100%);
+  border-radius: 8px;
   /* Foreground rock illustration fades out once the sights carousel enters,
      so it can't sit (by z-index) over content nested inside .back-stack. */
   opacity: calc(1 - var(--sights-opacity));
