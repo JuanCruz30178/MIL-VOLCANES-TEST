@@ -50,6 +50,10 @@
     </nav>
     <div style="display:flex; align-items:center; gap:.9rem;">
       <a href="#ventas" class="btn btn-primary nav-cta">Solicitar cotización</a>
+      <button class="nav-cart" data-cart-open aria-label="Ver carrito de compras" aria-haspopup="dialog" aria-controls="cart-drawer">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 5h2l1.6 10.4a2 2 0 0 0 2 1.6h7.3a2 2 0 0 0 2-1.6L20 8H6.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20" r="1.3" fill="currentColor"/><circle cx="17" cy="20" r="1.3" fill="currentColor"/></svg>
+        <span class="nav-cart-badge" data-cart-count hidden>0</span>
+      </button>
       <button class="nav-burger" data-nav-burger aria-expanded="false" aria-label="Abrir menú" aria-controls="nav-mobile">
         <span class="nav-burger-lines"><span></span><span></span><span></span></span>
       </button>
@@ -227,45 +231,69 @@
         </div>
 
         <div class="wine-grid">
-          <article class="card wine-card" data-reveal>
+          <article class="card wine-card" data-reveal data-wine-id="premium-sauvblanc-torrontes">
             <div class="wine-card-figure"><img src="assets/img/bottle-premium-sauvblanc-torrontes.webp" alt="Botella Mil Volcanes Sauvignon Blanc · Torrontés" loading="lazy" decoding="async"></div>
             <div class="wine-card-meta">
               <div class="wine-card-line"><h4 class="h-card">Sauvignon Blanc · Torrontés</h4></div>
               <p class="wine-card-blend">Blend 50% · 50%</p>
               <p class="wine-card-origin">Los Árboles, Valle de Uco (1200 msnm) &amp; Cafayate, Salta (1750 msnm)</p>
               <p class="wine-card-note">Cremoso y afrutado: jazmín, flor de naranjo, cítricos y melón, con un final suave y refrescante. Servir 10–12°C.</p>
-              <div class="wine-card-foot">
-                <span class="wine-card-cta"></span>
-                <a href="#ventas" class="wine-card-cta">Solicitar cotización →</a>
+              <div class="wine-card-buy">
+                <span class="wine-card-price">$8.500</span>
+                <div class="qty-stepper">
+                  <button type="button" class="qty-btn" data-qty-minus aria-label="Restar cantidad">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="24" data-qty-input aria-label="Cantidad">
+                  <button type="button" class="qty-btn" data-qty-plus aria-label="Sumar cantidad">+</button>
+                </div>
               </div>
+              <div class="wine-card-foot">
+                <button type="button" class="btn btn-primary btn-block" data-add-cart>Agregar al carrito</button>
+              </div>
+              <a href="#ventas" class="wine-card-cta">Consulta por mayor →</a>
             </div>
           </article>
 
-          <article class="card wine-card" data-reveal data-reveal-delay="1">
+          <article class="card wine-card" data-reveal data-reveal-delay="1" data-wine-id="premium-malbec-bonarda">
             <div class="wine-card-figure"><img src="assets/img/bottle-premium-malbec-bonarda.webp" alt="Botella Mil Volcanes Malbec · Bonarda" loading="lazy" decoding="async"></div>
             <div class="wine-card-meta">
               <div class="wine-card-line"><h4 class="h-card">Malbec · Bonarda</h4></div>
               <p class="wine-card-blend">Blend 50% · 50%</p>
               <p class="wine-card-origin">Vista Flores, Valle de Uco (1100 msnm) &amp; Maipú (850 msnm)</p>
               <p class="wine-card-note">Vibrante y dinámico: cerezas, ciruelas, frambuesas y violetas, con taninos suaves y un final largo. Servir 16–18°C.</p>
-              <div class="wine-card-foot">
-                <span></span>
-                <a href="#ventas" class="wine-card-cta">Solicitar cotización →</a>
+              <div class="wine-card-buy">
+                <span class="wine-card-price">$9.000</span>
+                <div class="qty-stepper">
+                  <button type="button" class="qty-btn" data-qty-minus aria-label="Restar cantidad">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="24" data-qty-input aria-label="Cantidad">
+                  <button type="button" class="qty-btn" data-qty-plus aria-label="Sumar cantidad">+</button>
+                </div>
               </div>
+              <div class="wine-card-foot">
+                <button type="button" class="btn btn-primary btn-block" data-add-cart>Agregar al carrito</button>
+              </div>
+              <a href="#ventas" class="wine-card-cta">Consulta por mayor →</a>
             </div>
           </article>
 
-          <article class="card wine-card" data-reveal data-reveal-delay="2">
+          <article class="card wine-card" data-reveal data-reveal-delay="2" data-wine-id="premium-cabsauv-merlot">
             <div class="wine-card-figure"><img src="assets/img/bottle-premium-cabsauv-merlot.webp" alt="Botella Mil Volcanes Cabernet Sauvignon · Merlot" loading="lazy" decoding="async"></div>
             <div class="wine-card-meta">
               <div class="wine-card-line"><h4 class="h-card">Cabernet Sauvignon · Merlot</h4></div>
               <p class="wine-card-blend">Blend 70% · 30%</p>
               <p class="wine-card-origin">Alto Agrelo (960 msnm) &amp; Los Chacayes, Valle de Uco (1200 msnm)</p>
               <p class="wine-card-note">Moras, ciruelas y pimiento verde, taninos redondos y untuosos, final persistente y elegante. Servir 16–18°C.</p>
-              <div class="wine-card-foot">
-                <span></span>
-                <a href="#ventas" class="wine-card-cta">Solicitar cotización →</a>
+              <div class="wine-card-buy">
+                <span class="wine-card-price">$9.500</span>
+                <div class="qty-stepper">
+                  <button type="button" class="qty-btn" data-qty-minus aria-label="Restar cantidad">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="24" data-qty-input aria-label="Cantidad">
+                  <button type="button" class="qty-btn" data-qty-plus aria-label="Sumar cantidad">+</button>
+                </div>
               </div>
+              <div class="wine-card-foot">
+                <button type="button" class="btn btn-primary btn-block" data-add-cart>Agregar al carrito</button>
+              </div>
+              <a href="#ventas" class="wine-card-cta">Consulta por mayor →</a>
             </div>
           </article>
         </div>
@@ -284,45 +312,69 @@
         </div>
 
         <div class="wine-grid">
-          <article class="card wine-card" data-reveal>
+          <article class="card wine-card" data-reveal data-wine-id="sv-malbec">
             <div class="wine-card-figure"><img src="assets/img/bottle-sv-malbec.webp" alt="Botella Mil Volcanes Malbec Single Vineyard" loading="lazy" decoding="async"></div>
             <div class="wine-card-meta">
               <div class="wine-card-line"><h4 class="h-card">Malbec</h4></div>
               <p class="wine-card-blend">100% Malbec</p>
               <p class="wine-card-origin">Vista Flores, Valle de Uco — 1100 msnm</p>
               <p class="wine-card-note">El poder y la energía de un volcán: ciruelas, frambuesas maduras, violetas y notas balsámicas con vainilla de barrica. Concentrado y persistente.</p>
-              <div class="wine-card-foot">
-                <span></span>
-                <a href="#ventas" class="wine-card-cta">Solicitar cotización →</a>
+              <div class="wine-card-buy">
+                <span class="wine-card-price">$22.000</span>
+                <div class="qty-stepper">
+                  <button type="button" class="qty-btn" data-qty-minus aria-label="Restar cantidad">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="24" data-qty-input aria-label="Cantidad">
+                  <button type="button" class="qty-btn" data-qty-plus aria-label="Sumar cantidad">+</button>
+                </div>
               </div>
+              <div class="wine-card-foot">
+                <button type="button" class="btn btn-primary btn-block" data-add-cart>Agregar al carrito</button>
+              </div>
+              <a href="#ventas" class="wine-card-cta">Consulta por mayor →</a>
             </div>
           </article>
 
-          <article class="card wine-card" data-reveal data-reveal-delay="1">
+          <article class="card wine-card" data-reveal data-reveal-delay="1" data-wine-id="sv-cabfranc">
             <div class="wine-card-figure"><img src="assets/img/bottle-sv-cabfranc.webp" alt="Botella Mil Volcanes Cabernet Franc Single Vineyard" loading="lazy" decoding="async"></div>
             <div class="wine-card-meta">
               <div class="wine-card-line"><h4 class="h-card">Cabernet Franc</h4></div>
               <p class="wine-card-blend">100% Cabernet Franc</p>
               <p class="wine-card-origin">Los Sauces, Valle de Uco — 1100 msnm</p>
               <p class="wine-card-note">Rojo rubí intenso: pimiento asado, tomate deshidratado, chocolate y cuero de su paso por roble. Taninos redondos, final persistente.</p>
-              <div class="wine-card-foot">
-                <span></span>
-                <a href="#ventas" class="wine-card-cta">Solicitar cotización →</a>
+              <div class="wine-card-buy">
+                <span class="wine-card-price">$22.000</span>
+                <div class="qty-stepper">
+                  <button type="button" class="qty-btn" data-qty-minus aria-label="Restar cantidad">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="24" data-qty-input aria-label="Cantidad">
+                  <button type="button" class="qty-btn" data-qty-plus aria-label="Sumar cantidad">+</button>
+                </div>
               </div>
+              <div class="wine-card-foot">
+                <button type="button" class="btn btn-primary btn-block" data-add-cart>Agregar al carrito</button>
+              </div>
+              <a href="#ventas" class="wine-card-cta">Consulta por mayor →</a>
             </div>
           </article>
 
-          <article class="card wine-card" data-reveal data-reveal-delay="2">
+          <article class="card wine-card" data-reveal data-reveal-delay="2" data-wine-id="sv-cabsauv">
             <div class="wine-card-figure"><img src="assets/img/bottle-sv-cabsauv.webp" alt="Botella Mil Volcanes Cabernet Sauvignon Single Vineyard" loading="lazy" decoding="async"></div>
             <div class="wine-card-meta">
               <div class="wine-card-line"><h4 class="h-card">Cabernet Sauvignon</h4></div>
               <p class="wine-card-blend">100% Cabernet Sauvignon</p>
               <p class="wine-card-origin">Alto Agrelo, Luján de Cuyo — 960 msnm</p>
               <p class="wine-card-note">Pimienta negra, moras y cerezas negras maduras, con vainilla y especias de roble. Taninos maduros, final largo y persistente.</p>
-              <div class="wine-card-foot">
-                <span></span>
-                <a href="#ventas" class="wine-card-cta">Solicitar cotización →</a>
+              <div class="wine-card-buy">
+                <span class="wine-card-price">$22.000</span>
+                <div class="qty-stepper">
+                  <button type="button" class="qty-btn" data-qty-minus aria-label="Restar cantidad">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="24" data-qty-input aria-label="Cantidad">
+                  <button type="button" class="qty-btn" data-qty-plus aria-label="Sumar cantidad">+</button>
+                </div>
               </div>
+              <div class="wine-card-foot">
+                <button type="button" class="btn btn-primary btn-block" data-add-cart>Agregar al carrito</button>
+              </div>
+              <a href="#ventas" class="wine-card-cta">Consulta por mayor →</a>
             </div>
           </article>
         </div>
@@ -444,6 +496,27 @@
     </div>
   </div>
 </footer>
+
+<!-- Cart drawer -->
+<div class="cart-overlay" data-cart-overlay hidden></div>
+<aside class="cart-drawer" id="cart-drawer" data-cart-drawer role="dialog" aria-modal="true" aria-label="Carrito de compras" hidden>
+  <div class="cart-drawer-head">
+    <h2 class="cart-drawer-title">Tu carrito</h2>
+    <button class="cart-close" data-cart-close aria-label="Cerrar carrito">✕</button>
+  </div>
+  <div class="cart-drawer-body" data-cart-items>
+    <p class="cart-empty" data-cart-empty>Todavía no agregaste vinos. Elegí alguno en <a href="#coleccion" data-cart-close-link>la colección</a>.</p>
+  </div>
+  <div class="cart-drawer-foot" data-cart-foot hidden>
+    <div class="cart-total-row">
+      <span>Total</span>
+      <span data-cart-total>$0</span>
+    </div>
+    <button class="btn btn-primary btn-block" data-checkout>Finalizar compra</button>
+    <p class="cart-note">Pago seguro con Mercado Pago. Envíos a coordinar por email tras la compra.</p>
+    <p class="cart-error" data-cart-error hidden></p>
+  </div>
+</aside>
 
 <script defer src="lib/manifest.js"></script>
 <script defer src="main.js?v=20260910"></script>
