@@ -41,7 +41,12 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; }
 html { -webkit-text-size-adjust: 100%; tab-size: 2; overflow-x: clip; scroll-behavior: smooth; }
 body {
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(rgba(246,240,228,.93), rgba(246,240,228,.93)),
+    url("assets/img/lava-rock-texture.webp");
+  background-repeat: repeat, repeat;
+  background-size: auto, 640px auto;
   color: var(--cream-2);
   font-family: var(--sans);
   font-size: 16px;
