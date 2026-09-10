@@ -557,6 +557,9 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
   transition: transform .4s var(--ease-out), border-color .4s;
 }
 .founder-chip:hover img { transform: scale(1.08); border-color: var(--gold); }
+.founder-chip-group img {
+  width: 72px; height: 54px; border-radius: 8px; object-position: center 25%;
+}
 .founder-chip-name { font-size: .86rem; color: var(--cream); font-weight: 700; }
 .founder-chip-role { font-size: .74rem; color: var(--cream-3); }
 
@@ -666,15 +669,6 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
   display: flex; align-items: flex-end;
   overflow: hidden;
 }
-/* Only the home-page bridge into La Payunia fades down from the page's
-   own cream background, so the cut into the photo reads as translucent
-   rather than a hard block — the other full-bleed moments sit directly
-   between photo/cream sections that don't need this seam softened. */
-.moment-payunia::before {
-  content: ""; position: absolute; top: 0; left: 0; right: 0; z-index: 2;
-  height: clamp(70px, 12vw, 140px); pointer-events: none;
-  background: linear-gradient(180deg, var(--bg) 0%, rgba(246,240,228,0) 100%);
-}
 .moment-bg { position: absolute; inset: -3% -3% -3% -3%; z-index: 0; }
 .moment-bg img {
   width: 100%; height: 100%; object-fit: cover;
@@ -684,10 +678,6 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
 .moment-tint {
   position: absolute; inset: 0; z-index: 1;
   background: linear-gradient(0deg, rgba(15,11,8,.68) 0%, rgba(15,11,8,.1) 60%, rgba(234,231,224,.16) 100%);
-}
-/* Lighter, more see-through overlay on the La Payunia bridge specifically. */
-.moment-payunia .moment-tint {
-  background: linear-gradient(0deg, rgba(15,11,8,.48) 0%, rgba(15,11,8,.04) 55%, rgba(234,231,224,.26) 100%);
 }
 .moment-copy {
   position: relative; z-index: 2; width: 100%;
