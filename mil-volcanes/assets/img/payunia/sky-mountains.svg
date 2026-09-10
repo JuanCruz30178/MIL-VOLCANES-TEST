@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 500" preserveAspectRatio="xMidYMax slice">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a0f2e"/>
+      <stop offset="30%" stop-color="#5c1b3a"/>
+      <stop offset="55%" stop-color="#b8402c"/>
+      <stop offset="75%" stop-color="#e77b2e"/>
+      <stop offset="100%" stop-color="#f4b74a"/>
+    </linearGradient>
+    <linearGradient id="far" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5a2140"/>
+      <stop offset="100%" stop-color="#7a2b3a"/>
+    </linearGradient>
+    <linearGradient id="mid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#421521"/>
+      <stop offset="100%" stop-color="#2c0f18"/>
+    </linearGradient>
+    <linearGradient id="near" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#170a0c"/>
+      <stop offset="100%" stop-color="#0c0506"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="50%" cy="100%" r="65%">
+      <stop offset="0%" stop-color="#ffd98a" stop-opacity="0.9"/>
+      <stop offset="45%" stop-color="#f4923a" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#f4923a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="500" fill="url(#sky)"/>
+  <circle cx="800" cy="480" r="420" fill="url(#sun)"/>
+  <path d="M0,500 L0.0,229.9 L114.3,310.9 L228.6,218.9 L342.9,282.5 L457.1,214.4 L571.4,232.2 L685.7,314.9 L800.0,228.0 L914.3,275.6 L1028.6,255.5 L1142.9,254.8 L1257.1,259.4 L1371.4,226.1 L1485.7,296.4 L1600.0,214.9 L1600.0,500.0 Z" fill="url(#far)" opacity="0.85"/>
+  <path d="M0,500 L0.0,334.8 L145.5,322.3 L290.9,289.4 L436.4,391.3 L581.8,270.9 L727.3,340.4 L872.7,395.8 L1018.2,281.3 L1163.6,347.6 L1309.1,356.3 L1454.5,275.7 L1600.0,323.1 L1600.0,500.0 Z" fill="url(#mid)" opacity="0.92"/>
+  <path d="M0,500 L0.0,422.9 L177.8,397.2 L355.6,424.1 L533.3,357.1 L711.1,466.4 L888.9,468.2 L1066.7,437.6 L1244.4,348.8 L1422.2,413.7 L1600.0,379.0 L1600.0,500.0 Z" fill="url(#near)"/>
+</svg>
