@@ -4,7 +4,6 @@
   var data = window.__BRAND__ || {};
   var $ = function (sel, scope) { return (scope || document).querySelector(sel); };
   var $$ = function (sel, scope) { return Array.prototype.slice.call((scope || document).querySelectorAll(sel)); };
-  var fineHover = matchMedia("(hover: hover) and (pointer: fine)").matches;
   var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function safe(fn, name) {
@@ -131,74 +130,6 @@
         io.observe(parentReveal);
       } else {
         el.classList.add("is-revealed");
-      }
-    });
-  }
-
-  /* ---------------- Tilt 3D + halo on cards ---------------- */
-  function initTilt() {
-    if (!fineHover) return;
-    $$(".card").forEach(function (card) {
-      var MAX = 6;
-      var tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
-      card.classList.add("has-tilt");
-      card.addEventListener("mousemove", function (e) {
-        var r = card.getBoundingClientRect();
-        var px = (e.clientX - r.left) / r.width - 0.5;
-        var py = (e.clientY - r.top) / r.height - 0.5;
-        tx = -py * MAX; ty = px * MAX;
-        card.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100) + "%");
-        card.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100) + "%");
-        if (!raf) raf = requestAnimationFrame(loop);
-      });
-      card.addEventListener("mouseleave", function () {
-        tx = 0; ty = 0;
-        if (!raf) raf = requestAnimationFrame(loop);
-      });
-      function loop() {
-        cx += (tx - cx) * 0.16; cy += (ty - cy) * 0.16;
-        card.style.setProperty("--rx", cx.toFixed(2) + "deg");
-        card.style.setProperty("--ry", cy.toFixed(2) + "deg");
-        raf = (Math.abs(tx - cx) > 0.05 || Math.abs(ty - cy) > 0.05) ? requestAnimationFrame(loop) : null;
-      }
-    });
-  }
-
-  /* ---------------- Custom cursor ---------------- */
-  function initCursor() {
-    var root = $("[data-cursor-root]");
-    if (!root || !fineHover) return;
-    document.documentElement.classList.add("has-cursor");
-    var ring = $(".cursor-ring", root);
-    var dot = $(".cursor-dot", root);
-    var tx = 0, ty = 0, rx = 0, ry = 0, firstMove = false;
-
-    window.addEventListener("mousemove", function (e) {
-      tx = e.clientX; ty = e.clientY;
-      if (dot) dot.style.transform = "translate3d(" + tx + "px," + ty + "px,0)";
-      if (!firstMove) {
-        firstMove = true;
-        rx = tx; ry = ty;
-        if (ring) ring.style.transform = "translate3d(" + rx + "px," + ry + "px,0)";
-        root.classList.add("is-ready");
-      }
-    }, { passive: true });
-
-    function tick() {
-      rx += (tx - rx) * 0.18; ry += (ty - ry) * 0.18;
-      if (ring) ring.style.transform = "translate3d(" + rx + "px," + ry + "px,0)";
-      requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-
-    var HOVERABLES = "a, button, .card, [data-cursor]";
-    document.addEventListener("mouseover", function (e) {
-      if (e.target.closest && e.target.closest(HOVERABLES)) root.classList.add("is-interactive");
-    });
-    document.addEventListener("mouseout", function (e) {
-      var related = e.relatedTarget;
-      if (e.target.closest && e.target.closest(HOVERABLES) && !(related && related.closest && related.closest(HOVERABLES))) {
-        root.classList.remove("is-interactive");
       }
     });
   }
@@ -465,8 +396,6 @@
     safe(initSmoothAnchors, "initSmoothAnchors");
     safe(initReveals, "initReveals");
     safe(initSplitHeadline, "initSplitHeadline");
-    safe(initTilt, "initTilt");
-    safe(initCursor, "initCursor");
     safe(initContactForm, "initContactForm");
     safe(initCart, "initCart");
     document.documentElement.classList.add("is-ready");

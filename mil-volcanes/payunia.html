@@ -1,151 +1,184 @@
 <!doctype html>
-<html lang="es" class="payunia-html">
+<html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>La Payunia — Mil Volcanes</title>
-<meta name="description" content="Un recorrido cinematográfico por la Reserva Natural La Payunia, Malargüe: el desierto de ochocientos volcanes que le dio nombre y espíritu a Mil Volcanes." />
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<meta name="description" content="Un recorrido por la Reserva Natural La Payunia, Malargüe: el desierto de ochocientos volcanes que le dio nombre y espíritu a Mil Volcanes.">
+<meta name="theme-color" content="#120D0A">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;0,800;1,600;1,700;1,800&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Manrope:wght@300;400;500;600;700;800&family=Bebas+Neue&family=Alex+Brush&display=swap">
 
-<link rel="preload" as="image" href="assets/img/payunia/sky-photo.webp" fetchpriority="high">
+<link rel="preload" as="image" href="assets/video/payunia-hero-poster.webp" fetchpriority="high">
+<link rel="stylesheet" href="styles.css?v=20260910">
 <link rel="stylesheet" href="payunia.css?v=20260910">
-<noscript><style>
-  /* Without JS the scroll-driven engine never runs, so every layer must fall
-     back to a single readable resting frame instead of its animated default. */
-  .bridge-img, .splitframe-img, .frame-two-img, .back-glow, .shade { display: none !important; }
-  .story-panel, .intro-copy, .hero-title {
-    position: static !important; opacity: 1 !important; transform: none !important;
-    width: min(720px, calc(100vw - 48px)) !important; margin: 3rem auto !important;
-  }
-  .sights-slider {
-    position: static !important; visibility: visible !important; transform: none !important; opacity: 1 !important;
-    padding: 2rem 1.25rem !important;
-  }
-  .sights-track { transform: none !important; overflow-x: auto !important; }
-  .sights-controls { display: none !important; }
-  .back-stack { position: static !important; transform: none !important; opacity: 1 !important; }
-  .back-veg { position: static !important; width: 100% !important; -webkit-mask-image: none !important; mask-image: none !important; }
-  .stage { position: static !important; height: auto !important; min-height: 0 !important; }
-  .sky-img { position: static !important; width: 100% !important; height: auto !important; }
-  .world { position: static !important; }
-  .cinema-scroll { height: auto !important; }
-  .site-header { position: static !important; }
-</style></noscript>
+<noscript><style>[data-reveal],.split-word{opacity:1!important;transform:none!important}.splash{display:none!important}</style></noscript>
+
+<meta property="og:title" content="La Payunia — Mil Volcanes">
+<meta property="og:description" content="El desierto de ochocientos volcanes que le dio nombre y espíritu a Mil Volcanes.">
+<meta property="og:image" content="assets/video/payunia-hero-poster.webp">
+<meta property="og:type" content="website">
 </head>
-<body class="payunia-body">
+<body>
+<a href="#contenido" class="skip-link">Saltar al contenido</a>
 
-<main class="site-shell">
-  <section class="cinema-scroll" id="cinema" aria-label="Recorrido cinematográfico por La Payunia">
-    <div class="stage">
-      <div class="world">
-        <img class="scene-img sky-img" src="assets/img/payunia/sky-photo.webp" alt="" aria-hidden="true">
+<!-- Nav -->
+<header class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo"><span class="nav-logo-main">Mil Volcanes</span><span class="nav-logo-sub">Mendoza <em>Argentina</em></span></a>
+    <nav class="nav-links" aria-label="Navegación principal">
+      <a class="nav-link" href="index.html#historia">Historia</a>
+      <a class="nav-link" href="index.html#terroir">Terroir</a>
+      <a class="nav-link" href="payunia.html" aria-current="page">La Payunia</a>
+      <a class="nav-link" href="index.html#coleccion">Vinos</a>
+      <a class="nav-link" href="index.html#ventas">Contacto</a>
+    </nav>
+    <div style="display:flex; align-items:center; gap:.9rem;">
+      <a href="index.html" class="btn btn-ghost nav-cta">← Sitio principal</a>
+      <button class="nav-burger" data-nav-burger aria-expanded="false" aria-label="Abrir menú" aria-controls="nav-mobile">
+        <span class="nav-burger-lines"><span></span><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+</header>
 
-        <header class="site-header" aria-label="Navegación principal">
-          <a class="site-logo" href="index.html">Mil Volcanes</a>
-          <nav class="site-nav" aria-label="Menú de la reserva">
-            <a href="#cinema">Reserva</a>
-            <a href="#cinema">Volcán</a>
-            <a href="#cinema">Lava</a>
-            <a href="#cinema">Fauna</a>
-          </nav>
-          <a class="back-link" href="index.html" aria-label="Volver al sitio principal">
-            <span aria-hidden="true">←</span><span>Sitio principal</span>
-          </a>
-        </header>
+<div class="nav-mobile" id="nav-mobile" data-nav-mobile data-open="false">
+  <ul class="nav-mobile-list">
+    <li><a href="index.html#historia">Historia</a></li>
+    <li><a href="index.html#terroir">Terroir</a></li>
+    <li><a href="payunia.html">La Payunia</a></li>
+    <li><a href="index.html#coleccion">Vinos</a></li>
+    <li><a href="index.html#ventas">Contacto</a></li>
+  </ul>
+</div>
 
-        <div class="back-stack">
-          <img class="scene-img back-img back-glow" src="assets/img/payunia/glow-blob.svg" alt="" aria-hidden="true">
-          <section class="sights-slider" aria-label="Lugares de La Payunia">
-            <div class="sights-track">
-              <article class="sight-card" tabindex="0" role="button" aria-label="Ver ficha de Payún Matrú">
-                <span class="sight-kicker">Volcán</span>
-                <img class="sight-pin" src="assets/img/payunia/pin1.svg" alt="" aria-hidden="true">
-                <h3>Payún Matrú</h3>
-                <p>El volcán más alto de la reserva: casi 3.715 metros y una caldera de 8&nbsp;km de diámetro.</p>
-              </article>
-              <article class="sight-card" tabindex="0" role="button" aria-label="Ver ficha de Pampas Negras">
-                <span class="sight-kicker">Campo de lava</span>
-                <img class="sight-pin" src="assets/img/payunia/pin2.svg" alt="" aria-hidden="true">
-                <h3>Pampas Negras</h3>
-                <p>Mantos de lava negra que se extienden hasta el horizonte, como otro planeta.</p>
-              </article>
-              <article class="sight-card" tabindex="0" role="button" aria-label="Ver ficha de Payún Liso">
-                <span class="sight-kicker">Mirador</span>
-                <img class="sight-pin" src="assets/img/payunia/pin1.svg" alt="" aria-hidden="true">
-                <h3>Payún Liso</h3>
-                <p>Silueta perfecta de estratovolcán, visible desde kilómetros de distancia.</p>
-              </article>
-              <article class="sight-card" tabindex="0" role="button" aria-label="Ver ficha de la manada de guanacos">
-                <span class="sight-kicker">Fauna</span>
-                <img class="sight-pin" src="assets/img/payunia/pin3.svg" alt="" aria-hidden="true">
-                <h3>Manada de guanacos</h3>
-                <p>La mayor concentración de guanacos silvestres de Mendoza recorre la estepa.</p>
-              </article>
-              <article class="sight-card" tabindex="0" role="button" aria-label="Ver ficha de los cráteres morados">
-                <span class="sight-kicker">Geología</span>
-                <img class="sight-pin" src="assets/img/payunia/pin2.svg" alt="" aria-hidden="true">
-                <h3>Cráteres morados</h3>
-                <p>Conos de escoria teñidos de rojo y violeta por los minerales volcánicos.</p>
-              </article>
-            </div>
-          </section>
-          <img class="scene-img back-img back-veg" src="assets/img/vineyard-snow.webp" alt="" aria-hidden="true">
-        </div>
+<main id="contenido">
 
-        <div class="sights-controls" aria-label="Controles del carrusel">
-          <button class="sight-nav sight-prev" aria-label="Lugar anterior">←</button>
-          <button class="sight-nav sight-next" aria-label="Lugar siguiente">→</button>
-        </div>
+  <!-- Video hero -->
+  <section class="payunia-hero">
+    <div class="payunia-hero-media">
+      <video autoplay muted loop playsinline poster="assets/video/payunia-hero-poster.webp">
+        <source src="assets/video/payunia-hero.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="payunia-hero-tint" aria-hidden="true"></div>
+    <div class="container payunia-hero-inner">
+      <p class="kicker" data-reveal style="justify-content:center; color:#E8C68A;">Reserva Natural</p>
+      <h1 class="payunia-hero-title" data-reveal data-reveal-delay="1">La Payunia</h1>
+      <p class="payunia-hero-sub" data-reveal data-reveal-delay="2">El desierto de ochocientos volcanes que le dio nombre y espíritu a cada una de nuestras etiquetas.</p>
+    </div>
+    <div class="hero-scroll" aria-hidden="true"><span class="hero-scroll-line"></span>Scroll</div>
+  </section>
 
-        <h1 class="hero-title">PAYUNIA</h1>
-
-        <img class="scene-img splitframe-img splitframe-left" src="assets/img/payunia/split-left.svg" alt="" aria-hidden="true">
-        <img class="scene-img splitframe-img splitframe-right" src="assets/img/payunia/split-right.svg" alt="" aria-hidden="true">
-        <img class="scene-img bridge-img" src="assets/img/payunia/volcano-photo.webp" alt="" aria-hidden="true">
-        <img class="scene-img frame-two-img" src="assets/img/volcan-bottle.webp" alt="" aria-hidden="true">
-
-        <div class="shade" aria-hidden="true"></div>
+  <!-- Intro -->
+  <section class="section">
+    <div class="container" style="max-width: 780px; text-align:center; margin-inline:auto;">
+      <p class="kicker" style="justify-content:center;" data-reveal>Malargüe, sur de Mendoza</p>
+      <h2 class="h-section" data-split data-reveal>El fuego que nos dio el nombre.</h2>
+      <p class="lede" style="margin-inline:auto; margin-top:1.1rem;" data-reveal>Casi mil conos volcánicos moldearon el suelo donde hoy crecen nuestros viñedos.</p>
+      <div class="pillars" style="margin-top:2.6rem; text-align:left;" data-reveal>
+        <div class="pillar"><div class="pillar-num">01</div><div class="pillar-title">800+</div><div class="pillar-body">Volcanes y conos volcánicos en la reserva.</div></div>
+        <div class="pillar"><div class="pillar-num">02</div><div class="pillar-title">3.715 m</div><div class="pillar-body">Altura del volcán Payún Matrú.</div></div>
+        <div class="pillar"><div class="pillar-num">03</div><div class="pillar-title">1.650 km²</div><div class="pillar-body">De estepa, coladas de lava y silencio absoluto.</div></div>
       </div>
-
-      <section class="intro-copy" aria-label="Presentación de La Payunia">
-        <p>Un desierto de más de ochocientos volcanes, coladas de lava negra y silencio absoluto: el paisaje que le dio nombre y espíritu a cada una de nuestras etiquetas.</p>
-        <ul class="hero-tags" aria-label="Datos destacados de La Payunia">
-          <li><span>Volcán Payún Matrú</span></li>
-          <li><span>Campo de Lava</span></li>
-          <li><span>Malargüe, Mendoza</span></li>
-        </ul>
-      </section>
-
-      <section class="story-panel story-panel-volcan" aria-label="Sobre el volcán Payún Matrú">
-        <h2>El fuego que nos dio el nombre.</h2>
-        <p>En el sur de Mendoza, la Reserva Natural La Payunia reúne una de las mayores concentraciones de volcanes del planeta: casi mil conos que moldearon el suelo donde hoy crecen nuestros viñedos.</p>
-        <dl class="facts">
-          <div><dt>800+</dt><dd>Volcanes y conos volcánicos</dd></div>
-          <div><dt>3.715&nbsp;m</dt><dd>Altura del volcán Payún Matrú</dd></div>
-        </dl>
-      </section>
-
-      <section class="story-panel story-panel-lava" aria-label="Sobre los campos de lava">
-        <h2>Donde la tierra todavía respira.</h2>
-        <p>Campos de lava negra, cráteres teñidos de rojo y una estepa habitada por guanacos: el corazón salvaje detrás de cada botella de Mil Volcanes.</p>
-        <a class="note-button" href="index.html#coleccion">
-          <span aria-hidden="true">↗</span><span>Ver la colección de vinos</span>
-        </a>
-      </section>
     </div>
   </section>
 
-  <section class="payunia-outro">
-    <h2 class="display-font">Del volcán a la copa.</h2>
-    <p>Cada etiqueta de Mil Volcanes lleva el dibujo de esta montaña. Descubrí los vinos que nacen a su sombra.</p>
-    <a class="btn-return" href="index.html#coleccion">Ver los vinos →</a>
+  <!-- Moment: volcano -->
+  <section class="moment">
+    <div class="moment-bg"><img src="assets/img/payunia/volcano-photo.webp" alt="Volcán en la Reserva Natural La Payunia, Malargüe" loading="lazy" decoding="async"></div>
+    <div class="moment-tint" aria-hidden="true"></div>
+    <div class="container moment-copy" data-reveal>
+      <p class="kicker">Payún Matrú</p>
+      <h2 class="moment-title">El volcán más alto de la reserva.</h2>
+      <p class="moment-body">Una caldera de ocho kilómetros de diámetro corona la Payunia: la silueta que inspiró la etiqueta de cada botella Mil Volcanes.</p>
+    </div>
   </section>
+
+  <!-- Split: bottle among the lava -->
+  <section class="section">
+    <div class="container">
+      <div class="narrative-grid">
+        <figure class="narrative-figure" data-reveal>
+          <img src="assets/img/sv-bottle-sky.webp" alt="Botella Mil Volcanes Single Vineyard sobre roca volcánica, con el volcán Payún Matrú de fondo" loading="lazy" decoding="async">
+          <figcaption class="narrative-figure-caption">Campo de lava, Reserva Natural La Payunia</figcaption>
+        </figure>
+        <div class="narrative-text">
+          <p class="kicker">Pampas Negras</p>
+          <h2 class="h-section" data-split data-reveal>Donde la tierra todavía respira.</h2>
+          <p class="body-copy" data-reveal>Mantos de lava negra se extienden hasta el horizonte, como otro planeta. Cráteres teñidos de rojo y violeta por los minerales volcánicos rodean una estepa habitada por guanacos salvajes.</p>
+          <p class="body-copy" data-reveal>Ese mismo suelo volcánico —duro, mineral, generoso— es el que hoy sostiene nuestros viñedos de altura en el Valle de Uco y Luján de Cuyo.</p>
+          <a class="note-button-link" href="index.html#coleccion" data-reveal>Ver la colección de vinos →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Moment: grass macro -->
+  <section class="moment">
+    <div class="moment-bg"><img src="assets/img/grass-macro.webp" alt="Pasto seco creciendo en suelo volcánico, estepa de La Payunia" loading="lazy" decoding="async"></div>
+    <div class="moment-tint" aria-hidden="true"></div>
+    <div class="container moment-copy" data-reveal>
+      <p class="kicker">Fauna &amp; estepa</p>
+      <h2 class="moment-title">Vida silvestre entre la ceniza.</h2>
+      <p class="moment-body">La mayor concentración de guanacos salvajes de Mendoza recorre esta estepa, donde hasta el pasto más simple aprende a crecer en piedra volcánica.</p>
+    </div>
+  </section>
+
+  <!-- Closing / CTA -->
+  <section class="moment" style="min-height: 62vh;">
+    <div class="moment-bg"><img src="assets/img/payunia/sky-photo.webp" alt="Cielo sobre la Reserva Natural La Payunia" loading="lazy" decoding="async"></div>
+    <div class="moment-tint" aria-hidden="true"></div>
+    <div class="container moment-copy" style="display:flex; flex-direction:column; align-items:flex-start;" data-reveal>
+      <p class="kicker">Del volcán a la copa</p>
+      <h2 class="moment-title">Cada etiqueta lleva el dibujo de esta montaña.</h2>
+      <p class="moment-body">Descubrí los vinos que nacen a su sombra.</p>
+      <div style="margin-top:1.6rem;"><a href="index.html#coleccion" class="btn btn-ghost" style="color:#FBF6EC; border-color:rgba(246,240,228,.4);">Ver los vinos →</a></div>
+    </div>
+  </section>
+
 </main>
 
-<script defer src="payunia.js?v=20260910"></script>
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Mil Volcanes</div>
+        <p class="footer-tag">Bodega familiar y exportadora. Vinos premium de Mendoza, Argentina, nacidos junto a la Reserva Natural La Payunia.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Navegación</div>
+        <nav class="footer-links">
+          <a href="index.html#historia">Historia</a>
+          <a href="index.html#terroir">Terroir</a>
+          <a href="payunia.html">La Payunia</a>
+          <a href="index.html#coleccion">Vinos</a>
+          <a href="index.html#ventas">Contacto</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">Contacto</div>
+        <nav class="footer-links">
+          <a href="mailto:silvina@milvolcanes.net">silvina@milvolcanes.net</a>
+          <a href="https://wa.me/5492615454993" target="_blank" rel="noopener">+54 9 261 545-4993</a>
+          <a href="https://instagram.com/milvolcanes.wines" target="_blank" rel="noopener">@milvolcanes.wines</a>
+          <span>Vistalba, Luján de Cuyo, Mendoza</span>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year">2026</span> Mil Volcanes. Todos los derechos reservados.</span>
+      <span class="footer-social">Mendoza, Argentina</span>
+    </div>
+  </div>
+</footer>
+
+<script defer src="lib/manifest.js"></script>
+<script defer src="main.js?v=20260910"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){var y=document.getElementById("year");if(y)y.textContent=new Date().getFullYear();});</script>
 </body>
 </html>
