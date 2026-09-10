@@ -200,12 +200,21 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
   box-shadow: 0 8px 30px rgba(33,26,19,.06);
 }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
-.nav-logo {
-  font-family: var(--serif); font-style: italic; font-size: 1.4rem; color: var(--nav-ink);
-  letter-spacing: .01em;
+.nav-logo { display: flex; flex-direction: column; gap: .15rem; line-height: 1; }
+.nav-logo-main {
+  font-family: "Bebas Neue", var(--sans); font-size: 1.55rem; letter-spacing: .025em;
+  color: var(--nav-ink); line-height: 1;
 }
-.nav-logo span { color: var(--gold-2); font-style: normal; font-family: var(--sans); font-size: .58rem; letter-spacing: .3em; display: block; margin-top: .15rem; font-weight: 700; }
-.nav.is-scrolled .nav-logo span { color: var(--gold); }
+.nav-logo-sub {
+  display: flex; align-items: baseline; gap: .32rem;
+  font-family: var(--sans); font-size: .5rem; font-weight: 700; letter-spacing: .24em;
+  text-transform: uppercase; color: var(--nav-ink-soft);
+}
+.nav-logo-sub em {
+  font-family: "Alex Brush", cursive; font-style: normal; font-size: 1rem;
+  letter-spacing: 0; text-transform: none; color: var(--gold-2);
+}
+.nav.is-scrolled .nav-logo-sub em { color: var(--gold); }
 .nav-links { display: none; align-items: center; gap: 2.1rem; }
 @media (min-width: 960px) { .nav-links { display: flex; } }
 .nav-link {
@@ -339,6 +348,7 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
   display: grid; place-items: center; border-radius: 999px;
   background: var(--accent); color: #F6F0E4; font-size: .64rem; font-weight: 800; line-height: 1;
 }
+.nav-cart-badge[hidden] { display: none; }
 .cart-overlay {
   position: fixed; inset: 0; z-index: 200; background: rgba(33,26,19,.45);
   opacity: 0; transition: opacity .35s var(--ease-out);
