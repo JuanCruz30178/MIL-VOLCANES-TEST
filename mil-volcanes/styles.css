@@ -665,13 +665,17 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
 }
 .contact-list a:hover .contact-ico-img { background-color: var(--gold-2); }
 .contact-ico-ig.contact-ico-img { -webkit-mask-size: 68%; mask-size: 68%; }
+.contact-ico-email {
+  -webkit-mask-image: url("assets/img/icon-email-v2.webp");
+  mask-image: url("assets/img/icon-email-v2.webp");
+}
 .contact-ico-bodega {
-  -webkit-mask-image: url("assets/img/icon-bodega.webp");
-  mask-image: url("assets/img/icon-bodega.webp");
+  -webkit-mask-image: url("assets/img/icon-bodega-v2.webp");
+  mask-image: url("assets/img/icon-bodega-v2.webp");
 }
 .contact-ico-ig.contact-ico-img {
-  -webkit-mask-image: url("assets/img/icon-instagram.webp");
-  mask-image: url("assets/img/icon-instagram.webp");
+  -webkit-mask-image: url("assets/img/icon-instagram-v2.webp");
+  mask-image: url("assets/img/icon-instagram-v2.webp");
 }
 .form-row { display: grid; gap: 0; }
 @media (min-width: 560px) { .form-row-2 { grid-template-columns: 1fr 1fr; gap: 0 1rem; } }
@@ -728,21 +732,14 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
   background: linear-gradient(0deg, rgba(15,11,8,.55) 0%, rgba(15,11,8,.08) 55%, rgba(234,231,224,.24) 100%);
 }
 .moment-payunia { background: #171310; }
-/* Source photo is ~1550px wide (already a wide composition) — capping
-   the box near that width keeps it sharp on very large monitors
-   instead of upscaling edge-to-edge past its native res. */
+/* Source photo is 1500px wide (portrait, cropped to a wide banner) —
+   capping the box near that width keeps it sharp on very large
+   monitors instead of upscaling edge-to-edge past its native res. */
 .moment-payunia .moment-bg {
   left: 50%; right: auto; width: min(2200px, 106%);
   transform: translateX(-50%);
 }
-.moment-payunia .moment-bg img { object-position: 50% 22%; }
-/* This photo's bottle sits left-of-center and the section never crops
-   it out horizontally (cover scales by width here), so on desktop the
-   copy block shifts right to land over open sky/desert instead of the
-   busy label artwork. */
-@media (min-width: 720px) {
-  .moment-payunia .moment-copy { width: min(560px, 92%); margin-left: auto; margin-right: 0; }
-}
+.moment-payunia .moment-bg img { object-position: 50% 40%; }
 .moment-copy {
   position: relative; z-index: 2; width: 100%;
   padding-block: clamp(2.5rem, 6vw, 4.5rem);

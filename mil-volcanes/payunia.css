@@ -30,28 +30,16 @@
   font-size: clamp(1rem, 1.4vw, 1.15rem);
 }
 
-/* The video column runs much taller than a single short line of copy,
-   so this feature quote reads bigger to balance the empty space. */
-.lede-feature {
-  font-size: clamp(1.7rem, 3.4vw, 2.6rem);
-  max-width: 26ch;
-  line-height: 1.18;
+/* "Inspirados...": full-bleed photo with one large centered line,
+   no kicker/body/button — a quiet pause between the sights grid and
+   the fauna section. */
+.moment-inspirados { align-items: center; justify-content: center; }
+.moment-inspirados .moment-copy { text-align: center; }
+.moment-title-lg {
+  font-family: var(--serif); font-style: italic; font-weight: 400;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  color: #FBF6EC; max-width: 18ch; margin-inline: auto;
 }
-
-/* "Inspirados..." feature: heading sits above, full-width; the video
-   below is centered and capped near its own 720px native width so
-   enlarging it doesn't upscale past source resolution. */
-.feature-intro { max-width: 640px; margin-bottom: 2.6rem; }
-.feature-figure {
-  max-width: 760px; margin-inline: auto;
-}
-
-.note-button-link {
-  display: inline-flex; align-items: center; gap: .5rem; margin-top: 1.8rem;
-  font-size: .82rem; font-weight: 700; letter-spacing: .04em; color: var(--gold-2);
-  transition: gap .3s var(--ease-out);
-}
-.note-button-link:hover { gap: .8rem; }
 
 /* --- Sights grid: small overview cards, images stay contained
    (never stretched full-bleed) so they read crisp, not pixelated. --- */
