@@ -303,6 +303,7 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
 }
 .wine-card-price { font-family: var(--serif); font-size: 1.35rem; color: var(--cream); }
+.wine-card-price small { font-family: var(--sans); font-size: .68rem; color: var(--cream-3); font-weight: 500; }
 .qty-stepper {
   display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 30px;
 }
@@ -435,6 +436,36 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
 /* =============================================================
    6. Sections
    ============================================================= */
+
+/* --- Age gate --- */
+.age-gate {
+  position: fixed; inset: 0; z-index: 10001;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(20,16,12,.62); backdrop-filter: blur(4px);
+  padding: 1.5rem;
+}
+.age-gate[hidden] { display: none; }
+.age-gate-card {
+  background: var(--bg-3); border-radius: 8px; padding: 2.6rem 2.2rem;
+  max-width: 420px; width: 100%; text-align: center;
+  box-shadow: 0 30px 80px -20px rgba(0,0,0,.45);
+}
+.age-gate-logo { height: 56px; width: auto; margin: 0 auto 1.6rem; display: block; }
+.age-gate-text { font-size: .92rem; color: var(--cream-2); margin-top: 1rem; }
+.age-gate-text-sm { font-size: .8rem; color: var(--cream-3); }
+.age-gate-actions { display: flex; gap: .8rem; justify-content: center; margin-top: 1.8rem; }
+.age-gate-actions .btn { min-width: 108px; }
+
+/* --- Shipping banner --- */
+.shipping-banner {
+  display: flex; align-items: center; gap: 1rem;
+  background: var(--bg-3); border: 1px solid var(--line-soft); border-radius: 6px;
+  padding: 1rem 1.4rem; margin: 1.6rem 0 2.6rem;
+}
+.shipping-banner-icon { font-size: 1.6rem; flex-shrink: 0; }
+.shipping-banner strong { display: block; font-size: .92rem; color: var(--cream); }
+.shipping-banner span { font-size: .8rem; color: var(--cream-3); }
+.cart-note-shipping { margin-top: .6rem; }
 
 /* --- Splash --- */
 .splash {
