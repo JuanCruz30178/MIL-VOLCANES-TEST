@@ -637,6 +637,7 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
 }
 /* --- Coleccion --- */
 .line-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1.5rem; margin-bottom: 2.6rem; }
+.line-head h3.h-card { font-size: clamp(2rem, 4vw, 3.2rem); }
 .line-head-dark {
   position: relative; padding: 2.2rem; border-radius: 6px; overflow: hidden;
   background: linear-gradient(100deg, rgba(40,36,30,.88) 20%, rgba(40,36,30,.6)), url("assets/img/lava-rock-texture.webp") center 35% / cover;
