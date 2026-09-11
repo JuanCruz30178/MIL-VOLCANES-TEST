@@ -356,15 +356,72 @@
       if (row) setQty(row.dataset.id, parseInt(e.target.value, 10) || 1);
     });
 
-    // Checkout -> Mercado Pago (link de pago)
+    // Payment method: Mercado Pago (link de pago) or bank transfer (email comprobante)
     var MP_LINK = "https://link.mercadopago.com.ar/milvolcaneswines";
+    var bank = data.bank || {};
+    var paymentMethod = "mercadopago";
+    var paymentBtns = $$("[data-payment-btn]");
+    var bankTransferBox = $("[data-bank-transfer]");
     var checkoutBtn = $("[data-checkout]");
+    var cartNoteEl = $("[data-cart-note]");
+
+    var bankNameEl = $("[data-bank-name]");
+    var bankHolderEl = $("[data-bank-holder]");
+    var bankCbuEl = $("[data-bank-cbu]");
+    var bankAliasEl = $("[data-bank-alias]");
+    if (bankNameEl) bankNameEl.textContent = bank.name || "—";
+    if (bankHolderEl) bankHolderEl.textContent = bank.holder || "—";
+    if (bankCbuEl) bankCbuEl.textContent = bank.cbu || "—";
+    if (bankAliasEl) bankAliasEl.textContent = bank.alias || "—";
+
+    function setPaymentMethod(method) {
+      paymentMethod = method;
+      paymentBtns.forEach(function (btn) {
+        var active = btn.dataset.paymentBtn === method;
+        btn.classList.toggle("is-active", active);
+        btn.setAttribute("aria-pressed", active ? "true" : "false");
+      });
+      if (bankTransferBox) bankTransferBox.hidden = method !== "transferencia";
+      if (checkoutBtn) {
+        var labelKey = method === "transferencia" ? "btn-checkout-transfer" : "btn-checkout";
+        checkoutBtn.textContent = window.__mvT ? window.__mvT(labelKey) : (method === "transferencia" ? "Enviar comprobante" : "Finalizar compra");
+      }
+      if (cartNoteEl) {
+        var noteKey = method === "transferencia" ? "cart-note-transfer" : "cart-note";
+        cartNoteEl.textContent = window.__mvT ? window.__mvT(noteKey) : cartNoteEl.textContent;
+      }
+    }
+    paymentBtns.forEach(function (btn) {
+      btn.addEventListener("click", function () { setPaymentMethod(btn.dataset.paymentBtn); });
+    });
+
+    function buildTransferEmail(cart, total) {
+      var lines = cart.map(function (line) {
+        var product = findProduct(line.id);
+        return product ? ("- " + product.name + " x" + line.qty + ": " + money(product.price * line.qty)) : null;
+      }).filter(Boolean);
+      var subject = "Comprobante de transferencia — Pedido Mil Volcanes";
+      var body = "Hola! Les escribo para enviar el comprobante de mi pedido:\n\n" +
+        lines.join("\n") + "\n\nTotal: " + money(total) +
+        "\n\n(Adjuntar el comprobante de la transferencia a este email.)";
+      return "mailto:" + (data.contact && data.contact.email ? data.contact.email : "info@milvolcanes.net") +
+        "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+    }
+
     if (checkoutBtn) {
       checkoutBtn.addEventListener("click", function () {
         var cart = readCart();
         if (!cart.length) return;
         if (errorEl) errorEl.hidden = true;
-        window.location.href = MP_LINK;
+        if (paymentMethod === "transferencia") {
+          var total = cart.reduce(function (sum, line) {
+            var product = findProduct(line.id);
+            return sum + (product ? product.price * line.qty : 0);
+          }, 0);
+          window.location.href = buildTransferEmail(cart, total);
+        } else {
+          window.location.href = MP_LINK;
+        }
       });
     }
 
@@ -381,7 +438,10 @@
     }
 
     renderCart();
-    window.__mvRenderCart = renderCart;
+    window.__mvRenderCart = function () {
+      renderCart();
+      setPaymentMethod(paymentMethod);
+    };
   }
 
   function boot() {

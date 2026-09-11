@@ -559,8 +559,26 @@
       <span data-i18n="cart-total-label">Total</span>
       <span data-cart-total>$0</span>
     </div>
+
+    <div class="payment-method" data-payment-method role="group" aria-label="Método de pago">
+      <button type="button" class="payment-method-btn is-active" data-payment-btn="mercadopago" aria-pressed="true">
+        <span data-i18n="payment-mp">Mercado Pago</span>
+      </button>
+      <button type="button" class="payment-method-btn" data-payment-btn="transferencia" aria-pressed="false">
+        <span data-i18n="payment-transfer">Transferencia bancaria</span>
+      </button>
+    </div>
+
+    <div class="bank-transfer" data-bank-transfer hidden>
+      <p class="bank-transfer-row"><span data-i18n="bank-bank">Banco</span><strong data-bank-name>—</strong></p>
+      <p class="bank-transfer-row"><span data-i18n="bank-holder">Titular</span><strong data-bank-holder>—</strong></p>
+      <p class="bank-transfer-row"><span data-i18n="bank-cbu">CBU</span><strong data-bank-cbu>—</strong></p>
+      <p class="bank-transfer-row"><span data-i18n="bank-alias">Alias</span><strong data-bank-alias>—</strong></p>
+      <p class="bank-transfer-hint" data-i18n="bank-hint">Realizá la transferencia por el monto total y envianos el comprobante para coordinar el envío.</p>
+    </div>
+
     <button class="btn btn-primary btn-block" data-checkout data-i18n="btn-checkout">Finalizar compra</button>
-    <p class="cart-note" data-i18n="cart-note">Pago seguro con Mercado Pago. Envíos a coordinar por email tras la compra.</p>
+    <p class="cart-note" data-cart-note data-i18n="cart-note">Pago seguro con Mercado Pago. Envíos a coordinar por email tras la compra.</p>
     <p class="cart-error" data-cart-error hidden></p>
   </div>
 </aside>

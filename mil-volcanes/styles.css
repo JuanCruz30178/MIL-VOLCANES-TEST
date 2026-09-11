@@ -375,6 +375,26 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
 .cart-total-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1rem; font-family: var(--serif); font-size: 1.3rem; }
 .cart-note { margin-top: .8rem; font-size: .74rem; color: var(--cream-3); text-align: center; }
 .cart-error { margin-top: .6rem; font-size: .82rem; color: var(--accent); text-align: center; }
+
+.payment-method { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; margin-bottom: 1rem; }
+.payment-method-btn {
+  padding: .65rem .5rem; border: 1px solid var(--line); border-radius: 4px;
+  font-family: var(--sans-caps); font-size: .74rem; font-weight: 600; letter-spacing: .02em;
+  color: var(--cream-3); text-align: center; transition: border-color .25s, color .25s, background .25s;
+}
+.payment-method-btn.is-active { border-color: var(--cream); background: var(--cream); color: #F6F0E4; }
+.bank-transfer {
+  background: var(--bg-4); border: 1px solid var(--line-soft); border-radius: 4px;
+  padding: 1rem 1.1rem; margin-bottom: 1rem;
+}
+.bank-transfer[hidden] { display: none; }
+.bank-transfer-row {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+  font-size: .82rem; color: var(--cream-3);
+}
+.bank-transfer-row + .bank-transfer-row { margin-top: .45rem; }
+.bank-transfer-row strong { color: var(--cream-2); font-weight: 600; text-align: right; }
+.bank-transfer-hint { margin-top: .8rem; font-size: .74rem; color: var(--cream-3); line-height: 1.5; }
 @media (max-width: 480px) { .cart-drawer { width: 100vw; } }
 
 /* --- Pillar / stat blocks --- */

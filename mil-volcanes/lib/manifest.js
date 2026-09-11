@@ -12,6 +12,14 @@
       website: "www.milvolcanes.net",
       address: "Vistalba, Luján de Cuyo, Mendoza, Argentina"
     },
+    /* Datos para pago por transferencia bancaria — completar con el CBU/alias
+       reales de la cuenta de Mil Volcanes antes de publicar la tienda. */
+    bank: {
+      name: "COMPLETAR (nombre del banco)",
+      holder: "Mil Volcanes",
+      cbu: "COMPLETAR",
+      alias: "COMPLETAR"
+    },
     /* PRECIOS DE EJEMPLO — reemplazar por los precios reales (ARS, por CAJA
        de 6 botellas) antes de publicar la tienda. El "id" debe coincidir con
        el data-wine-id de cada tarjeta en index.html. Se vende por caja, no
