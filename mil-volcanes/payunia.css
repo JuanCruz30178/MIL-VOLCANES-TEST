@@ -33,7 +33,10 @@
 /* "Inspirados...": full-bleed photo with one large centered line,
    no kicker/body/button — a quiet pause between the sights grid and
    the fauna section. */
-.moment-inspirados { align-items: center; justify-content: center; }
+/* Being the last section before the footer, it gets extra bottom
+   margin so a strip of the page's own cream background separates it
+   from the dark footer instead of the two butting edge to edge. */
+.moment-inspirados { align-items: center; justify-content: center; margin-bottom: clamp(2.5rem, 6vw, 5rem); }
 .moment-inspirados .moment-copy { text-align: center; }
 .moment-title-lg {
   font-family: var(--serif); font-style: italic; font-weight: 400;
