@@ -103,7 +103,7 @@
     "mix-premium-note": "2 botellas de cada: Sauvignon Blanc & Torrontés, Malbec & Bonarda y Cabernet Sauvignon & Merlot.",
     "mix-sv-title": "Caja Mixta Single Vineyard",
     "mix-sv-origin": "Selección de nuestra línea Single Vineyard",
-    "mix-sv-note": "3 botellas de Malbec y 3 de Cabernet Franc.",
+    "mix-sv-note": "3 botellas de Malbec Single Vineyard y 3 de Cabernet Franc Single Vineyard.",
     "mix-origin": "Selección de nuestras tres etiquetas",
     "promo-badge-text": "20% OFF por primera compra"
   },
@@ -206,7 +206,7 @@
     "mix-premium-note": "2 bottles of each: Sauvignon Blanc & Torrontés, Malbec & Bonarda and Cabernet Sauvignon & Merlot.",
     "mix-sv-title": "Single Vineyard Mixed Case",
     "mix-sv-origin": "A selection of our Single Vineyard line",
-    "mix-sv-note": "3 bottles of Malbec and 3 of Cabernet Franc.",
+    "mix-sv-note": "3 bottles of Malbec Single Vineyard and 3 of Cabernet Franc Single Vineyard.",
     "mix-origin": "A selection of our three labels",
     "promo-badge-text": "20% OFF on your first order"
   },
@@ -309,7 +309,7 @@
     "mix-premium-note": "2 garrafas de cada: Sauvignon Blanc & Torrontés, Malbec & Bonarda e Cabernet Sauvignon & Merlot.",
     "mix-sv-title": "Caixa Mista Single Vineyard",
     "mix-sv-origin": "Seleção da nossa linha Single Vineyard",
-    "mix-sv-note": "3 garrafas de Malbec e 3 de Cabernet Franc.",
+    "mix-sv-note": "3 garrafas de Malbec Single Vineyard e 3 de Cabernet Franc Single Vineyard.",
     "mix-origin": "Uma seleção dos nossos três rótulos",
     "promo-badge-text": "20% OFF na primeira compra"
   }
