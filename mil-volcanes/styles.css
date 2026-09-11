@@ -531,7 +531,11 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
 @media (min-width: 960px) {
   .narrative-grid { grid-template-columns: .95fr 1.05fr; gap: 4.5rem; align-items: start; }
   .narrative-figure { position: sticky; top: calc(var(--nav-h) + 6vh); }
+  /* Give the image the larger share of the row instead of the usual near-even split. */
+  .narrative-grid-wide-figure { grid-template-columns: 1.35fr .65fr; }
 }
+.narrative-figure-large { aspect-ratio: 1/1; }
+@media (min-width: 960px) { .narrative-figure-large { aspect-ratio: 5/4; } }
 .narrative-figure {
   position: relative; border-radius: 4px; overflow: hidden;
   aspect-ratio: 4/5;
@@ -705,6 +709,16 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
 }
 .moment-payunia .moment-tint {
   background: linear-gradient(0deg, rgba(15,11,8,.55) 0%, rgba(15,11,8,.08) 55%, rgba(234,231,224,.24) 100%);
+}
+/* The source video is 720px wide — stretching it edge-to-edge across a
+   much wider viewport is what read as pixelated. Cap its own box near
+   that native width and center it, filling the rest of the section
+   with a plain dark backdrop instead of upscaling the footage. */
+.moment-payunia { background: #171310; }
+.moment-payunia .moment-bg {
+  left: 50%; right: auto; top: -3%; bottom: -3%;
+  width: min(520px, 94%);
+  transform: translateX(-50%);
 }
 .moment-copy {
   position: relative; z-index: 2; width: 100%;
