@@ -49,6 +49,9 @@
   transition: transform .8s var(--ease-out);
 }
 .sight-tile:hover img { transform: scale(1.06); }
+/* Zoomed in on the cone so its shape reads clearly at this small size. */
+.sight-tile-zoom img { transform: scale(1.75); object-position: 42% 62%; }
+.sight-tile:hover .sight-tile-zoom img { transform: scale(1.85); }
 .sight-tile h3 { font-size: 1.05rem; color: var(--cream); }
 .sight-tile p { font-size: .82rem; color: var(--cream-3); margin-top: .4rem; }
 
