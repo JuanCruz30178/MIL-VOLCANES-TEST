@@ -134,7 +134,7 @@
     });
   }
 
-  /* ---------------- Contact form -> mailto + WhatsApp ---------------- */
+  /* ---------------- Contact form -> mailto ---------------- */
   function initContactForm() {
     var form = $("[data-contact-form]");
     var success = $("[data-contact-success]");
@@ -160,7 +160,7 @@
         "",
         mensaje
       ];
-      var mailto = "mailto:" + encodeURIComponent(contact.email || "silvina@milvolcanes.net") +
+      var mailto = "mailto:" + encodeURIComponent(contact.email || "info@milvolcanes.net") +
         "?subject=" + encodeURIComponent(subject) +
         "&body=" + encodeURIComponent(bodyLines.join("\n"));
 
