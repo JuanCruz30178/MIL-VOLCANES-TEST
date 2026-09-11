@@ -20,6 +20,22 @@
     setTimeout(hide, 3200);
   }
 
+  /* ---------------- Promo badge ---------------- */
+  function initPromoBadge() {
+    var badge = $("[data-promo-badge]");
+    if (!badge) return;
+    var KEY = "mv_promo_badge_dismissed";
+    var dismissed = false;
+    try { dismissed = window.localStorage.getItem(KEY) === "1"; } catch (e) {}
+    if (dismissed) return;
+    setTimeout(function () { badge.hidden = false; }, 1200);
+    var closeBtn = $("[data-promo-badge-close]", badge);
+    if (closeBtn) closeBtn.addEventListener("click", function () {
+      badge.hidden = true;
+      try { window.localStorage.setItem(KEY, "1"); } catch (e) {}
+    });
+  }
+
   /* ---------------- Nav ---------------- */
   function initNav() {
     var nav = $(".nav");
@@ -370,6 +386,7 @@
 
   function boot() {
     safe(initSplash, "initSplash");
+    safe(initPromoBadge, "initPromoBadge");
     safe(initNav, "initNav");
     safe(initSmoothAnchors, "initSmoothAnchors");
     safe(initReveals, "initReveals");
