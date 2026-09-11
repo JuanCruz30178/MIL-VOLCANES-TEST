@@ -816,7 +816,7 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
 }
 .footer-grid { display: grid; gap: 2.6rem; }
 @media (min-width: 720px) { .footer-grid { grid-template-columns: 1.3fr 1fr 1fr; gap: 2rem; } }
-.footer-logo img { height: 46px; width: auto; margin-inline: auto; }
+.footer-logo img { height: 46px; width: auto; }
 .footer-tag { font-size: .86rem; color: rgba(246,240,228,.62); margin-top: .8rem; max-width: 32ch; }
 .footer-col-title { font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-2); margin-bottom: 1.1rem; }
 .footer-links { display: grid; gap: .7rem; }
@@ -827,7 +827,8 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
   display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between;
   font-size: .76rem; color: rgba(246,240,228,.5);
 }
-.footer-social { display: inline-flex; align-items: center; gap: .5rem; }
+.footer-social { display: inline-flex; align-items: center; gap: .4rem; }
+.footer-social-icon { flex-shrink: 0; }
 
 /* --- Full-bleed moment (quiet cinematic photo break) --- */
 .moment {
