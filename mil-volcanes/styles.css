@@ -595,9 +595,10 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
 .payunia-bridge-cta {
   position: absolute; left: clamp(1rem, 3vw, 2.5rem); bottom: clamp(1rem, 3vw, 2.5rem);
   z-index: 2;
-  color: #FBF6EC; border-color: rgba(246,240,228,.5); background: transparent;
+  color: var(--cream); border-color: var(--bg); background: var(--bg);
+  box-shadow: 0 10px 24px -8px rgba(0,0,0,.4);
 }
-.payunia-bridge-cta:hover { border-color: #FBF6EC; }
+.payunia-bridge-cta:hover { background: #fff; border-color: #fff; }
 @media (max-width: 480px) {
   .payunia-bridge-cta { font-size: .68rem; padding: .65rem 1rem; letter-spacing: .1em; }
 }
