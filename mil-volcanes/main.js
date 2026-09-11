@@ -341,7 +341,13 @@
       var row = e.target.closest(".cart-item");
       if (!row) return;
       var id = row.dataset.id;
-      if (e.target.closest("[data-cart-remove]")) removeFromCart(id);
+      if (e.target.closest("[data-cart-remove]")) {
+        if (id.indexOf("mix-") === 0) {
+          var msg = window.__mvT ? window.__mvT("confirm-remove-pack") : "¿Estás seguro que deseas eliminar este item? Se eliminarán todos los productos del pack.";
+          if (!window.confirm(msg)) return;
+        }
+        removeFromCart(id);
+      }
       else if (e.target.closest("[data-cart-qty-minus]")) {
         var cur = readCart().find(function (l) { return l.id === id; });
         setQty(id, (cur ? cur.qty : 1) - 1);
