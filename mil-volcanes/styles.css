@@ -300,15 +300,15 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
 .card:hover .fig-bottle { transform: translateY(-6px) translateX(-50%) !important; }
 
 .fig-bottle-center { z-index: 3; max-height: 100%; transform: translateX(-50%); }
-.fig-bottle-side-l { z-index: 2; max-height: 78%; transform: translate(calc(-50% - 44px), 6%); filter: drop-shadow(0 14px 16px rgba(0,0,0,.24)) brightness(.88); }
-.fig-bottle-side-r { z-index: 2; max-height: 78%; transform: translate(calc(-50% + 44px), 6%); filter: drop-shadow(0 14px 16px rgba(0,0,0,.24)) brightness(.88); }
-.card:hover .fig-bottle-side-l { transform: translateY(-6px) translate(calc(-50% - 44px), 6%) !important; }
-.card:hover .fig-bottle-side-r { transform: translateY(-6px) translate(calc(-50% + 44px), 6%) !important; }
+.fig-bottle-side-l { z-index: 2; max-height: 100%; transform: translate(calc(-50% - 58px), 0); filter: drop-shadow(0 14px 16px rgba(0,0,0,.24)) brightness(.88); }
+.fig-bottle-side-r { z-index: 2; max-height: 100%; transform: translate(calc(-50% + 58px), 0); filter: drop-shadow(0 14px 16px rgba(0,0,0,.24)) brightness(.88); }
+.card:hover .fig-bottle-side-l { transform: translateY(-6px) translate(calc(-50% - 58px), 0) !important; }
+.card:hover .fig-bottle-side-r { transform: translateY(-6px) translate(calc(-50% + 58px), 0) !important; }
 
-.fig-bottle-back { z-index: 1; max-height: 92%; transform: translate(calc(-50% + 30px), 0); filter: drop-shadow(0 16px 18px rgba(0,0,0,.24)) brightness(.9); }
-.fig-bottle-front { z-index: 2; max-height: 100%; transform: translate(calc(-50% - 22px), 0); }
-.card:hover .fig-bottle-back { transform: translateY(-6px) translate(calc(-50% + 30px), 0) !important; }
-.card:hover .fig-bottle-front { transform: translateY(-6px) translate(calc(-50% - 22px), 0) !important; }
+.fig-bottle-back { z-index: 1; max-height: 100%; transform: translate(calc(-50% + 55px), 0); filter: drop-shadow(0 16px 18px rgba(0,0,0,.24)) brightness(.9); }
+.fig-bottle-front { z-index: 2; max-height: 100%; transform: translate(calc(-50% - 45px), 0); }
+.card:hover .fig-bottle-back { transform: translateY(-6px) translate(calc(-50% + 55px), 0) !important; }
+.card:hover .fig-bottle-front { transform: translateY(-6px) translate(calc(-50% - 45px), 0) !important; }
 .wine-card-line { display: flex; align-items: baseline; justify-content: space-between; gap: .6rem; }
 .wine-card-blend {
   font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold);
