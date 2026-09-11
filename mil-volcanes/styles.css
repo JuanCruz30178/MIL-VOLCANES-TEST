@@ -728,14 +728,21 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
   background: linear-gradient(0deg, rgba(15,11,8,.55) 0%, rgba(15,11,8,.08) 55%, rgba(234,231,224,.24) 100%);
 }
 .moment-payunia { background: #171310; }
-/* Source photo is 1500px wide (portrait, cropped to a wide banner) —
-   capping the box near that width keeps it sharp on very large
-   monitors instead of upscaling edge-to-edge past its native res. */
+/* Source photo is ~1550px wide (already a wide composition) — capping
+   the box near that width keeps it sharp on very large monitors
+   instead of upscaling edge-to-edge past its native res. */
 .moment-payunia .moment-bg {
   left: 50%; right: auto; width: min(2200px, 106%);
   transform: translateX(-50%);
 }
-.moment-payunia .moment-bg img { object-position: 50% 38%; }
+.moment-payunia .moment-bg img { object-position: 50% 22%; }
+/* This photo's bottle sits left-of-center and the section never crops
+   it out horizontally (cover scales by width here), so on desktop the
+   copy block shifts right to land over open sky/desert instead of the
+   busy label artwork. */
+@media (min-width: 720px) {
+  .moment-payunia .moment-copy { width: min(560px, 92%); margin-left: auto; margin-right: 0; }
+}
 .moment-copy {
   position: relative; z-index: 2; width: 100%;
   padding-block: clamp(2.5rem, 6vw, 4.5rem);
