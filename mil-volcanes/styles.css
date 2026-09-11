@@ -560,11 +560,14 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
 .founder-chip-role { font-size: .74rem; color: var(--cream-3); }
 
 /* --- Small floated photo stack beside the Historia body copy --- */
-.narrative-side-stack { display: flex; flex-direction: column; gap: .7rem; width: 132px; }
+.narrative-side-stack { display: flex; flex-direction: column; gap: .9rem; width: 132px; }
 @media (min-width: 640px) {
   .narrative-side-stack {
-    float: right; margin: 0 0 1rem 1.4rem;
+    float: right; margin: 0 0 1.4rem 1.6rem; width: 200px;
   }
+}
+@media (min-width: 1024px) {
+  .narrative-side-stack { width: 240px; gap: 1.1rem; }
 }
 .narrative-side-stack img {
   width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 6px;
@@ -724,16 +727,7 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
 .moment-payunia .moment-tint {
   background: linear-gradient(0deg, rgba(15,11,8,.55) 0%, rgba(15,11,8,.08) 55%, rgba(234,231,224,.24) 100%);
 }
-/* The source video is 720px wide — stretching it edge-to-edge across a
-   much wider viewport is what read as pixelated. Cap its own box near
-   that native width and center it, filling the rest of the section
-   with a plain dark backdrop instead of upscaling the footage. */
 .moment-payunia { background: #171310; }
-.moment-payunia .moment-bg {
-  left: 50%; right: auto; top: -3%; bottom: -3%;
-  width: min(520px, 94%);
-  transform: translateX(-50%);
-}
 .moment-copy {
   position: relative; z-index: 2; width: 100%;
   padding-block: clamp(2.5rem, 6vw, 4.5rem);
