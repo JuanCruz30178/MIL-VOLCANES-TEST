@@ -20,28 +20,6 @@
     setTimeout(hide, 3200);
   }
 
-  /* ---------------- Age gate ---------------- */
-  function initAgeGate() {
-    var gate = $("[data-age-gate]");
-    if (!gate) return;
-    var KEY = "mv_age_ok";
-    var ok = false;
-    try { ok = window.localStorage.getItem(KEY) === "1"; } catch (e) {}
-    if (ok) return;
-    gate.hidden = false;
-    document.documentElement.style.overflow = "hidden";
-    var yes = $("[data-age-yes]", gate);
-    var no = $("[data-age-no]", gate);
-    if (yes) yes.addEventListener("click", function () {
-      try { window.localStorage.setItem(KEY, "1"); } catch (e) {}
-      gate.hidden = true;
-      document.documentElement.style.overflow = "";
-    });
-    if (no) no.addEventListener("click", function () {
-      window.location.href = "https://www.google.com";
-    });
-  }
-
   /* ---------------- Nav ---------------- */
   function initNav() {
     var nav = $(".nav");
@@ -256,16 +234,16 @@
           '<div class="cart-item-figure"><img src="' + escHTML(cartImage(line.id)) + '" alt="" loading="lazy"></div>' +
           '<div class="cart-item-info">' +
             '<div class="cart-item-name">' + escHTML(product.name) + '</div>' +
-            '<div class="cart-item-unit">' + money(product.price) + ' / caja x6</div>' +
+            '<div class="cart-item-unit">' + money(product.price) + ' ' + (window.__mvT ? window.__mvT("cart-each") : "c/u") + '</div>' +
             '<div class="cart-item-row">' +
               '<span class="qty-stepper">' +
                 '<button type="button" class="qty-btn" data-cart-qty-minus>−</button>' +
-                '<input type="number" class="qty-input" value="' + line.qty + '" min="1" max="10" data-cart-qty-input>' +
+                '<input type="number" class="qty-input" value="' + line.qty + '" min="1" max="24" data-cart-qty-input>' +
                 '<button type="button" class="qty-btn" data-cart-qty-plus>+</button>' +
               '</span>' +
               '<span class="cart-item-price">' + money(lineTotal) + '</span>' +
             '</div>' +
-            '<button type="button" class="cart-item-remove" data-cart-remove>Quitar</button>' +
+            '<button type="button" class="cart-item-remove" data-cart-remove>' + (window.__mvT ? window.__mvT("cart-remove") : "Quitar") + '</button>' +
           '</div>';
         el.dataset.id = line.id;
         itemsBox.appendChild(el);
@@ -379,18 +357,18 @@
     var compra = params.get("compra");
     if (compra === "exito") {
       writeCart([]);
-      window.alert("¡Gracias por tu compra! Te vamos a escribir por email para coordinar el envío.");
+      window.alert(window.__mvT ? window.__mvT("alert-exito") : "¡Gracias por tu compra! Te vamos a escribir por email para coordinar el envío.");
     } else if (compra === "pendiente") {
-      window.alert("Tu pago está pendiente de confirmación. Te avisamos por email en cuanto se acredite.");
+      window.alert(window.__mvT ? window.__mvT("alert-pendiente") : "Tu pago está pendiente de confirmación. Te avisamos por email en cuanto se acredite.");
     } else if (compra === "error") {
-      window.alert("Hubo un problema con el pago. No se realizó ningún cobro — probá de nuevo.");
+      window.alert(window.__mvT ? window.__mvT("alert-error") : "Hubo un problema con el pago. No se realizó ningún cobro — probá de nuevo.");
     }
 
     renderCart();
+    window.__mvRenderCart = renderCart;
   }
 
   function boot() {
-    safe(initAgeGate, "initAgeGate");
     safe(initSplash, "initSplash");
     safe(initNav, "initNav");
     safe(initSmoothAnchors, "initSmoothAnchors");

@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mil Volcanes — Vinos de altura de Mendoza, Argentina</title>
-<meta name="description" content="Mil Volcanes es una bodega familiar de Mendoza, Argentina. Vinos premium de Malbec, Cabernet Sauvignon y Cabernet Franc nacidos junto a la Reserva Natural La Payunia. Solicitá cotización para distribución y exportación.">
+<title data-i18n-title>Mil Volcanes — Vinos de altura de Mendoza, Argentina</title>
+<meta name="description" data-i18n-desc content="Mil Volcanes es una bodega familiar de Mendoza, Argentina. Vinos premium de Malbec, Cabernet Sauvignon y Cabernet Franc nacidos junto a la Reserva Natural La Payunia. Solicitá cotización para distribución y exportación.">
 <meta name="theme-color" content="#120D0A">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 
@@ -22,7 +22,7 @@
 <meta property="og:type" content="website">
 </head>
 <body>
-<a href="#contenido" class="skip-link">Saltar al contenido</a>
+<a href="#contenido" class="skip-link" data-i18n="skip-link">Saltar al contenido</a>
 
 <!-- Splash -->
 <div class="splash" data-splash aria-hidden="true">
@@ -31,17 +31,20 @@
 </div>
 
 <!-- Age gate -->
-<div class="age-gate" data-age-gate hidden role="dialog" aria-modal="true" aria-label="Verificación de edad">
+<div class="age-gate" id="age-gate" data-age-gate role="dialog" aria-modal="true" aria-label="Verificación de edad">
   <div class="age-gate-card">
-    <img class="age-gate-logo" src="assets/img/logo-mark-black.webp" alt="Mil Volcanes">
-    <p class="age-gate-text">Para poder navegar este sitio, debés tener la edad legal para consumir alcohol en tu país de residencia.</p>
-    <p class="age-gate-text age-gate-text-sm">Al presionar el botón "Sí", certificás que cumplís con la edad legal.</p>
+    <div class="age-gate-mark">Mil Volcanes<small>MENDOZA &middot; ARGENTINA</small></div>
+    <div class="age-gate-rule"></div>
+    <p class="age-gate-text" data-i18n="age-gate-text1">Para poder navegar este sitio, debés tener la edad legal para consumir alcohol en tu país de residencia.</p>
+    <p class="age-gate-text" data-i18n="age-gate-text2">Al presionar el botón «SÍ», certificás que cumplís con la edad legal.</p>
     <div class="age-gate-actions">
-      <button type="button" class="btn btn-primary" data-age-yes>Sí</button>
-      <button type="button" class="btn btn-ghost" data-age-no>No</button>
+      <button type="button" class="btn btn-primary" data-age-yes data-i18n="age-gate-yes">SÍ</button>
+      <button type="button" class="btn btn-ghost" data-age-no data-i18n="age-gate-no">NO</button>
     </div>
   </div>
 </div>
+
+<div class="promo-bar" data-i18n="promo-bar">Envío gratis a todo el país a partir de 6 botellas <span class="promo-bar-note">(excepto Tierra del Fuego)</span></div>
 
 <!-- Nav -->
 <header class="nav">
@@ -49,16 +52,21 @@
     <div class="nav-spacer" aria-hidden="true"></div>
     <div class="nav-center">
       <nav class="nav-links" aria-label="Navegación principal">
-        <a class="nav-link" href="#historia">Historia</a>
-        <a class="nav-link" href="#terroir">Terroir</a>
-        <a class="nav-link" href="payunia.html">La Payunia</a>
-        <a class="nav-link" href="#coleccion">Vinos</a>
-        <a class="nav-link" href="#bodega">Bodega</a>
-        <a class="nav-link" href="#ventas">Contacto</a>
+        <a class="nav-link" href="#historia" data-i18n="nav-historia">Historia</a>
+        <a class="nav-link" href="#terroir" data-i18n="nav-terroir">Terroir</a>
+        <a class="nav-link" href="payunia.html" data-i18n="nav-payunia">La Payunia</a>
+        <a class="nav-link" href="#coleccion" data-i18n="nav-vinos">Vinos</a>
+        <a class="nav-link" href="#bodega" data-i18n="nav-bodega">Bodega</a>
+        <a class="nav-link" href="#ventas" data-i18n="nav-contacto">Contacto</a>
       </nav>
-      <a href="#ventas" class="btn btn-primary nav-cta">Solicitar cotización</a>
+      <a href="#ventas" class="btn btn-primary nav-cta" data-i18n="nav-cta">Solicitar cotización</a>
     </div>
     <div class="nav-end">
+      <div class="lang-switch" data-lang-switch role="group" aria-label="Idioma / Language / Idioma">
+        <button type="button" class="lang-btn" data-lang-btn="es" aria-pressed="true">ESP</button>
+        <button type="button" class="lang-btn" data-lang-btn="en" aria-pressed="false">ENG</button>
+        <button type="button" class="lang-btn" data-lang-btn="pt" aria-pressed="false">PT</button>
+      </div>
       <button class="nav-cart" data-cart-open aria-label="Ver carrito de compras" aria-haspopup="dialog" aria-controls="cart-drawer">
         <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 5h2l1.6 10.4a2 2 0 0 0 2 1.6h7.3a2 2 0 0 0 2-1.6L20 8H6.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20" r="1.3" fill="currentColor"/><circle cx="17" cy="20" r="1.3" fill="currentColor"/></svg>
         <span class="nav-cart-badge" data-cart-count hidden>0</span>
@@ -72,12 +80,12 @@
 
 <div class="nav-mobile" id="nav-mobile" data-nav-mobile data-open="false">
   <ul class="nav-mobile-list">
-    <li><a href="#historia">Historia</a></li>
-    <li><a href="#terroir">Terroir</a></li>
-    <li><a href="payunia.html">La Payunia</a></li>
-    <li><a href="#coleccion">Vinos</a></li>
-    <li><a href="#bodega">Bodega</a></li>
-    <li><a href="#ventas">Contacto</a></li>
+    <li><a href="#historia" data-i18n="nav-historia">Historia</a></li>
+    <li><a href="#terroir" data-i18n="nav-terroir">Terroir</a></li>
+    <li><a href="payunia.html" data-i18n="nav-payunia">La Payunia</a></li>
+    <li><a href="#coleccion" data-i18n="nav-vinos">Vinos</a></li>
+    <li><a href="#bodega" data-i18n="nav-bodega">Bodega</a></li>
+    <li><a href="#ventas" data-i18n="nav-contacto">Contacto</a></li>
   </ul>
 </div>
 
@@ -94,14 +102,14 @@
       <h1 class="hero-logo" data-reveal>
         <img class="hero-logo-img" src="assets/img/logo-mark-white.webp" alt="Mil Volcanes — Mendoza, Argentina">
       </h1>
-      <p class="hero-copy" data-reveal data-reveal-delay="1">Un proyecto familiar y exportador, fruto de más de diez años de estudio, trabajo y perseverancia: una línea exclusiva de vinos premium, auténtica y fiel al terroir de Mendoza.</p>
+      <p class="hero-copy" data-reveal data-reveal-delay="1" data-i18n="hero-copy">Un proyecto familiar y exportador, fruto de más de diez años de estudio, trabajo y perseverancia: una línea exclusiva de vinos premium, auténtica y fiel al terroir de Mendoza.</p>
       <div class="hero-actions" data-reveal data-reveal-delay="2">
-        <a href="#coleccion" class="btn btn-primary">Descubrir los vinos</a>
-        <a href="#ventas" class="btn btn-ghost">Solicitar cotización</a>
+        <a href="#coleccion" class="btn btn-primary" data-i18n="hero-btn-discover">Descubrir los vinos</a>
+        <a href="#ventas" class="btn btn-ghost" data-i18n="nav-cta">Solicitar cotización</a>
       </div>
     </div>
 
-    <div class="hero-scroll" aria-hidden="true"><span class="hero-scroll-line"></span>Scroll</div>
+    <div class="hero-scroll" aria-hidden="true"><span class="hero-scroll-line"></span><span data-i18n="hero-scroll">Scroll</span></div>
   </section>
 
   <!-- Historia -->
@@ -110,36 +118,36 @@
       <div class="narrative-grid">
         <figure class="narrative-figure" data-reveal>
           <img src="assets/img/volcan-bottle.webp" alt="Botella de Mil Volcanes Single Vineyard apoyada sobre roca volcánica, con el volcán Payún de fondo" loading="lazy" decoding="async">
-          <figcaption class="narrative-figure-caption">Reserva Natural La Payunia, Malargüe, sur de Mendoza</figcaption>
+          <figcaption class="narrative-figure-caption" data-i18n="historia-figcaption">Reserva Natural La Payunia, Malargüe, sur de Mendoza</figcaption>
         </figure>
 
         <div class="narrative-text">
-          <p class="kicker">Somos Mil Volcanes</p>
-          <h2 class="h-section" data-split data-reveal>Espíritu libre, entusiasta y soñador.</h2>
-          <p class="lede" data-reveal>Nos mueve la energía de la naturaleza.</p>
+          <p class="kicker" data-i18n="historia-kicker">Somos Mil Volcanes</p>
+          <h2 class="h-section" data-split data-reveal data-i18n="historia-h2">Espíritu libre, entusiasta y soñador.</h2>
+          <p class="lede" data-reveal data-i18n="historia-lede">Nos mueve la energía de la naturaleza.</p>
 
           <div class="narrative-side-stack" data-reveal>
             <img src="assets/img/founders-group.webp" alt="Silvina y Nicolás Santi, co-fundadores de Mil Volcanes">
             <img src="assets/img/founder-hat-vineyard.webp" alt="Brindando entre los viñedos de Mil Volcanes">
           </div>
 
-          <p class="body-copy" data-reveal>De espíritu libre, entusiastas, emprendedores y soñadores, así creamos <strong>Mil Volcanes</strong>: un proyecto familiar y exportador que nació de más de diez años de estudio, trabajo, pasión y perseverancia.</p>
-          <p class="body-copy" data-reveal>Nuestro objetivo fue desarrollar una línea exclusiva de vinos premium, auténtica, única y fresca, llena de magia volcánica, que invita a descubrir la Reserva Natural La Payunia, en el sur de Mendoza.</p>
-          <p class="body-copy" data-reveal>Nuestros vinos reflejan el trabajo integral en equipo, la búsqueda de sofisticación y la fiel expresión de nuestro maravilloso terroir: Mendoza.</p>
+          <p class="body-copy" data-reveal data-i18n="historia-p1">De espíritu libre, entusiastas, emprendedores y soñadores, así creamos <strong>Mil Volcanes</strong>: un proyecto familiar y exportador que nació de más de diez años de estudio, trabajo, pasión y perseverancia.</p>
+          <p class="body-copy" data-reveal data-i18n="historia-p2">Nuestro objetivo fue desarrollar una línea exclusiva de vinos premium, auténtica, única y fresca, llena de magia volcánica, que invita a descubrir la Reserva Natural La Payunia, en el sur de Mendoza.</p>
+          <p class="body-copy" data-reveal data-i18n="historia-p3">Nuestros vinos reflejan el trabajo integral en equipo, la búsqueda de sofisticación y la fiel expresión de nuestro maravilloso terroir: Mendoza.</p>
 
           <div class="founders-row" data-reveal>
             <div class="founder-chip">
               <img src="assets/img/founder-silvina.webp" alt="Silvina Santi, co-fundadora de Mil Volcanes" loading="lazy" decoding="async">
               <div>
                 <div class="founder-chip-name">Silvina Santi</div>
-                <div class="founder-chip-role">Co-Founder</div>
+                <div class="founder-chip-role" data-i18n="founder-role">Co-Founder</div>
               </div>
             </div>
             <div class="founder-chip">
               <img src="assets/img/founder-nicolas.webp" alt="Nicolás Santi, co-fundador de Mil Volcanes" loading="lazy" decoding="async">
               <div>
                 <div class="founder-chip-name">Nicolás Santi</div>
-                <div class="founder-chip-role">Co-Founder</div>
+                <div class="founder-chip-role" data-i18n="founder-role">Co-Founder</div>
               </div>
             </div>
           </div>
@@ -151,13 +159,13 @@
   <!-- Terroir -->
   <section class="section" id="terroir">
     <div class="container">
-      <p class="kicker">Terroir</p>
-      <h2 class="h-section" data-split data-reveal>Donde la montaña escribe el suelo.</h2>
+      <p class="kicker" data-i18n="terroir-kicker">Terroir</p>
+      <h2 class="h-section" data-split data-reveal data-i18n="terroir-h2">Donde la montaña escribe el suelo.</h2>
       <p class="lede" style="margin-top:1.1rem;" data-reveal>Alto Agrelo y Valle de Uco, Mendoza.</p>
 
       <div class="terroir-cols">
-        <p class="body-copy" data-reveal>Nuestros terruños en el Valle de Uco se definen por la cercanía a la montaña: la majestuosa Cordillera de los Andes. Ella nos regala el clima semidesértico de Mendoza, las piedras de nuestros suelos y esa altura extrema tan característica de nuestro terroir.</p>
-        <p class="body-copy" data-reveal>Trabajamos fincas de altura en Alto Agrelo (Luján de Cuyo) y en distintos rincones del Valle de Uco, como Vista Flores, Los Sauces, Los Chacayes y Los Árboles, cada una aportando una expresión distinta de Malbec, Cabernet Sauvignon, Cabernet Franc y Sauvignon Blanc.</p>
+        <p class="body-copy" data-reveal data-i18n="terroir-p1">Nuestros terruños en el Valle de Uco se definen por la cercanía a la montaña: la majestuosa Cordillera de los Andes. Ella nos regala el clima semidesértico de Mendoza, las piedras de nuestros suelos y esa altura extrema tan característica de nuestro terroir.</p>
+        <p class="body-copy" data-reveal data-i18n="terroir-p2">Trabajamos fincas de altura en Alto Agrelo (Luján de Cuyo) y en distintos rincones del Valle de Uco, como Vista Flores, Los Sauces, Los Chacayes y Los Árboles, cada una aportando una expresión distinta de Malbec, Cabernet Sauvignon, Cabernet Franc y Sauvignon Blanc.</p>
       </div>
 
       <figure class="terroir-figure" data-reveal>
@@ -167,23 +175,23 @@
       <div class="altitude-list" data-reveal>
         <div class="altitude-item">
           <div><div class="altitude-name">Alto Agrelo, Luján de Cuyo</div><div class="altitude-variety">Cabernet Sauvignon</div></div>
-          <div class="altitude-value">960 msnm</div>
+          <div class="altitude-value"><span data-i18n-num>960</span> <span data-i18n="unit-msnm">msnm</span></div>
         </div>
         <div class="altitude-item">
           <div><div class="altitude-name">Vista Flores, Valle de Uco</div><div class="altitude-variety">Malbec</div></div>
-          <div class="altitude-value">1100 msnm</div>
+          <div class="altitude-value"><span data-i18n-num>1100</span> <span data-i18n="unit-msnm">msnm</span></div>
         </div>
         <div class="altitude-item">
           <div><div class="altitude-name">Los Sauces, Valle de Uco</div><div class="altitude-variety">Cabernet Franc</div></div>
-          <div class="altitude-value">1100 msnm</div>
+          <div class="altitude-value"><span data-i18n-num>1100</span> <span data-i18n="unit-msnm">msnm</span></div>
         </div>
         <div class="altitude-item">
           <div><div class="altitude-name">Los Chacayes, Valle de Uco</div><div class="altitude-variety">Merlot</div></div>
-          <div class="altitude-value">1200 msnm</div>
+          <div class="altitude-value"><span data-i18n-num>1200</span> <span data-i18n="unit-msnm">msnm</span></div>
         </div>
         <div class="altitude-item">
           <div><div class="altitude-name">Los Árboles, Valle de Uco</div><div class="altitude-variety">Sauvignon Blanc</div></div>
-          <div class="altitude-value">1200 msnm</div>
+          <div class="altitude-value"><span data-i18n-num>1200</span> <span data-i18n="unit-msnm">msnm</span></div>
         </div>
       </div>
     </div>
@@ -192,22 +200,22 @@
   <!-- Bridge to La Payunia: clean 16:9 photo, CTA floats over the sky/volcano side, never over the bottle -->
   <section class="section payunia-bridge">
     <div class="container">
-      <p class="kicker" data-reveal>La Payunia</p>
-      <h2 class="h-section" data-split data-reveal>Cada etiqueta lleva el dibujo de este volcán.</h2>
-      <p class="body-copy" style="margin-top:1.1rem;" data-reveal>Un desierto de más de ochocientos volcanes en el sur de Mendoza: el paisaje que le dio nombre y espíritu a Mil Volcanes.</p>
+      <p class="kicker" data-reveal data-i18n="payunia-kicker">La Payunia</p>
+      <h2 class="h-section" data-split data-reveal data-i18n="payunia-h2">Cada etiqueta lleva el dibujo de este volcán.</h2>
+      <p class="body-copy" style="margin-top:1.1rem;" data-reveal data-i18n="payunia-body">Un desierto de más de ochocientos volcanes en el sur de Mendoza: el paisaje que le dio nombre y espíritu a Mil Volcanes.</p>
     </div>
     <figure class="payunia-bridge-figure" data-reveal>
       <img src="assets/img/payunia/bottle-volcano-wide3.webp" alt="Botella Mil Volcanes Malbec sobre roca volcánica, con el volcán de la reserva de fondo" loading="eager" decoding="async">
-      <a href="payunia.html" class="btn btn-ghost payunia-bridge-cta">Recorrer la reserva →</a>
+      <a href="payunia.html" class="btn btn-ghost payunia-bridge-cta" data-i18n="payunia-cta">Recorrer la reserva →</a>
     </figure>
   </section>
 
   <!-- Bodega -->
   <section class="section" id="bodega">
     <div class="container">
-      <p class="kicker">La Bodega</p>
-      <h2 class="h-section" data-split data-reveal>Tradición y tecnología en Vistalba.</h2>
-      <p class="body-copy" style="margin-top:1.1rem;" data-reveal>La bodega se localiza en Vistalba, Luján de Cuyo, y posee la más alta tecnología para la elaboración de vinos de alta gama.</p>
+      <p class="kicker" data-i18n="bodega-kicker">La Bodega</p>
+      <h2 class="h-section" data-split data-reveal data-i18n="bodega-h2">Tradición y tecnología en Vistalba.</h2>
+      <p class="body-copy" style="margin-top:1.1rem;" data-reveal data-i18n="bodega-body">La bodega se localiza en Vistalba, Luján de Cuyo, y posee la más alta tecnología para la elaboración de vinos de alta gama.</p>
 
       <div class="bodega-grid" data-reveal>
         <figure class="bodega-main">
@@ -227,24 +235,16 @@
   <!-- Coleccion -->
   <section class="section" id="coleccion">
     <div class="container">
-      <p class="kicker">Nuestros vinos</p>
-
-      <div class="shipping-banner" data-reveal>
-        <span class="shipping-banner-icon" aria-hidden="true">🚚</span>
-        <div>
-          <strong>Envío gratis a todo el país</strong>
-          <span>A partir de 1 caja (6 botellas) — excepción Tierra del Fuego</span>
-        </div>
-      </div>
+      <p class="kicker kicker-lg" data-i18n="coleccion-kicker">Nuestros vinos</p>
 
       <!-- Premium Blends -->
       <div style="margin-top:3.4rem;">
         <div class="line-head" data-reveal>
           <div>
-            <h3 class="h-card text-cream">Línea Premium Blends</h3>
-            <p class="line-head-copy">Vinos jóvenes, vibrantes y vivaces, de gran intensidad aromática, frutados, versátiles y muy frescos.</p>
+            <h3 class="h-card text-cream" data-i18n="line-premium-title">Línea Premium Blends</h3>
+            <p class="line-head-copy" data-i18n="line-premium-copy">Vinos jóvenes, vibrantes y vivaces, de gran intensidad aromática, frutados, versátiles y muy frescos.</p>
           </div>
-          <span class="line-badge">Presentación <b>6&nbsp;·&nbsp;750&nbsp;ml</b></span>
+          <span class="line-badge" data-i18n="line-badge-premium">Presentación <b>6&nbsp;·&nbsp;750&nbsp;ml</b></span>
         </div>
 
         <div class="wine-grid">
@@ -253,20 +253,21 @@
             <div class="wine-card-meta">
               <div class="wine-card-line"><h4 class="h-card">Sauvignon Blanc · Torrontés</h4></div>
               <p class="wine-card-blend">Blend 50% · 50%</p>
+              <p class="wine-card-case-badge" data-i18n="case-badge">Caja x 6</p>
               <p class="wine-card-origin">Los Árboles, Valle de Uco (1200 msnm) &amp; Cafayate, Salta (1750 msnm)</p>
-              <p class="wine-card-note">Cremoso y afrutado: jazmín, flor de naranjo, cítricos y melón, con un final suave y refrescante. Servir 10–12°C.</p>
+              <p class="wine-card-note" data-i18n="note-sauvblanc-torrontes">Cremoso y afrutado: jazmín, flor de naranjo, cítricos y melón, con un final suave y refrescante. Servir 10–12°C.</p>
               <div class="wine-card-buy">
-                <span class="wine-card-price">$51.000 <small>/ caja x6</small></span>
+                <div class="wine-card-price-wrap"><span class="wine-card-price">$51.000</span><span class="wine-card-unit-price">$8.500 <span data-i18n="cart-each">c/u</span></span></div>
                 <div class="qty-stepper">
                   <button type="button" class="qty-btn" data-qty-minus aria-label="Restar cantidad">−</button>
-                  <input type="number" class="qty-input" value="1" min="1" max="10" data-qty-input aria-label="Cantidad de cajas">
+                  <input type="number" class="qty-input" value="1" min="1" max="24" data-qty-input aria-label="Cantidad">
                   <button type="button" class="qty-btn" data-qty-plus aria-label="Sumar cantidad">+</button>
                 </div>
               </div>
               <div class="wine-card-foot">
-                <button type="button" class="btn btn-primary btn-block" data-add-cart>Agregar al carrito</button>
+                <button type="button" class="btn btn-primary btn-block" data-add-cart data-i18n="btn-add-cart">Agregar al carrito</button>
               </div>
-              <a href="#ventas" class="wine-card-cta">Consulta por mayor →</a>
+              <a href="#ventas" class="wine-card-cta" data-i18n="wine-cta-wholesale">Consulta por mayor →</a>
             </div>
           </article>
 
@@ -275,20 +276,21 @@
             <div class="wine-card-meta">
               <div class="wine-card-line"><h4 class="h-card">Malbec · Bonarda</h4></div>
               <p class="wine-card-blend">Blend 50% · 50%</p>
+              <p class="wine-card-case-badge" data-i18n="case-badge">Caja x 6</p>
               <p class="wine-card-origin">Vista Flores, Valle de Uco (1100 msnm) &amp; Maipú (850 msnm)</p>
-              <p class="wine-card-note">Vibrante y dinámico: cerezas, ciruelas, frambuesas y violetas, con taninos suaves y un final largo. Servir 16–18°C.</p>
+              <p class="wine-card-note" data-i18n="note-malbec-bonarda">Vibrante y dinámico: cerezas, ciruelas, frambuesas y violetas, con taninos suaves y un final largo. Servir 16–18°C.</p>
               <div class="wine-card-buy">
-                <span class="wine-card-price">$54.000 <small>/ caja x6</small></span>
+                <div class="wine-card-price-wrap"><span class="wine-card-price">$54.000</span><span class="wine-card-unit-price">$9.000 <span data-i18n="cart-each">c/u</span></span></div>
                 <div class="qty-stepper">
                   <button type="button" class="qty-btn" data-qty-minus aria-label="Restar cantidad">−</button>
-                  <input type="number" class="qty-input" value="1" min="1" max="10" data-qty-input aria-label="Cantidad de cajas">
+                  <input type="number" class="qty-input" value="1" min="1" max="24" data-qty-input aria-label="Cantidad">
                   <button type="button" class="qty-btn" data-qty-plus aria-label="Sumar cantidad">+</button>
                 </div>
               </div>
               <div class="wine-card-foot">
-                <button type="button" class="btn btn-primary btn-block" data-add-cart>Agregar al carrito</button>
+                <button type="button" class="btn btn-primary btn-block" data-add-cart data-i18n="btn-add-cart">Agregar al carrito</button>
               </div>
-              <a href="#ventas" class="wine-card-cta">Consulta por mayor →</a>
+              <a href="#ventas" class="wine-card-cta" data-i18n="wine-cta-wholesale">Consulta por mayor →</a>
             </div>
           </article>
 
@@ -297,42 +299,45 @@
             <div class="wine-card-meta">
               <div class="wine-card-line"><h4 class="h-card">Cabernet Sauvignon · Merlot</h4></div>
               <p class="wine-card-blend">Blend 70% · 30%</p>
+              <p class="wine-card-case-badge" data-i18n="case-badge">Caja x 6</p>
               <p class="wine-card-origin">Alto Agrelo (960 msnm) &amp; Los Chacayes, Valle de Uco (1200 msnm)</p>
-              <p class="wine-card-note">Moras, ciruelas y pimiento verde, taninos redondos y untuosos, final persistente y elegante. Servir 16–18°C.</p>
+              <p class="wine-card-note" data-i18n="note-cabsauv-merlot">Moras, ciruelas y pimiento verde, taninos redondos y untuosos, final persistente y elegante. Servir 16–18°C.</p>
               <div class="wine-card-buy">
-                <span class="wine-card-price">$57.000 <small>/ caja x6</small></span>
+                <div class="wine-card-price-wrap"><span class="wine-card-price">$57.000</span><span class="wine-card-unit-price">$9.500 <span data-i18n="cart-each">c/u</span></span></div>
                 <div class="qty-stepper">
                   <button type="button" class="qty-btn" data-qty-minus aria-label="Restar cantidad">−</button>
-                  <input type="number" class="qty-input" value="1" min="1" max="10" data-qty-input aria-label="Cantidad de cajas">
+                  <input type="number" class="qty-input" value="1" min="1" max="24" data-qty-input aria-label="Cantidad">
                   <button type="button" class="qty-btn" data-qty-plus aria-label="Sumar cantidad">+</button>
                 </div>
               </div>
               <div class="wine-card-foot">
-                <button type="button" class="btn btn-primary btn-block" data-add-cart>Agregar al carrito</button>
+                <button type="button" class="btn btn-primary btn-block" data-add-cart data-i18n="btn-add-cart">Agregar al carrito</button>
               </div>
-              <a href="#ventas" class="wine-card-cta">Consulta por mayor →</a>
+              <a href="#ventas" class="wine-card-cta" data-i18n="wine-cta-wholesale">Consulta por mayor →</a>
             </div>
           </article>
 
-          <article class="card wine-card wine-card-mix" data-reveal data-reveal-delay="3" data-wine-id="caja-mixta">
-            <div class="wine-card-figure"><img src="assets/img/bottle-premium-malbec-bonarda.webp" alt="Caja mixta Mil Volcanes, Línea Premium Blends" loading="lazy" decoding="async"></div>
+          <article class="card wine-card" data-reveal data-reveal-delay="3" data-wine-id="mix-premium">
+            <div class="wine-card-figure"><img src="assets/img/bottle-premium-malbec-bonarda.webp" alt="Botella Mil Volcanes Malbec · Bonarda" loading="lazy" decoding="async"></div>
             <div class="wine-card-meta">
-              <div class="wine-card-line"><h4 class="h-card">Caja Mixta</h4></div>
-              <p class="wine-card-blend">6 botellas a elección</p>
-              <p class="wine-card-origin">Los Árboles &amp; Vista Flores &amp; Alto Agrelo, Mendoza</p>
-              <p class="wine-card-note">Armá tu propia caja combinando nuestros tres blends de la Línea Premium: te contactamos por email para coordinar el mix antes de despachar.</p>
+              <div class="wine-card-line"><h4 class="h-card" data-i18n="mix-premium-title">Caja Mixta Premium Blends</h4></div>
+              <p class="wine-card-case-badge" data-i18n="case-badge">Caja x 6</p>
+              <p class="wine-card-origin" data-i18n="mix-origin">Selección de nuestras tres etiquetas</p>
+              <p class="wine-card-note" data-i18n="mix-premium-note">2 botellas de cada: Sauvignon Blanc · Torrontés, Malbec · Bonarda y Cabernet Sauvignon · Merlot.</p>
               <div class="wine-card-buy">
-                <span class="wine-card-price">Desde $51.000 <small>/ caja x6</small></span>
+                <div class="wine-card-price-wrap">
+                  <span class="wine-card-price">$54.000</span>
+                </div>
                 <div class="qty-stepper">
                   <button type="button" class="qty-btn" data-qty-minus aria-label="Restar cantidad">−</button>
-                  <input type="number" class="qty-input" value="1" min="1" max="10" data-qty-input aria-label="Cantidad de cajas">
+                  <input type="number" class="qty-input" value="1" min="1" max="24" data-qty-input aria-label="Cantidad">
                   <button type="button" class="qty-btn" data-qty-plus aria-label="Sumar cantidad">+</button>
                 </div>
               </div>
               <div class="wine-card-foot">
-                <button type="button" class="btn btn-primary btn-block" data-add-cart>Agregar al carrito</button>
+                <button type="button" class="btn btn-primary btn-block" data-add-cart data-i18n="btn-add-cart">Agregar al carrito</button>
               </div>
-              <a href="#ventas" class="wine-card-cta">Consulta por mayor →</a>
+              <a href="#ventas" class="wine-card-cta" data-i18n="wine-cta-wholesale">Consulta por mayor →</a>
             </div>
           </article>
         </div>
@@ -344,10 +349,10 @@
       <div>
         <div class="line-head line-head-dark" data-reveal>
           <div>
-            <h3 class="h-card text-cream">Línea Single Vineyard</h3>
-            <p class="line-head-copy">Vinos de gran intensidad aromática, concentración y elegancia. Carácter, estructura y sofisticación, con crianza en roble francés por 10 meses.</p>
+            <h3 class="h-card text-cream" data-i18n="line-sv-title">Línea Single Vineyard</h3>
+            <p class="line-head-copy" data-i18n="line-sv-copy">Vinos de gran intensidad aromática, concentración y elegancia. Carácter, estructura y sofisticación, con crianza en roble francés por 10 meses.</p>
           </div>
-          <span class="line-badge">Presentación <b>6&nbsp;·&nbsp;750&nbsp;ml</b></span>
+          <span class="line-badge" data-i18n="line-badge-sv">Presentación <b>6&nbsp;·&nbsp;750&nbsp;ml</b></span>
         </div>
 
         <div class="wine-grid">
@@ -356,20 +361,21 @@
             <div class="wine-card-meta">
               <div class="wine-card-line"><h4 class="h-card">Malbec</h4></div>
               <p class="wine-card-blend">100% Malbec</p>
+              <p class="wine-card-case-badge" data-i18n="case-badge">Caja x 6</p>
               <p class="wine-card-origin">Vista Flores, Valle de Uco (1100 msnm)</p>
-              <p class="wine-card-note">El poder y la energía de un volcán: ciruelas, frambuesas maduras, violetas y notas balsámicas con vainilla de barrica. Concentrado y persistente.</p>
+              <p class="wine-card-note" data-i18n="note-sv-malbec">El poder y la energía de un volcán: ciruelas, frambuesas maduras, violetas y notas balsámicas con vainilla de barrica. Concentrado y persistente.</p>
               <div class="wine-card-buy">
-                <span class="wine-card-price">$132.000 <small>/ caja x6</small></span>
+                <div class="wine-card-price-wrap"><span class="wine-card-price">$132.000</span><span class="wine-card-unit-price">$22.000 <span data-i18n="cart-each">c/u</span></span></div>
                 <div class="qty-stepper">
                   <button type="button" class="qty-btn" data-qty-minus aria-label="Restar cantidad">−</button>
-                  <input type="number" class="qty-input" value="1" min="1" max="10" data-qty-input aria-label="Cantidad de cajas">
+                  <input type="number" class="qty-input" value="1" min="1" max="24" data-qty-input aria-label="Cantidad">
                   <button type="button" class="qty-btn" data-qty-plus aria-label="Sumar cantidad">+</button>
                 </div>
               </div>
               <div class="wine-card-foot">
-                <button type="button" class="btn btn-primary btn-block" data-add-cart>Agregar al carrito</button>
+                <button type="button" class="btn btn-primary btn-block" data-add-cart data-i18n="btn-add-cart">Agregar al carrito</button>
               </div>
-              <a href="#ventas" class="wine-card-cta">Consulta por mayor →</a>
+              <a href="#ventas" class="wine-card-cta" data-i18n="wine-cta-wholesale">Consulta por mayor →</a>
             </div>
           </article>
 
@@ -378,20 +384,21 @@
             <div class="wine-card-meta">
               <div class="wine-card-line"><h4 class="h-card">Cabernet Franc</h4></div>
               <p class="wine-card-blend">100% Cabernet Franc</p>
+              <p class="wine-card-case-badge" data-i18n="case-badge">Caja x 6</p>
               <p class="wine-card-origin">Los Sauces, Valle de Uco (1100 msnm)</p>
-              <p class="wine-card-note">Rojo rubí intenso: pimiento asado, tomate deshidratado, chocolate y cuero de su paso por roble. Taninos redondos, final persistente.</p>
+              <p class="wine-card-note" data-i18n="note-sv-cabfranc">Rojo rubí intenso: pimiento asado, tomate deshidratado, chocolate y cuero de su paso por roble. Taninos redondos, final persistente.</p>
               <div class="wine-card-buy">
-                <span class="wine-card-price">$132.000 <small>/ caja x6</small></span>
+                <div class="wine-card-price-wrap"><span class="wine-card-price">$132.000</span><span class="wine-card-unit-price">$22.000 <span data-i18n="cart-each">c/u</span></span></div>
                 <div class="qty-stepper">
                   <button type="button" class="qty-btn" data-qty-minus aria-label="Restar cantidad">−</button>
-                  <input type="number" class="qty-input" value="1" min="1" max="10" data-qty-input aria-label="Cantidad de cajas">
+                  <input type="number" class="qty-input" value="1" min="1" max="24" data-qty-input aria-label="Cantidad">
                   <button type="button" class="qty-btn" data-qty-plus aria-label="Sumar cantidad">+</button>
                 </div>
               </div>
               <div class="wine-card-foot">
-                <button type="button" class="btn btn-primary btn-block" data-add-cart>Agregar al carrito</button>
+                <button type="button" class="btn btn-primary btn-block" data-add-cart data-i18n="btn-add-cart">Agregar al carrito</button>
               </div>
-              <a href="#ventas" class="wine-card-cta">Consulta por mayor →</a>
+              <a href="#ventas" class="wine-card-cta" data-i18n="wine-cta-wholesale">Consulta por mayor →</a>
             </div>
           </article>
 
@@ -400,20 +407,45 @@
             <div class="wine-card-meta">
               <div class="wine-card-line"><h4 class="h-card">Cabernet Sauvignon</h4></div>
               <p class="wine-card-blend">100% Cabernet Sauvignon</p>
+              <p class="wine-card-case-badge" data-i18n="case-badge">Caja x 6</p>
               <p class="wine-card-origin">Alto Agrelo, Luján de Cuyo (960 msnm)</p>
-              <p class="wine-card-note">Pimienta negra, moras y cerezas negras maduras, con vainilla y especias de roble. Taninos maduros, final largo y persistente.</p>
+              <p class="wine-card-note" data-i18n="note-sv-cabsauv">Pimienta negra, moras y cerezas negras maduras, con vainilla y especias de roble. Taninos maduros, final largo y persistente.</p>
               <div class="wine-card-buy">
-                <span class="wine-card-price">$132.000 <small>/ caja x6</small></span>
+                <div class="wine-card-price-wrap"><span class="wine-card-price">$132.000</span><span class="wine-card-unit-price">$22.000 <span data-i18n="cart-each">c/u</span></span></div>
                 <div class="qty-stepper">
                   <button type="button" class="qty-btn" data-qty-minus aria-label="Restar cantidad">−</button>
-                  <input type="number" class="qty-input" value="1" min="1" max="10" data-qty-input aria-label="Cantidad de cajas">
+                  <input type="number" class="qty-input" value="1" min="1" max="24" data-qty-input aria-label="Cantidad">
                   <button type="button" class="qty-btn" data-qty-plus aria-label="Sumar cantidad">+</button>
                 </div>
               </div>
               <div class="wine-card-foot">
-                <button type="button" class="btn btn-primary btn-block" data-add-cart>Agregar al carrito</button>
+                <button type="button" class="btn btn-primary btn-block" data-add-cart data-i18n="btn-add-cart">Agregar al carrito</button>
               </div>
-              <a href="#ventas" class="wine-card-cta">Consulta por mayor →</a>
+              <a href="#ventas" class="wine-card-cta" data-i18n="wine-cta-wholesale">Consulta por mayor →</a>
+            </div>
+          </article>
+
+          <article class="card wine-card" data-reveal data-reveal-delay="3" data-wine-id="mix-sv">
+            <div class="wine-card-figure"><img src="assets/img/bottle-sv-malbec.webp" alt="Botella Mil Volcanes Malbec Single Vineyard" loading="lazy" decoding="async"></div>
+            <div class="wine-card-meta">
+              <div class="wine-card-line"><h4 class="h-card" data-i18n="mix-sv-title">Caja Mixta Single Vineyard</h4></div>
+              <p class="wine-card-case-badge" data-i18n="case-badge">Caja x 6</p>
+              <p class="wine-card-origin" data-i18n="mix-origin">Selección de nuestras tres etiquetas</p>
+              <p class="wine-card-note" data-i18n="mix-sv-note">2 botellas de cada: Malbec, Cabernet Franc y Cabernet Sauvignon.</p>
+              <div class="wine-card-buy">
+                <div class="wine-card-price-wrap">
+                  <span class="wine-card-price">$132.000</span>
+                </div>
+                <div class="qty-stepper">
+                  <button type="button" class="qty-btn" data-qty-minus aria-label="Restar cantidad">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="24" data-qty-input aria-label="Cantidad">
+                  <button type="button" class="qty-btn" data-qty-plus aria-label="Sumar cantidad">+</button>
+                </div>
+              </div>
+              <div class="wine-card-foot">
+                <button type="button" class="btn btn-primary btn-block" data-add-cart data-i18n="btn-add-cart">Agregar al carrito</button>
+              </div>
+              <a href="#ventas" class="wine-card-cta" data-i18n="wine-cta-wholesale">Consulta por mayor →</a>
             </div>
           </article>
         </div>
@@ -424,14 +456,14 @@
   <!-- Ventas -->
   <section class="section" id="ventas">
     <div class="container">
-      <p class="kicker">Ventas &amp; Exportación</p>
-      <h2 class="h-section" data-split data-reveal>Llevamos Mendoza al mundo.</h2>
-      <p class="body-copy" style="margin-top:1.1rem;" data-reveal>Somos una bodega familiar y exportadora. Si representás una importadora, distribuidora, restaurante o wine shop y querés sumar Mil Volcanes a tu portfolio, escribinos: te respondemos personalmente.</p>
+      <p class="kicker" data-i18n="ventas-kicker">Ventas &amp; Exportación</p>
+      <h2 class="h-section" data-split data-reveal data-i18n="ventas-h2">Llevamos Mendoza al mundo.</h2>
+      <p class="body-copy" style="margin-top:1.1rem;" data-reveal data-i18n="ventas-body">Somos una bodega familiar y exportadora. Si representás una importadora, distribuidora, restaurante o wine shop y querés sumar Mil Volcanes a tu portfolio, escribinos: te respondemos personalmente.</p>
 
       <div class="ventas-grid">
         <div data-reveal>
           <div class="ventas-info-card">
-            <h3 class="text-cream">Contacto directo</h3>
+            <h3 class="text-cream" data-i18n="ventas-contact-title">Contacto directo</h3>
             <div class="contact-list">
               <a href="mailto:info@milvolcanes.net">
                 <span class="contact-ico contact-ico-img contact-ico-email" aria-hidden="true"></span> info@milvolcanes.net
@@ -451,39 +483,39 @@
             <div class="form-row form-row-2">
               <div class="field">
                 <input type="text" name="nombre" id="nombre" placeholder=" " required>
-                <label for="nombre">Nombre y apellido</label>
+                <label for="nombre" data-i18n="form-label-nombre">Nombre y apellido</label>
               </div>
               <div class="field">
                 <input type="text" name="empresa" id="empresa" placeholder=" ">
-                <label for="empresa">Empresa</label>
+                <label for="empresa" data-i18n="form-label-empresa">Empresa</label>
               </div>
             </div>
             <div class="form-row form-row-2">
               <div class="field">
                 <input type="text" name="pais" id="pais" placeholder=" " required>
-                <label for="pais">País</label>
+                <label for="pais" data-i18n="form-label-pais">País</label>
               </div>
               <div class="field field-select-wrap">
                 <select name="interes" id="interes" required>
                   <option value="" disabled selected hidden></option>
-                  <option>Distribución / Importación</option>
-                  <option>Wine shop / Retail</option>
-                  <option>Restaurante / Hotelería</option>
-                  <option>Eventos</option>
-                  <option>Otra consulta</option>
+                  <option data-i18n="opt-distribucion">Distribución / Importación</option>
+                  <option data-i18n="opt-retail">Wine shop / Retail</option>
+                  <option data-i18n="opt-restaurante">Restaurante / Hotelería</option>
+                  <option data-i18n="opt-eventos">Eventos</option>
+                  <option data-i18n="opt-otra">Otra consulta</option>
                 </select>
-                <label for="interes">Tipo de consulta</label>
+                <label for="interes" data-i18n="form-label-interes">Tipo de consulta</label>
               </div>
             </div>
             <div class="field">
               <textarea name="mensaje" id="mensaje" placeholder=" " required></textarea>
-              <label for="mensaje">Mensaje</label>
+              <label for="mensaje" data-i18n="form-label-mensaje">Mensaje</label>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Enviar consulta</button>
+            <button type="submit" class="btn btn-primary btn-block" data-i18n="btn-enviar">Enviar consulta</button>
           </form>
           <div class="form-success" data-contact-success>
-            <h3 class="text-cream">Gracias por escribirnos.</h3>
-            <p>Se abrió tu cliente de correo con la consulta lista para enviar.</p>
+            <h3 class="text-cream" data-i18n="form-success-title">Gracias por escribirnos.</h3>
+            <p data-i18n="form-success-body">Se abrió tu cliente de correo con la consulta lista para enviar.</p>
           </div>
         </div>
       </div>
@@ -498,21 +530,21 @@
     <div class="footer-grid">
       <div>
         <div class="footer-logo"><img src="assets/img/logo-mark-white.webp" alt="Mil Volcanes"></div>
-        <p class="footer-tag">Bodega familiar y exportadora. Vinos premium de Mendoza, Argentina, nacidos junto a la Reserva Natural La Payunia.</p>
+        <p class="footer-tag" data-i18n="footer-tag">Bodega familiar y exportadora. Vinos premium de Mendoza, Argentina, nacidos junto a la Reserva Natural La Payunia.</p>
       </div>
       <div>
-        <div class="footer-col-title">Navegación</div>
+        <div class="footer-col-title" data-i18n="footer-nav-title">Navegación</div>
         <nav class="footer-links">
-          <a href="#historia">Historia</a>
-          <a href="#terroir">Terroir</a>
-          <a href="payunia.html">La Payunia</a>
-          <a href="#coleccion">Vinos</a>
-          <a href="#bodega">Bodega</a>
-          <a href="#ventas">Contacto</a>
+          <a href="#historia" data-i18n="nav-historia">Historia</a>
+          <a href="#terroir" data-i18n="nav-terroir">Terroir</a>
+          <a href="payunia.html" data-i18n="nav-payunia">La Payunia</a>
+          <a href="#coleccion" data-i18n="nav-vinos">Vinos</a>
+          <a href="#bodega" data-i18n="nav-bodega">Bodega</a>
+          <a href="#ventas" data-i18n="nav-contacto">Contacto</a>
         </nav>
       </div>
       <div>
-        <div class="footer-col-title">Contacto</div>
+        <div class="footer-col-title" data-i18n="footer-contact-title">Contacto</div>
         <nav class="footer-links">
           <a href="mailto:info@milvolcanes.net">info@milvolcanes.net</a>
           <a href="https://instagram.com/milvolcanes.wines" target="_blank" rel="noopener">@milvolcanes.wines</a>
@@ -521,7 +553,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© <span id="year">2026</span> Mil Volcanes. Todos los derechos reservados.</span>
+      <span>© <span id="year">2026</span> <span data-i18n="footer-rights">Mil Volcanes. Todos los derechos reservados.</span></span>
       <span class="footer-social">Mendoza, Argentina</span>
     </div>
   </div>
@@ -531,25 +563,25 @@
 <div class="cart-overlay" data-cart-overlay hidden></div>
 <aside class="cart-drawer" id="cart-drawer" data-cart-drawer role="dialog" aria-modal="true" aria-label="Carrito de compras" hidden>
   <div class="cart-drawer-head">
-    <h2 class="cart-drawer-title">Tu carrito</h2>
+    <h2 class="cart-drawer-title" data-i18n="cart-title">Tu carrito</h2>
     <button class="cart-close" data-cart-close aria-label="Cerrar carrito">✕</button>
   </div>
   <div class="cart-drawer-body" data-cart-items>
-    <p class="cart-empty" data-cart-empty>Todavía no agregaste vinos. Elegí alguno en <a href="#coleccion" data-cart-close-link>la colección</a>.</p>
+    <p class="cart-empty" data-cart-empty data-i18n="cart-empty-html">Todavía no agregaste vinos. Elegí alguno en <a href="#coleccion" data-cart-close-link>la colección</a>.</p>
   </div>
   <div class="cart-drawer-foot" data-cart-foot hidden>
     <div class="cart-total-row">
-      <span>Total</span>
+      <span data-i18n="cart-total-label">Total</span>
       <span data-cart-total>$0</span>
     </div>
-    <button class="btn btn-primary btn-block" data-checkout>Finalizar compra</button>
-    <p class="cart-note">Pago seguro con Mercado Pago. Envíos a coordinar por email tras la compra.</p>
-    <p class="cart-note cart-note-shipping">🚚 Envío gratis a todo el país a partir de 1 caja. Excepción Tierra del Fuego.</p>
+    <button class="btn btn-primary btn-block" data-checkout data-i18n="btn-checkout">Finalizar compra</button>
+    <p class="cart-note" data-i18n="cart-note">Pago seguro con Mercado Pago. Envíos a coordinar por email tras la compra.</p>
     <p class="cart-error" data-cart-error hidden></p>
   </div>
 </aside>
 
 <script defer src="lib/manifest.js"></script>
+<script src="lib/i18n.js"></script>
 <script defer src="main.js?v=20260910"></script>
 <script>document.addEventListener("DOMContentLoaded",function(){var y=document.getElementById("year");if(y)y.textContent=new Date().getFullYear();});</script>
 </body>

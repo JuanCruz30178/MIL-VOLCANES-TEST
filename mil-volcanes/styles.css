@@ -33,7 +33,11 @@
 
   --container: 1240px;
   --nav-h: 84px;
+  --bar-h: 34px;
   color-scheme: light;
+}
+@media (max-width: 560px) {
+  :root { --bar-h: 52px; }
 }
 
 /* =============================================================
@@ -183,7 +187,7 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
    dark bar once scrolled — both states stay light-ink now that the
    whole page is dark, so only the backdrop needs to change. */
 .nav {
-  position: fixed; top: 0; inset-inline: 0; z-index: 100;
+  position: fixed; top: var(--bar-h); inset-inline: 0; z-index: 100;
   height: var(--nav-h);
   display: flex; align-items: center;
   transition: background-color .4s var(--ease-out), backdrop-filter .4s var(--ease-out), box-shadow .4s var(--ease-out), border-color .4s, color .4s;
@@ -439,33 +443,65 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
 
 /* --- Age gate --- */
 .age-gate {
-  position: fixed; inset: 0; z-index: 10001;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(20,16,12,.62); backdrop-filter: blur(4px);
-  padding: 1.5rem;
+  position: fixed; inset: 0; z-index: 20000;
+  background: rgba(20, 16, 12, .55);
+  display: grid; place-items: center;
+  padding: 1.2rem;
 }
 .age-gate[hidden] { display: none; }
 .age-gate-card {
-  background: var(--bg-3); border-radius: 8px; padding: 2.6rem 2.2rem;
-  max-width: 420px; width: 100%; text-align: center;
-  box-shadow: 0 30px 80px -20px rgba(0,0,0,.45);
+  width: min(420px, 100%); background: var(--bg-4);
+  border-radius: 6px; padding: 2.2rem 2rem 2.4rem;
+  text-align: center; box-shadow: 0 30px 80px rgba(0,0,0,.35);
 }
-.age-gate-logo { height: 56px; width: auto; margin: 0 auto 1.6rem; display: block; }
-.age-gate-text { font-size: .92rem; color: var(--cream-2); margin-top: 1rem; }
-.age-gate-text-sm { font-size: .8rem; color: var(--cream-3); }
-.age-gate-actions { display: flex; gap: .8rem; justify-content: center; margin-top: 1.8rem; }
-.age-gate-actions .btn { min-width: 108px; }
+.age-gate-mark { font-family: var(--serif); font-style: italic; font-size: 1.7rem; color: var(--cream); }
+.age-gate-mark small { display: block; font-family: var(--sans); font-style: normal; font-size: .6rem; letter-spacing: .32em; color: var(--gold); margin-top: .4rem; }
+.age-gate-rule { width: 60px; height: 1px; background: var(--line); margin: 1.3rem auto; }
+.age-gate-text { font-size: .88rem; color: var(--cream-2); line-height: 1.6; }
+.age-gate-text + .age-gate-text { margin-top: .8rem; }
+.age-gate-actions { display: flex; gap: .9rem; justify-content: center; margin-top: 1.7rem; }
+.age-gate-actions .btn { min-width: 92px; }
 
-/* --- Shipping banner --- */
-.shipping-banner {
-  display: flex; align-items: center; gap: 1rem;
-  background: var(--bg-3); border: 1px solid var(--line-soft); border-radius: 6px;
-  padding: 1rem 1.4rem; margin: 1.6rem 0 2.6rem;
+/* --- Promo bar --- */
+.promo-bar {
+  position: fixed; top: 0; inset-inline: 0; z-index: 101; height: var(--bar-h);
+  display: flex; align-items: center; justify-content: center;
+  background: var(--accent-2); color: #F6F0E4;
+  font-family: var(--sans); font-size: .74rem; font-weight: 600; letter-spacing: .02em;
+  text-align: center; padding-inline: 1rem;
 }
-.shipping-banner-icon { font-size: 1.6rem; flex-shrink: 0; }
-.shipping-banner strong { display: block; font-size: .92rem; color: var(--cream); }
-.shipping-banner span { font-size: .8rem; color: var(--cream-3); }
-.cart-note-shipping { margin-top: .6rem; }
+.promo-bar-note { opacity: .78; font-weight: 500; margin-left: .3rem; }
+:root.hide-promo-bar { --bar-h: 0px; }
+:root.hide-promo-bar .promo-bar { display: none; }
+@media (max-width: 560px) {
+  .promo-bar { font-size: .66rem; padding-inline: .6rem; }
+  .promo-bar-note { display: block; margin-left: 0; font-size: .6rem; }
+}
+
+/* --- Wine card case pricing --- */
+.wine-card-case-badge {
+  display: inline-flex; align-items: center; gap: .35rem;
+  font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--cream-3); margin-top: .5rem;
+}
+.wine-card-case-badge::before { content: ""; width: 14px; height: 1px; background: var(--gold); }
+.wine-card-price-wrap { display: flex; flex-direction: column; }
+.wine-card-unit-price { font-size: .72rem; color: var(--cream-3); margin-top: .2rem; }
+
+/* --- Language switcher --- */
+.lang-switch { display: inline-flex; align-items: center; gap: .25rem; margin-right: .3rem; }
+.lang-btn {
+  position: relative; padding: .35rem .38rem;
+  font-family: var(--sans-caps); font-size: .72rem; font-weight: 700; letter-spacing: .03em;
+  color: var(--nav-ink-soft); transition: color .3s;
+}
+.lang-btn:hover { color: var(--nav-ink); }
+.lang-btn[aria-pressed="true"] { color: var(--nav-ink); }
+.lang-btn[aria-pressed="true"]::after {
+  content: ""; position: absolute; left: 3px; right: 3px; bottom: -1px; height: 1px; background: var(--gold);
+}
+@media (max-width: 380px) { .lang-btn { padding: .32rem .28rem; font-size: .66rem; } }
+.kicker-lg { font-size: 1.05rem; }
 
 /* --- Splash --- */
 .splash {
