@@ -551,6 +551,17 @@
   <button type="button" class="promo-badge-close" data-promo-badge-close aria-label="Cerrar">✕</button>
 </div>
 
+<!-- Confirm modal -->
+<div class="confirm-modal" data-confirm-modal hidden role="alertdialog" aria-modal="true" aria-label="Confirmar">
+  <div class="confirm-modal-card">
+    <p class="confirm-modal-text" data-confirm-text></p>
+    <div class="confirm-modal-actions">
+      <button type="button" class="btn btn-ghost" data-confirm-cancel data-i18n="btn-cancel">Cancelar</button>
+      <button type="button" class="btn btn-primary" data-confirm-ok data-i18n="btn-ok">OK</button>
+    </div>
+  </div>
+</div>
+
 <!-- Cart drawer -->
 <div class="cart-overlay" data-cart-overlay hidden></div>
 <aside class="cart-drawer" id="cart-drawer" data-cart-drawer role="dialog" aria-modal="true" aria-label="Carrito de compras" hidden>

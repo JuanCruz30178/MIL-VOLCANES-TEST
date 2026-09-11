@@ -501,6 +501,23 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
 .age-gate-actions { display: flex; gap: .9rem; justify-content: center; margin-top: 1.7rem; }
 .age-gate-actions .btn { min-width: 92px; }
 
+/* --- Confirm modal --- */
+.confirm-modal {
+  position: fixed; inset: 0; z-index: 20500;
+  background: rgba(20, 16, 12, .55);
+  display: grid; place-items: center;
+  padding: 1.2rem;
+}
+.confirm-modal[hidden] { display: none; }
+.confirm-modal-card {
+  width: min(420px, 100%); background: var(--bg-4);
+  border-radius: 6px; padding: 2rem;
+  box-shadow: 0 30px 80px rgba(0,0,0,.35);
+}
+.confirm-modal-text { font-size: .92rem; color: var(--cream-2); line-height: 1.6; }
+.confirm-modal-actions { display: flex; gap: .9rem; justify-content: flex-end; margin-top: 1.6rem; }
+.confirm-modal-actions .btn { min-width: 92px; }
+
 /* --- Promo bar --- */
 .promo-bar {
   position: fixed; top: 0; inset-inline: 0; z-index: 101; height: var(--bar-h);

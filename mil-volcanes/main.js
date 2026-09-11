@@ -20,6 +20,40 @@
     setTimeout(hide, 3200);
   }
 
+  /* ---------------- Confirm modal ---------------- */
+  function initConfirmModal() {
+    var modal = $("[data-confirm-modal]");
+    if (!modal) return;
+    var textEl = $("[data-confirm-text]", modal);
+    var okBtn = $("[data-confirm-ok]", modal);
+    var cancelBtn = $("[data-confirm-cancel]", modal);
+    var resolveFn = null;
+
+    function close(result) {
+      modal.hidden = true;
+      document.body.style.overflow = "";
+      var resolve = resolveFn;
+      resolveFn = null;
+      if (resolve) resolve(result);
+    }
+
+    if (okBtn) okBtn.addEventListener("click", function () { close(true); });
+    if (cancelBtn) cancelBtn.addEventListener("click", function () { close(false); });
+    modal.addEventListener("click", function (e) { if (e.target === modal) close(false); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !modal.hidden) close(false);
+    });
+
+    window.__mvConfirm = function (message) {
+      return new Promise(function (resolve) {
+        resolveFn = resolve;
+        if (textEl) textEl.textContent = message;
+        modal.hidden = false;
+        document.body.style.overflow = "hidden";
+      });
+    };
+  }
+
   /* ---------------- Promo badge ---------------- */
   function initPromoBadge() {
     var badge = $("[data-promo-badge]");
@@ -344,9 +378,14 @@
       if (e.target.closest("[data-cart-remove]")) {
         if (id.indexOf("mix-") === 0) {
           var msg = window.__mvT ? window.__mvT("confirm-remove-pack") : "¿Estás seguro que deseas eliminar este item? Se eliminarán todos los productos del pack.";
-          if (!window.confirm(msg)) return;
+          if (window.__mvConfirm) {
+            window.__mvConfirm(msg).then(function (ok) { if (ok) removeFromCart(id); });
+          } else if (window.confirm(msg)) {
+            removeFromCart(id);
+          }
+        } else {
+          removeFromCart(id);
         }
-        removeFromCart(id);
       }
       else if (e.target.closest("[data-cart-qty-minus]")) {
         var cur = readCart().find(function (l) { return l.id === id; });
@@ -453,6 +492,7 @@
   function boot() {
     safe(initSplash, "initSplash");
     safe(initPromoBadge, "initPromoBadge");
+    safe(initConfirmModal, "initConfirmModal");
     safe(initNav, "initNav");
     safe(initSmoothAnchors, "initSmoothAnchors");
     safe(initReveals, "initReveals");
