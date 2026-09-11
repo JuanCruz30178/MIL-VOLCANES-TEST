@@ -1,5 +1,2 @@
 [build]
-  base = "mil-volcanes"
   publish = "mil-volcanes"
-  command = ""
-  functions = "netlify/functions"
