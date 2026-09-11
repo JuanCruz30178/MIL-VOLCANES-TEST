@@ -34,8 +34,16 @@
    so this feature quote reads bigger to balance the empty space. */
 .lede-feature {
   font-size: clamp(1.7rem, 3.4vw, 2.6rem);
-  max-width: 16ch;
+  max-width: 26ch;
   line-height: 1.18;
+}
+
+/* "Inspirados..." feature: heading sits above, full-width; the video
+   below is centered and capped near its own 720px native width so
+   enlarging it doesn't upscale past source resolution. */
+.feature-intro { max-width: 640px; margin-bottom: 2.6rem; }
+.feature-figure {
+  max-width: 760px; margin-inline: auto;
 }
 
 .note-button-link {
