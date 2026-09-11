@@ -579,15 +579,27 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
   box-shadow: 0 14px 26px -12px rgba(34,27,20,.35);
 }
 
-/* --- Bridge to La Payunia: a clean, undistorted 16:9 photo, full
-   width, nothing overlaid on it. object-fit:cover is a no-op here
-   since the box aspect ratio matches the source exactly. */
+/* --- Bridge to La Payunia: a clean, undistorted 16:9 photo. The CTA
+   floats over the open sky/volcano side of the frame — the bottle
+   sits left-of-center in this photo, so the button never touches it
+   or its label. object-fit:cover is a no-op here since the box aspect
+   ratio matches the source exactly. */
 .payunia-bridge-figure {
+  position: relative;
   width: 100%; max-width: 2000px; margin: 2.6rem auto 0;
   aspect-ratio: 16 / 9; overflow: hidden;
 }
 .payunia-bridge-figure img {
   width: 100%; height: 100%; object-fit: cover; object-position: center center;
+}
+.payunia-bridge-cta {
+  position: absolute; right: clamp(1rem, 3vw, 2.5rem); bottom: clamp(1rem, 3vw, 2.5rem);
+  z-index: 2;
+  color: #FBF6EC; border-color: rgba(246,240,228,.5); background: transparent;
+}
+.payunia-bridge-cta:hover { border-color: #FBF6EC; }
+@media (max-width: 480px) {
+  .payunia-bridge-cta { font-size: .68rem; padding: .65rem 1rem; letter-spacing: .1em; }
 }
 
 /* --- Terroir --- */
