@@ -202,14 +202,13 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
   --nav-ink-soft: var(--cream-2);
   --nav-line: var(--line);
 }
-.nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
-/* Real logo artwork (not styled text): a white cut for the transparent
-   hero photo, a black cut for once the nav solidifies onto the page. */
-.nav-logo { display: block; line-height: 1; }
-.nav-logo-img { height: 34px; width: auto; display: block; }
-.nav-logo-img-dark { display: none; }
-.nav.is-scrolled .nav-logo-img-light { display: none; }
-.nav.is-scrolled .nav-logo-img-dark { display: block; }
+/* No logo mark in the bar — the nav links + CTA are centered as one
+   group between two equal-width flex spacers, so they land on the
+   true center of the bar regardless of the cart/burger's width. */
+.nav-inner { display: flex; align-items: center; width: 100%; }
+.nav-spacer, .nav-end { flex: 1 1 0; }
+.nav-end { display: flex; align-items: center; justify-content: flex-end; gap: .9rem; }
+.nav-center { display: flex; align-items: center; justify-content: center; gap: 2.1rem; }
 .nav-links { display: none; align-items: center; gap: 2.1rem; }
 @media (min-width: 960px) { .nav-links { display: flex; } }
 .nav-link {
@@ -557,11 +556,25 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
   transition: transform .4s var(--ease-out), border-color .4s;
 }
 .founder-chip:hover img { transform: scale(1.08); border-color: var(--gold); }
-.founder-chip-group img {
-  width: 72px; height: 54px; border-radius: 8px; object-position: center 25%;
-}
 .founder-chip-name { font-size: .86rem; color: var(--cream); font-weight: 700; }
 .founder-chip-role { font-size: .74rem; color: var(--cream-3); }
+
+/* --- Small floated photo stack beside the Historia body copy --- */
+.narrative-side-stack { display: flex; flex-direction: column; gap: .7rem; width: 132px; }
+@media (min-width: 640px) {
+  .narrative-side-stack {
+    float: right; margin: 0 0 1rem 1.4rem;
+  }
+}
+.narrative-side-stack img {
+  width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 6px;
+  border: 1px solid var(--line-soft);
+  transition: transform .5s var(--ease-out), box-shadow .5s var(--ease-out);
+}
+.narrative-side-stack img:hover {
+  transform: scale(1.04);
+  box-shadow: 0 14px 26px -12px rgba(34,27,20,.35);
+}
 
 /* --- Terroir --- */
 .terroir-figure { border-radius: 4px; overflow: hidden; margin-top: 3rem; aspect-ratio: 16/8; }
@@ -678,6 +691,17 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
 .moment-tint {
   position: absolute; inset: 0; z-index: 1;
   background: linear-gradient(0deg, rgba(15,11,8,.68) 0%, rgba(15,11,8,.1) 60%, rgba(234,231,224,.16) 100%);
+}
+/* Home-page bridge into La Payunia: fades down from the page's own
+   background at the top seam, and a lighter overlay overall since the
+   ash-hand video already reads fairly light/grey. */
+.moment-payunia::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; z-index: 2;
+  height: clamp(70px, 12vw, 140px); pointer-events: none;
+  background: linear-gradient(180deg, var(--bg) 0%, rgba(234,231,224,0) 100%);
+}
+.moment-payunia .moment-tint {
+  background: linear-gradient(0deg, rgba(15,11,8,.55) 0%, rgba(15,11,8,.08) 55%, rgba(234,231,224,.24) 100%);
 }
 .moment-copy {
   position: relative; z-index: 2; width: 100%;
