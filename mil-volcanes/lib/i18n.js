@@ -42,7 +42,7 @@
     "line-badge-premium": "Presentación <b>6&nbsp;·&nbsp;750&nbsp;ml</b>",
     "note-sauvblanc-torrontes": "Vibrante y seductor, con aromas de jazmín, flor de azahar y notas cítricas de fruta tropical, con un final suave y acidez refrescante. Ideal para maridaje con pescados y mariscos. Servir 10–12°C.",
     "note-malbec-bonarda": "De perfil vibrante y equilibrado, combina la expresión floral de violetas y ciruelas maduras del Malbec con la frescura de frambuesas y cerezas del Bonarda. En boca destaca por sus taninos suaves y un final persistente. Servir a 16–18°C.",
-    "note-cabsauv-merlot": "Tinto equilibrado con nota de moras, ciruelas y pimiento verde, taninos redondos y untuosos, final persistente y elegante. Servir 16–18°C.",
+    "note-cabsauv-merlot": "Tinto equilibrado con notas de moras, ciruelas y pimiento verde, taninos redondos y untuosos, final persistente y elegante. Servir 16–18°C.",
     "note-sv-malbec": "Tiene el poder y la energía de un volcán, con notas de ciruela, frambuesas maduras, violetas y toques balsámicos con vainilla de barrica. Concentrado y persistente. Acompaña muy bien carnes rojas asadas con verduras grilladas. Servir entre 16° / 18°C.",
     "note-sv-cabfranc": "De rojo rubí intenso, con aromas a pimiento asado, tomate deshidratado, especias, chocolate y cuero noble de su paso por roble. Entrada equilibrada, taninos aterciopelados y una persistencia excepcional en boca. Servir entre 16° / 18°C.",
     "btn-add-cart": "Agregar al carrito",
