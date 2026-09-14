@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:wght@500;600&family=Alex+Brush&display=swap">
 
 <link rel="preload" as="image" href="assets/img/hero-vineyard.webp" fetchpriority="high">
-<link rel="stylesheet" href="styles.css?v=20260916">
+<link rel="stylesheet" href="styles.css?v=20260917">
 <noscript><style>[data-reveal],.split-word{opacity:1!important;transform:none!important}.splash{display:none!important}</style></noscript>
 
 <meta property="og:title" content="Mil Volcanes — Mendoza, Argentina">
@@ -237,8 +237,96 @@
     <div class="container">
       <p class="kicker kicker-lg" data-i18n="coleccion-kicker">Nuestros vinos</p>
 
-      <!-- Premium Blends -->
+      <!-- Single Vineyard -->
       <div style="margin-top:3.4rem;">
+        <div class="line-head line-head-dark" data-reveal>
+          <div>
+            <h3 class="h-card text-cream" data-i18n="line-sv-title">Línea Single Vineyard</h3>
+            <p class="line-head-copy" data-i18n="line-sv-copy">Vinos de gran intensidad aromática, concentración y elegancia. Carácter, estructura y sofisticación, con crianza en roble francés por 10 meses.</p>
+          </div>
+          <span class="line-badge" data-i18n="line-badge-sv">Presentación <b>6&nbsp;·&nbsp;750&nbsp;ml</b></span>
+        </div>
+
+        <div class="wine-grid">
+          <article class="card wine-card" data-reveal data-wine-id="sv-malbec">
+            <div class="wine-card-figure"><img src="assets/img/bottle-sv-malbec.webp" alt="Botella Mil Volcanes Malbec Single Vineyard" loading="lazy" decoding="async"></div>
+            <div class="wine-card-meta">
+              <div class="wine-card-line"><h4 class="h-card">Malbec Single Vineyard</h4></div>
+              <p class="wine-card-blend">100% Malbec</p>
+              <p class="wine-card-case-badge" data-i18n="case-badge">Caja x 6</p>
+              <p class="wine-card-origin">Vista Flores, Valle de Uco (1100 msnm)</p>
+              <p class="wine-card-note" data-i18n="note-sv-malbec">Tiene el poder y la energía de un volcán, con notas de ciruela, frambuesas maduras, violetas y toques balsámicos con vainilla de barrica. Concentrado y persistente. Acompaña muy bien carnes rojas asadas con verduras grilladas. Servir entre 16° / 18°C.</p>
+              <div class="wine-card-buy">
+                <div class="wine-card-price-wrap"><span class="wine-card-price">$132.000</span><span class="wine-card-unit-price">$22.000 <span data-i18n="cart-each">c/u</span></span></div>
+                <div class="qty-stepper">
+                  <button type="button" class="qty-btn" data-qty-minus aria-label="Restar cantidad">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="24" data-qty-input aria-label="Cantidad">
+                  <button type="button" class="qty-btn" data-qty-plus aria-label="Sumar cantidad">+</button>
+                </div>
+              </div>
+              <div class="wine-card-foot">
+                <button type="button" class="btn btn-primary btn-block" data-add-cart data-i18n="btn-add-cart">Agregar al carrito</button>
+              </div>
+              <a href="#ventas" class="wine-card-cta" data-i18n="wine-cta-wholesale">Consulta por mayor →</a>
+            </div>
+          </article>
+
+          <article class="card wine-card" data-reveal data-reveal-delay="1" data-wine-id="sv-cabfranc">
+            <div class="wine-card-figure"><img src="assets/img/bottle-sv-cabfranc.webp" alt="Botella Mil Volcanes Cabernet Franc Single Vineyard" loading="lazy" decoding="async"></div>
+            <div class="wine-card-meta">
+              <div class="wine-card-line"><h4 class="h-card">Cabernet Franc Single Vineyard</h4></div>
+              <p class="wine-card-blend">100% Cabernet Franc</p>
+              <p class="wine-card-case-badge" data-i18n="case-badge">Caja x 6</p>
+              <p class="wine-card-origin">Los Sauces, Valle de Uco (1100 msnm)</p>
+              <p class="wine-card-note" data-i18n="note-sv-cabfranc">De rojo rubí intenso, con aromas a pimiento asado, tomate deshidratado, especias, chocolate y cuero noble de su paso por roble. Entrada equilibrada, taninos aterciopelados y una persistencia excepcional en boca. Servir entre 16° / 18°C.</p>
+              <div class="wine-card-buy">
+                <div class="wine-card-price-wrap"><span class="wine-card-price">$132.000</span><span class="wine-card-unit-price">$22.000 <span data-i18n="cart-each">c/u</span></span></div>
+                <div class="qty-stepper">
+                  <button type="button" class="qty-btn" data-qty-minus aria-label="Restar cantidad">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="24" data-qty-input aria-label="Cantidad">
+                  <button type="button" class="qty-btn" data-qty-plus aria-label="Sumar cantidad">+</button>
+                </div>
+              </div>
+              <div class="wine-card-foot">
+                <button type="button" class="btn btn-primary btn-block" data-add-cart data-i18n="btn-add-cart">Agregar al carrito</button>
+              </div>
+              <a href="#ventas" class="wine-card-cta" data-i18n="wine-cta-wholesale">Consulta por mayor →</a>
+            </div>
+          </article>
+
+          <article class="card wine-card" data-reveal data-reveal-delay="2" data-wine-id="mix-sv">
+            <div class="wine-card-figure wine-card-figure-duo">
+              <img class="fig-bottle fig-bottle-back" src="assets/img/bottle-sv-cabfranc.webp" alt="Botella Mil Volcanes Cabernet Franc Single Vineyard" loading="lazy" decoding="async">
+              <img class="fig-bottle fig-bottle-front" src="assets/img/bottle-sv-malbec.webp" alt="Botella Mil Volcanes Malbec Single Vineyard" loading="lazy" decoding="async">
+            </div>
+            <div class="wine-card-meta">
+              <div class="wine-card-line"><h4 class="h-card" data-i18n="mix-sv-title">Caja Mixta Single Vineyard</h4></div>
+              <p class="wine-card-case-badge" data-i18n="case-badge">Caja x 6</p>
+              <p class="wine-card-origin" data-i18n="mix-sv-origin">Selección de nuestra línea Single Vineyard</p>
+              <p class="wine-card-note" data-i18n="mix-sv-note">3 botellas de Malbec Single Vineyard y 3 de Cabernet Franc Single Vineyard.</p>
+              <div class="wine-card-buy">
+                <div class="wine-card-price-wrap">
+                  <span class="wine-card-price">$132.000</span>
+                </div>
+                <div class="qty-stepper">
+                  <button type="button" class="qty-btn" data-qty-minus aria-label="Restar cantidad">−</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="24" data-qty-input aria-label="Cantidad">
+                  <button type="button" class="qty-btn" data-qty-plus aria-label="Sumar cantidad">+</button>
+                </div>
+              </div>
+              <div class="wine-card-foot">
+                <button type="button" class="btn btn-primary btn-block" data-add-cart data-i18n="btn-add-cart">Agregar al carrito</button>
+              </div>
+              <a href="#ventas" class="wine-card-cta" data-i18n="wine-cta-wholesale">Consulta por mayor →</a>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <hr class="line-divider">
+
+      <!-- Premium Blends -->
+      <div>
         <div class="line-head" data-reveal>
           <div>
             <h3 class="h-card text-cream" data-i18n="line-premium-title">Línea Premium Blends</h3>
@@ -331,94 +419,6 @@
               <div class="wine-card-buy">
                 <div class="wine-card-price-wrap">
                   <span class="wine-card-price">$54.000</span>
-                </div>
-                <div class="qty-stepper">
-                  <button type="button" class="qty-btn" data-qty-minus aria-label="Restar cantidad">−</button>
-                  <input type="number" class="qty-input" value="1" min="1" max="24" data-qty-input aria-label="Cantidad">
-                  <button type="button" class="qty-btn" data-qty-plus aria-label="Sumar cantidad">+</button>
-                </div>
-              </div>
-              <div class="wine-card-foot">
-                <button type="button" class="btn btn-primary btn-block" data-add-cart data-i18n="btn-add-cart">Agregar al carrito</button>
-              </div>
-              <a href="#ventas" class="wine-card-cta" data-i18n="wine-cta-wholesale">Consulta por mayor →</a>
-            </div>
-          </article>
-        </div>
-      </div>
-
-      <hr class="line-divider">
-
-      <!-- Single Vineyard -->
-      <div>
-        <div class="line-head line-head-dark" data-reveal>
-          <div>
-            <h3 class="h-card text-cream" data-i18n="line-sv-title">Línea Single Vineyard</h3>
-            <p class="line-head-copy" data-i18n="line-sv-copy">Vinos de gran intensidad aromática, concentración y elegancia. Carácter, estructura y sofisticación, con crianza en roble francés por 10 meses.</p>
-          </div>
-          <span class="line-badge" data-i18n="line-badge-sv">Presentación <b>6&nbsp;·&nbsp;750&nbsp;ml</b></span>
-        </div>
-
-        <div class="wine-grid">
-          <article class="card wine-card" data-reveal data-wine-id="sv-malbec">
-            <div class="wine-card-figure"><img src="assets/img/bottle-sv-malbec.webp" alt="Botella Mil Volcanes Malbec Single Vineyard" loading="lazy" decoding="async"></div>
-            <div class="wine-card-meta">
-              <div class="wine-card-line"><h4 class="h-card">Malbec Single Vineyard</h4></div>
-              <p class="wine-card-blend">100% Malbec</p>
-              <p class="wine-card-case-badge" data-i18n="case-badge">Caja x 6</p>
-              <p class="wine-card-origin">Vista Flores, Valle de Uco (1100 msnm)</p>
-              <p class="wine-card-note" data-i18n="note-sv-malbec">Tiene el poder y la energía de un volcán, con notas de ciruela, frambuesas maduras, violetas y toques balsámicos con vainilla de barrica. Concentrado y persistente. Acompaña muy bien carnes rojas asadas con verduras grilladas. Servir entre 16° / 18°C.</p>
-              <div class="wine-card-buy">
-                <div class="wine-card-price-wrap"><span class="wine-card-price">$132.000</span><span class="wine-card-unit-price">$22.000 <span data-i18n="cart-each">c/u</span></span></div>
-                <div class="qty-stepper">
-                  <button type="button" class="qty-btn" data-qty-minus aria-label="Restar cantidad">−</button>
-                  <input type="number" class="qty-input" value="1" min="1" max="24" data-qty-input aria-label="Cantidad">
-                  <button type="button" class="qty-btn" data-qty-plus aria-label="Sumar cantidad">+</button>
-                </div>
-              </div>
-              <div class="wine-card-foot">
-                <button type="button" class="btn btn-primary btn-block" data-add-cart data-i18n="btn-add-cart">Agregar al carrito</button>
-              </div>
-              <a href="#ventas" class="wine-card-cta" data-i18n="wine-cta-wholesale">Consulta por mayor →</a>
-            </div>
-          </article>
-
-          <article class="card wine-card" data-reveal data-reveal-delay="1" data-wine-id="sv-cabfranc">
-            <div class="wine-card-figure"><img src="assets/img/bottle-sv-cabfranc.webp" alt="Botella Mil Volcanes Cabernet Franc Single Vineyard" loading="lazy" decoding="async"></div>
-            <div class="wine-card-meta">
-              <div class="wine-card-line"><h4 class="h-card">Cabernet Franc Single Vineyard</h4></div>
-              <p class="wine-card-blend">100% Cabernet Franc</p>
-              <p class="wine-card-case-badge" data-i18n="case-badge">Caja x 6</p>
-              <p class="wine-card-origin">Los Sauces, Valle de Uco (1100 msnm)</p>
-              <p class="wine-card-note" data-i18n="note-sv-cabfranc">De rojo rubí intenso, con aromas a pimiento asado, tomate deshidratado, especias, chocolate y cuero noble de su paso por roble. Entrada equilibrada, taninos aterciopelados y una persistencia excepcional en boca. Servir entre 16° / 18°C.</p>
-              <div class="wine-card-buy">
-                <div class="wine-card-price-wrap"><span class="wine-card-price">$132.000</span><span class="wine-card-unit-price">$22.000 <span data-i18n="cart-each">c/u</span></span></div>
-                <div class="qty-stepper">
-                  <button type="button" class="qty-btn" data-qty-minus aria-label="Restar cantidad">−</button>
-                  <input type="number" class="qty-input" value="1" min="1" max="24" data-qty-input aria-label="Cantidad">
-                  <button type="button" class="qty-btn" data-qty-plus aria-label="Sumar cantidad">+</button>
-                </div>
-              </div>
-              <div class="wine-card-foot">
-                <button type="button" class="btn btn-primary btn-block" data-add-cart data-i18n="btn-add-cart">Agregar al carrito</button>
-              </div>
-              <a href="#ventas" class="wine-card-cta" data-i18n="wine-cta-wholesale">Consulta por mayor →</a>
-            </div>
-          </article>
-
-          <article class="card wine-card" data-reveal data-reveal-delay="2" data-wine-id="mix-sv">
-            <div class="wine-card-figure wine-card-figure-duo">
-              <img class="fig-bottle fig-bottle-back" src="assets/img/bottle-sv-cabfranc.webp" alt="Botella Mil Volcanes Cabernet Franc Single Vineyard" loading="lazy" decoding="async">
-              <img class="fig-bottle fig-bottle-front" src="assets/img/bottle-sv-malbec.webp" alt="Botella Mil Volcanes Malbec Single Vineyard" loading="lazy" decoding="async">
-            </div>
-            <div class="wine-card-meta">
-              <div class="wine-card-line"><h4 class="h-card" data-i18n="mix-sv-title">Caja Mixta Single Vineyard</h4></div>
-              <p class="wine-card-case-badge" data-i18n="case-badge">Caja x 6</p>
-              <p class="wine-card-origin" data-i18n="mix-sv-origin">Selección de nuestra línea Single Vineyard</p>
-              <p class="wine-card-note" data-i18n="mix-sv-note">3 botellas de Malbec Single Vineyard y 3 de Cabernet Franc Single Vineyard.</p>
-              <div class="wine-card-buy">
-                <div class="wine-card-price-wrap">
-                  <span class="wine-card-price">$132.000</span>
                 </div>
                 <div class="qty-stepper">
                   <button type="button" class="qty-btn" data-qty-minus aria-label="Restar cantidad">−</button>
@@ -601,9 +601,9 @@
   </div>
 </aside>
 
-<script defer src="lib/manifest.js?v=20260916"></script>
-<script src="lib/i18n.js?v=20260916"></script>
-<script defer src="main.js?v=20260916"></script>
+<script defer src="lib/manifest.js?v=20260917"></script>
+<script src="lib/i18n.js?v=20260917"></script>
+<script defer src="main.js?v=20260917"></script>
 <script>document.addEventListener("DOMContentLoaded",function(){var y=document.getElementById("year");if(y)y.textContent=new Date().getFullYear();});</script>
 </body>
 </html>
