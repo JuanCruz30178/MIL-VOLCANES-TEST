@@ -514,9 +514,12 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
   border-radius: 6px; padding: 2rem;
   box-shadow: 0 30px 80px rgba(0,0,0,.35);
 }
+.confirm-modal-title { font-family: var(--serif); font-size: 1.3rem; color: var(--cream); margin-bottom: .6rem; }
 .confirm-modal-text { font-size: .92rem; color: var(--cream-2); line-height: 1.6; }
 .confirm-modal-actions { display: flex; gap: .9rem; justify-content: flex-end; margin-top: 1.6rem; }
 .confirm-modal-actions .btn { min-width: 92px; }
+.confirm-modal-actions-stack { flex-direction: column; }
+.confirm-modal-actions-stack .btn { min-width: 0; text-align: center; }
 
 /* --- Promo bar --- */
 .promo-bar {

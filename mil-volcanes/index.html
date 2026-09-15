@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:wght@500;600&family=Alex+Brush&display=swap">
 
 <link rel="preload" as="image" href="assets/img/hero-vineyard.webp" fetchpriority="high">
-<link rel="stylesheet" href="styles.css?v=20260918">
+<link rel="stylesheet" href="styles.css?v=20260919">
 <noscript><style>[data-reveal],.split-word{opacity:1!important;transform:none!important}.splash{display:none!important}</style></noscript>
 
 <meta property="og:title" content="Mil Volcanes — Mendoza, Argentina">
@@ -562,6 +562,18 @@
   </div>
 </div>
 
+<!-- Post-purchase modal -->
+<div class="confirm-modal" data-postpurchase-modal hidden role="dialog" aria-modal="true" aria-label="Compra realizada">
+  <div class="confirm-modal-card">
+    <p class="confirm-modal-title" data-i18n="postpurchase-title">¡Gracias por tu compra!</p>
+    <p class="confirm-modal-text" data-postpurchase-text data-i18n="postpurchase-body">Te vamos a escribir por email para coordinar el envío. Si querés, también podés enviarnos el comprobante de tu pago.</p>
+    <div class="confirm-modal-actions confirm-modal-actions-stack">
+      <a href="#" class="btn btn-primary btn-block" data-postpurchase-send data-i18n="btn-send-receipt">Enviar comprobante</a>
+      <button type="button" class="btn btn-ghost btn-block" data-postpurchase-close data-i18n="btn-close">Cerrar</button>
+    </div>
+  </div>
+</div>
+
 <!-- Cart drawer -->
 <div class="cart-overlay" data-cart-overlay hidden></div>
 <aside class="cart-drawer" id="cart-drawer" data-cart-drawer role="dialog" aria-modal="true" aria-label="Carrito de compras" hidden>
@@ -601,9 +613,9 @@
   </div>
 </aside>
 
-<script defer src="lib/manifest.js?v=20260918"></script>
-<script src="lib/i18n.js?v=20260918"></script>
-<script defer src="main.js?v=20260918"></script>
+<script defer src="lib/manifest.js?v=20260919"></script>
+<script src="lib/i18n.js?v=20260919"></script>
+<script defer src="main.js?v=20260919"></script>
 <script>document.addEventListener("DOMContentLoaded",function(){var y=document.getElementById("year");if(y)y.textContent=new Date().getFullYear();});</script>
 </body>
 </html>

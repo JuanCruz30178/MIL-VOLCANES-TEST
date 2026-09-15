@@ -54,6 +54,36 @@
     };
   }
 
+  /* ---------------- Post-purchase modal ---------------- */
+  function initPostPurchaseModal() {
+    var modal = $("[data-postpurchase-modal]");
+    if (!modal) return;
+    var sendBtn = $("[data-postpurchase-send]", modal);
+    var closeBtn = $("[data-postpurchase-close]", modal);
+
+    function close() {
+      modal.hidden = true;
+      document.body.style.overflow = "";
+    }
+    if (closeBtn) closeBtn.addEventListener("click", close);
+    if (sendBtn) sendBtn.addEventListener("click", close);
+    modal.addEventListener("click", function (e) { if (e.target === modal) close(); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !modal.hidden) close();
+    });
+
+    window.__mvShowPostPurchase = function () {
+      if (sendBtn) {
+        var subject = "Comprobante de pago — Pedido Mil Volcanes";
+        var body = "Hola! Les escribo para enviar el comprobante de mi compra realizada a través de Mercado Pago.\n\n(Adjuntar el comprobante o captura de pantalla del pago a este email.)";
+        var email = (data.contact && data.contact.email) || "info@milvolcanes.net";
+        sendBtn.href = "mailto:" + email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+      }
+      modal.hidden = false;
+      document.body.style.overflow = "hidden";
+    };
+  }
+
   /* ---------------- Promo badge ---------------- */
   function initPromoBadge() {
     var badge = $("[data-promo-badge]");
@@ -502,7 +532,8 @@
     var compra = params.get("compra");
     if (compra === "exito") {
       writeCart([]);
-      window.alert(window.__mvT ? window.__mvT("alert-exito") : "¡Gracias por tu compra! Te vamos a escribir por email para coordinar el envío.");
+      if (window.__mvShowPostPurchase) window.__mvShowPostPurchase();
+      else window.alert(window.__mvT ? window.__mvT("alert-exito") : "¡Gracias por tu compra! Te vamos a escribir por email para coordinar el envío.");
     } else if (compra === "pendiente") {
       window.alert(window.__mvT ? window.__mvT("alert-pendiente") : "Tu pago está pendiente de confirmación. Te avisamos por email en cuanto se acredite.");
     } else if (compra === "error") {
@@ -520,6 +551,7 @@
     safe(initSplash, "initSplash");
     safe(initPromoBadge, "initPromoBadge");
     safe(initConfirmModal, "initConfirmModal");
+    safe(initPostPurchaseModal, "initPostPurchaseModal");
     safe(initNav, "initNav");
     safe(initSmoothAnchors, "initSmoothAnchors");
     safe(initReveals, "initReveals");
