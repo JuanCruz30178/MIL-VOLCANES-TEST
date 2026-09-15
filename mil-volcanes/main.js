@@ -75,7 +75,9 @@
     window.__mvShowPostPurchase = function () {
       if (sendBtn) {
         var subject = "Comprobante de pago — Pedido Mil Volcanes";
+        var ship = readShipping();
         var body = "Hola! Les escribo para enviar el comprobante de mi compra realizada a través de Mercado Pago.\n\n(Adjuntar el comprobante o captura de pantalla del pago a este email.)";
+        if (shippingIsComplete(ship)) body += "\n\nDatos de envío:\n" + formatShipping(ship);
         var email = (data.contact && data.contact.email) || "info@milvolcanes.net";
         sendBtn.href = "mailto:" + email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
       }
@@ -277,6 +279,26 @@
     return card ? card.getAttribute("src") : "";
   }
 
+  var SHIP_KEY = "mv_shipping_v1";
+  var SHIP_FIELDS = ["nombre", "email", "telefono", "dni", "direccion", "ciudad", "cp", "provincia"];
+  function readShipping() {
+    try { return JSON.parse(window.localStorage.getItem(SHIP_KEY)) || {}; }
+    catch (e) { return {}; }
+  }
+  function writeShipping(ship) {
+    try { window.localStorage.setItem(SHIP_KEY, JSON.stringify(ship)); } catch (e) {}
+  }
+  function shippingIsComplete(ship) {
+    return SHIP_FIELDS.every(function (key) { return ship && String(ship[key] || "").trim(); });
+  }
+  var SHIP_LABELS = {
+    nombre: "Nombre y apellido", email: "Email", telefono: "Teléfono", dni: "DNI",
+    direccion: "Dirección", ciudad: "Ciudad", cp: "Código postal", provincia: "Provincia"
+  };
+  function formatShipping(ship) {
+    return SHIP_FIELDS.map(function (key) { return SHIP_LABELS[key] + ": " + (ship[key] || ""); }).join("\n");
+  }
+
   function initCart() {
     var overlay = $("[data-cart-overlay]");
     var drawer = $("[data-cart-drawer]");
@@ -287,6 +309,27 @@
     var countEl = $("[data-cart-count]");
     var errorEl = $("[data-cart-error]");
     if (!drawer || !overlay) return;
+
+    // Shipping details: restore from a previous visit, persist as the customer types.
+    var shipFields = $$("[data-ship-field]");
+    var shipErrorEl = $("[data-ship-error]");
+    var savedShip = readShipping();
+    shipFields.forEach(function (field) {
+      var key = field.dataset.shipField;
+      if (savedShip[key]) field.value = savedShip[key];
+      field.addEventListener("input", function () {
+        var ship = readShipping();
+        ship[key] = field.value;
+        writeShipping(ship);
+        if (shipErrorEl) shipErrorEl.hidden = true;
+      });
+      field.addEventListener("change", function () {
+        var ship = readShipping();
+        ship[key] = field.value;
+        writeShipping(ship);
+        if (shipErrorEl) shipErrorEl.hidden = true;
+      });
+    });
 
     function renderCart() {
       var cart = readCart();
@@ -469,7 +512,7 @@
       btn.addEventListener("click", function () { setPaymentMethod(btn.dataset.paymentBtn); });
     });
 
-    function buildTransferEmail(cart, total) {
+    function buildTransferEmail(cart, total, ship) {
       var lines = cart.map(function (line) {
         var product = findProduct(line.id);
         return product ? ("- " + product.name + " x" + line.qty + ": " + money(product.price * line.qty)) : null;
@@ -477,7 +520,8 @@
       var subject = "Comprobante de transferencia — Pedido Mil Volcanes";
       var body = "Hola! Les escribo para enviar el comprobante de mi pedido:\n\n" +
         lines.join("\n") + "\n\nTotal: " + money(total) +
-        "\n\n(Adjuntar el comprobante de la transferencia a este email.)";
+        "\n\n(Adjuntar el comprobante de la transferencia a este email.)" +
+        "\n\nDatos de envío:\n" + formatShipping(ship);
       return "mailto:" + (data.contact && data.contact.email ? data.contact.email : "info@milvolcanes.net") +
         "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
     }
@@ -488,12 +532,21 @@
         if (!cart.length) return;
         if (errorEl) errorEl.hidden = true;
 
+        var ship = readShipping();
+        if (!shippingIsComplete(ship)) {
+          if (shipErrorEl) {
+            shipErrorEl.hidden = false;
+            shipErrorEl.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
+          }
+          return;
+        }
+
         if (paymentMethod === "transferencia") {
           var total = cart.reduce(function (sum, line) {
             var product = findProduct(line.id);
             return sum + (product ? product.price * line.qty : 0);
           }, 0);
-          window.location.href = buildTransferEmail(cart, total);
+          window.location.href = buildTransferEmail(cart, total, ship);
           return;
         }
 
@@ -504,7 +557,7 @@
         fetch("/.netlify/functions/create-preference", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ items: cart })
+          body: JSON.stringify({ items: cart, shipping: ship })
         })
           .then(function (resp) {
             return resp.json().then(function (data) { return { ok: resp.ok, data: data }; });

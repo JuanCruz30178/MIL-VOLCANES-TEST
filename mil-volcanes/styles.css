@@ -396,6 +396,17 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
 .cart-note { margin-top: .8rem; font-size: .74rem; color: var(--cream-3); text-align: center; }
 .cart-error { margin-top: .6rem; font-size: .82rem; color: var(--accent); text-align: center; }
 
+.cart-shipping { margin-bottom: 1.4rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--line-soft); }
+.cart-shipping-title {
+  font-family: var(--sans-caps); font-size: .74rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: .9rem;
+}
+.cart-shipping .field { margin-bottom: .9rem; }
+.cart-shipping .form-row-2 { display: grid; gap: 0; }
+@media (min-width: 400px) { .cart-shipping .form-row-2 { grid-template-columns: 1fr 1fr; gap: 0 .8rem; } }
+.cart-shipping-error { font-size: .78rem; color: var(--accent); margin-top: -.3rem; margin-bottom: .9rem; }
+.cart-shipping-error[hidden] { display: none; }
+
 .payment-method { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; margin-bottom: 1rem; }
 .payment-method-btn {
   padding: .65rem .5rem; border: 1px solid var(--line); border-radius: 4px;

@@ -65,6 +65,16 @@ exports.handler = async function (event) {
 
   var origin = (event.headers && (event.headers.origin || (event.headers.host && "https://" + event.headers.host))) || "";
 
+  // Shipping details, entered by the customer on our own site (not Mercado
+  // Pago's shipments product). Only plain strings, capped in length, are
+  // accepted here — this never touches payment amounts.
+  var shipIn = body.shipping || {};
+  var shipping = {};
+  ["nombre", "email", "telefono", "dni", "direccion", "ciudad", "cp", "provincia"].forEach(function (key) {
+    var value = shipIn[key];
+    shipping[key] = typeof value === "string" ? value.slice(0, 200) : "";
+  });
+
   var preference = {
     items: items,
     back_urls: {
@@ -73,8 +83,19 @@ exports.handler = async function (event) {
       pending: origin + "/?compra=pendiente"
     },
     auto_return: "approved",
-    statement_descriptor: "MIL VOLCANES"
+    statement_descriptor: "MIL VOLCANES",
+    metadata: { shipping: shipping }
   };
+
+  if (shipping.nombre || shipping.email || shipping.telefono) {
+    var nameParts = shipping.nombre.trim().split(/\s+/);
+    preference.payer = {
+      name: nameParts[0] || undefined,
+      surname: nameParts.length > 1 ? nameParts.slice(1).join(" ") : undefined,
+      email: shipping.email || undefined,
+      phone: shipping.telefono ? { number: shipping.telefono } : undefined
+    };
+  }
 
   try {
     var resp = await fetch("https://api.mercadopago.com/checkout/preferences", {

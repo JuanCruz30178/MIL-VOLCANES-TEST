@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:wght@500;600&family=Alex+Brush&display=swap">
 
 <link rel="preload" as="image" href="assets/img/hero-vineyard.webp" fetchpriority="high">
-<link rel="stylesheet" href="styles.css?v=20260920">
+<link rel="stylesheet" href="styles.css?v=20260921">
 <noscript><style>[data-reveal],.split-word{opacity:1!important;transform:none!important}.splash{display:none!important}</style></noscript>
 
 <meta property="og:title" content="Mil Volcanes — Mendoza, Argentina">
@@ -590,6 +590,75 @@
       <span data-cart-total>$0</span>
     </div>
 
+    <div class="cart-shipping">
+      <p class="cart-shipping-title" data-i18n="shipping-title">Datos de envío</p>
+      <div class="form-row form-row-2">
+        <div class="field">
+          <input type="text" name="shipNombre" id="shipNombre" placeholder=" " data-ship-field="nombre" required>
+          <label for="shipNombre" data-i18n="ship-label-nombre">Nombre y apellido</label>
+        </div>
+        <div class="field">
+          <input type="email" name="shipEmail" id="shipEmail" placeholder=" " data-ship-field="email" required>
+          <label for="shipEmail" data-i18n="ship-label-email">Email</label>
+        </div>
+      </div>
+      <div class="form-row form-row-2">
+        <div class="field">
+          <input type="tel" name="shipTelefono" id="shipTelefono" placeholder=" " data-ship-field="telefono" required>
+          <label for="shipTelefono" data-i18n="ship-label-telefono">Teléfono</label>
+        </div>
+        <div class="field">
+          <input type="text" name="shipDni" id="shipDni" placeholder=" " data-ship-field="dni" required>
+          <label for="shipDni" data-i18n="ship-label-dni">DNI</label>
+        </div>
+      </div>
+      <div class="field">
+        <input type="text" name="shipDireccion" id="shipDireccion" placeholder=" " data-ship-field="direccion" required>
+        <label for="shipDireccion" data-i18n="ship-label-direccion">Dirección (calle, número, piso/depto)</label>
+      </div>
+      <div class="form-row form-row-2">
+        <div class="field">
+          <input type="text" name="shipCiudad" id="shipCiudad" placeholder=" " data-ship-field="ciudad" required>
+          <label for="shipCiudad" data-i18n="ship-label-ciudad">Ciudad</label>
+        </div>
+        <div class="field">
+          <input type="text" name="shipCp" id="shipCp" placeholder=" " data-ship-field="cp" required>
+          <label for="shipCp" data-i18n="ship-label-cp">Código postal</label>
+        </div>
+      </div>
+      <div class="field field-select-wrap">
+        <select name="shipProvincia" id="shipProvincia" data-ship-field="provincia" required>
+          <option value="" disabled selected hidden></option>
+          <option>Buenos Aires</option>
+          <option>CABA</option>
+          <option>Catamarca</option>
+          <option>Chaco</option>
+          <option>Chubut</option>
+          <option>Córdoba</option>
+          <option>Corrientes</option>
+          <option>Entre Ríos</option>
+          <option>Formosa</option>
+          <option>Jujuy</option>
+          <option>La Pampa</option>
+          <option>La Rioja</option>
+          <option>Mendoza</option>
+          <option>Misiones</option>
+          <option>Neuquén</option>
+          <option>Río Negro</option>
+          <option>Salta</option>
+          <option>San Juan</option>
+          <option>San Luis</option>
+          <option>Santa Cruz</option>
+          <option>Santa Fe</option>
+          <option>Santiago del Estero</option>
+          <option>Tierra del Fuego</option>
+          <option>Tucumán</option>
+        </select>
+        <label for="shipProvincia" data-i18n="ship-label-provincia">Provincia</label>
+      </div>
+      <p class="cart-shipping-error" data-ship-error hidden data-i18n="ship-error">Completá tus datos de envío para continuar.</p>
+    </div>
+
     <div class="payment-method" data-payment-method role="group" aria-label="Método de pago">
       <button type="button" class="payment-method-btn is-active" data-payment-btn="mercadopago" aria-pressed="true">
         <span data-i18n="payment-mp">Mercado Pago</span>
@@ -613,9 +682,9 @@
   </div>
 </aside>
 
-<script defer src="lib/manifest.js?v=20260920"></script>
-<script src="lib/i18n.js?v=20260920"></script>
-<script defer src="main.js?v=20260920"></script>
+<script defer src="lib/manifest.js?v=20260921"></script>
+<script src="lib/i18n.js?v=20260921"></script>
+<script defer src="main.js?v=20260921"></script>
 <script>document.addEventListener("DOMContentLoaded",function(){var y=document.getElementById("year");if(y)y.textContent=new Date().getFullYear();});</script>
 </body>
 </html>
