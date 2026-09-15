@@ -216,6 +216,21 @@
     });
   }
 
+  /* ---------------- Floating labels on <select> fields ---------------- */
+  // A <select> has no :placeholder-shown, so the floating-label CSS can't
+  // tell on its own whether one has a value — it needs a .has-value class
+  // toggled by hand (this affects every .field select on the site, e.g.
+  // the "Tipo de consulta" field, not just the checkout shipping form).
+  function initSelectLabels() {
+    $$(".field select").forEach(function (select) {
+      var field = select.closest(".field");
+      if (!field) return;
+      function sync() { field.classList.toggle("has-value", select.value !== ""); }
+      sync();
+      select.addEventListener("change", sync);
+    });
+  }
+
   /* ---------------- Contact form -> mailto ---------------- */
   function initContactForm() {
     var form = $("[data-contact-form]");
@@ -611,6 +626,7 @@
     safe(initSplitHeadline, "initSplitHeadline");
     safe(initContactForm, "initContactForm");
     safe(initCart, "initCart");
+    safe(initSelectLabels, "initSelectLabels");
     document.documentElement.classList.add("is-ready");
   }
 
