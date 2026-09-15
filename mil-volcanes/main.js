@@ -401,8 +401,7 @@
       if (row) setQty(row.dataset.id, parseInt(e.target.value, 10) || 1);
     });
 
-    // Payment method: Mercado Pago (link de pago) or bank transfer (email comprobante)
-    var MP_LINK = "https://link.mercadopago.com.ar/milvolcaneswines";
+    // Payment method: Mercado Pago (Checkout Pro, itemized) or bank transfer (email comprobante)
     var bank = data.bank || {};
     var paymentMethod = "mercadopago";
     var paymentBtns = $$("[data-payment-btn]");
@@ -458,15 +457,43 @@
         var cart = readCart();
         if (!cart.length) return;
         if (errorEl) errorEl.hidden = true;
+
         if (paymentMethod === "transferencia") {
           var total = cart.reduce(function (sum, line) {
             var product = findProduct(line.id);
             return sum + (product ? product.price * line.qty : 0);
           }, 0);
           window.location.href = buildTransferEmail(cart, total);
-        } else {
-          window.location.href = MP_LINK;
+          return;
         }
+
+        var restingLabel = checkoutBtn.textContent;
+        checkoutBtn.disabled = true;
+        checkoutBtn.textContent = window.__mvT ? window.__mvT("btn-checkout-loading") : "Procesando…";
+
+        fetch("/.netlify/functions/create-preference", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ items: cart })
+        })
+          .then(function (resp) {
+            return resp.json().then(function (data) { return { ok: resp.ok, data: data }; });
+          })
+          .then(function (result) {
+            if (result.ok && result.data && result.data.init_point) {
+              window.location.href = result.data.init_point;
+              return;
+            }
+            throw new Error((result.data && result.data.error) || "No se pudo iniciar el pago.");
+          })
+          .catch(function (err) {
+            checkoutBtn.disabled = false;
+            checkoutBtn.textContent = restingLabel;
+            if (errorEl) {
+              errorEl.textContent = err.message || (window.__mvT ? window.__mvT("checkout-error") : "Hubo un problema al iniciar el pago. Probá de nuevo.");
+              errorEl.hidden = false;
+            }
+          });
       });
     }
 

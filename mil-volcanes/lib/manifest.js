@@ -27,6 +27,7 @@
     shop: {
       currency: "ARS",
       unit: "caja",
+      mpPublicKey: "APP_USR-2236db2f-c3e8-48df-a4fb-3e96012560a6",
       freeShippingNote: "Envío gratis a todo el país a partir de 1 caja (6 botellas). Excepción Tierra del Fuego.",
       products: [
         { id: "premium-sauvblanc-torrontes", name: "Sauvignon Blanc & Torrontés (Caja x6)", line: "Premium Blends", price: 51000 },

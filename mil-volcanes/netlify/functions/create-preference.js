@@ -12,11 +12,13 @@
 // the browser, only the product id and quantity. Keep this in sync with
 // the "shop.products" list in lib/manifest.js.
 var PRODUCTS = {
-  "premium-sauvblanc-torrontes": { title: "Mil Volcanes — Sauvignon Blanc & Torrontés", price: 8500 },
-  "premium-malbec-bonarda": { title: "Mil Volcanes — Malbec & Bonarda", price: 9000 },
-  "premium-cabsauv-merlot": { title: "Mil Volcanes — Cabernet Sauvignon & Merlot", price: 9500 },
-  "sv-malbec": { title: "Mil Volcanes — Malbec Single Vineyard", price: 22000 },
-  "sv-cabfranc": { title: "Mil Volcanes — Cabernet Franc Single Vineyard", price: 22000 }
+  "premium-sauvblanc-torrontes": { title: "Mil Volcanes — Sauvignon Blanc & Torrontés (Caja x6)", price: 51000 },
+  "premium-malbec-bonarda": { title: "Mil Volcanes — Malbec & Bonarda (Caja x6)", price: 54000 },
+  "premium-cabsauv-merlot": { title: "Mil Volcanes — Cabernet Sauvignon & Merlot (Caja x6)", price: 57000 },
+  "mix-premium": { title: "Mil Volcanes — Caja Mixta Premium Blends", price: 54000 },
+  "sv-malbec": { title: "Mil Volcanes — Malbec Single Vineyard (Caja x6)", price: 132000 },
+  "sv-cabfranc": { title: "Mil Volcanes — Cabernet Franc Single Vineyard (Caja x6)", price: 132000 },
+  "mix-sv": { title: "Mil Volcanes — Caja Mixta Single Vineyard", price: 132000 }
 };
 
 exports.handler = async function (event) {
