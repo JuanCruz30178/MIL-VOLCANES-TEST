@@ -128,7 +128,12 @@ async function createShipment(order) {
     usr: user,
     psw: password,
     XML_Datos: xml,
-    ConfirmarRetiro: "False"
+    ConfirmarRetiro: "False",
+    // OCA's own docs mark these as "internal use" (not to be filled), but
+    // the endpoint rejects the request with "Missing parameter:
+    // ArchivoCliente" if they're left out entirely — send them empty.
+    ArchivoCliente: "",
+    ArchivoProceso: ""
   });
 
   try {
