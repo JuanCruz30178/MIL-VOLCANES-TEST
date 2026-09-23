@@ -15,10 +15,12 @@ exports.handler = async function (event) {
 
   try {
     var purchased = await buyers.hasPurchased({ email: email, dni: dni });
+    console.log("[check-buyer] email=" + email + " dni=" + dni + " purchased=" + purchased);
     return { statusCode: 200, body: JSON.stringify({ eligible: !purchased }) };
   } catch (err) {
     // If the store is unreachable, fail closed: no discount shown rather
     // than risking one shown and then not honored at checkout.
+    console.log("[check-buyer] ERROR email=" + email + " message=" + (err && err.message) + " stack=" + (err && err.stack));
     return { statusCode: 200, body: JSON.stringify({ eligible: false }) };
   }
 };

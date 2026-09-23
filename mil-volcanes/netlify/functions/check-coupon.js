@@ -12,8 +12,10 @@ exports.handler = async function (event) {
 
   try {
     var result = await couponValidate.validateCoupon(code);
+    console.log("[check-coupon] code=" + code + " result=" + JSON.stringify(result));
     return { statusCode: 200, body: JSON.stringify(result) };
   } catch (err) {
+    console.log("[check-coupon] ERROR code=" + code + " message=" + (err && err.message) + " stack=" + (err && err.stack));
     return { statusCode: 200, body: JSON.stringify({ valid: false }) };
   }
 };

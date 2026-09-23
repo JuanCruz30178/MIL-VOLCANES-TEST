@@ -68,6 +68,7 @@ exports.handler = async function (event) {
   try {
     firstPurchaseDiscount = !(await buyers.hasPurchased({ email: shipping.email, dni: shipping.dni }));
   } catch (e) {
+    console.log("[create-preference] buyers.hasPurchased ERROR: " + (e && e.message) + " " + (e && e.stack));
     firstPurchaseDiscount = false;
   }
   var firstPurchaseRate = firstPurchaseDiscount ? FIRST_PURCHASE_DISCOUNT : 0;
@@ -78,7 +79,9 @@ exports.handler = async function (event) {
   var couponResult = { valid: false };
   try {
     couponResult = await couponValidate.validateCoupon(body.couponCode);
+    console.log("[create-preference] couponCode=" + body.couponCode + " result=" + JSON.stringify(couponResult));
   } catch (e) {
+    console.log("[create-preference] couponValidate ERROR: " + (e && e.message) + " " + (e && e.stack));
     couponResult = { valid: false };
   }
   var couponRate = couponResult.valid ? couponResult.percentOff / 100 : 0;
