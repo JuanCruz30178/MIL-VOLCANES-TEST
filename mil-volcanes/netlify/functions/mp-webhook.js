@@ -70,14 +70,17 @@ exports.handler = async function (event) {
             cantidadCajas: cantidadCajas,
             destinatario: {
               nombreCompleto: metadata.shipping_nombre || "",
-              calle: metadata.shipping_calle || "",
-              numero: metadata.shipping_numero || "",
-              pisoDepto: metadata.shipping_pisoDepto || "",
-              ciudad: metadata.shipping_ciudad || "",
-              provincia: metadata.shipping_provincia || "",
-              cp: metadata.shipping_cp || "",
               telefono: metadata.shipping_telefono || "",
-              email: metadata.shipping_email || ""
+              email: metadata.shipping_email || "",
+              sucursal: {
+                id: metadata.shipping_sucursalId || "",
+                nombre: metadata.shipping_sucursalNombre || "",
+                calle: metadata.shipping_sucursalCalle || "",
+                numero: metadata.shipping_sucursalNumero || "",
+                localidad: metadata.shipping_sucursalLocalidad || "",
+                provincia: metadata.shipping_sucursalProvincia || "",
+                cp: metadata.shipping_sucursalCp || ""
+              }
             }
           });
           console.log("[oca] result ok=" + result.ok + " error=" + (result.error || "") + " raw=" + (result.raw || "").slice(0, 1000));

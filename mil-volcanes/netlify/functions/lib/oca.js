@@ -1,6 +1,8 @@
 // Automatically creates the OCA shipment ("Crear envío" / IngresoORMultiplesRetiros_v2)
 // once a Mercado Pago payment is approved, so it doesn't have to be typed by
-// hand into the OCA e-Pak panel for every order.
+// hand into the OCA e-Pak panel for every order. Also looks up nearby OCA
+// branches by postal code so the customer can pick a pickup point at
+// checkout, instead of home delivery.
 //
 // Left as ConfirmarRetiro=False on purpose: the shipment lands in OCA's own
 // "Carrito de Envíos" waiting for a human to review and confirm it there,
@@ -13,8 +15,9 @@
 // Reference data for Mil Volcanes' OCA e-Pak account — confirm with the
 // business before changing any of this:
 //   CUIT: 27-28401090-1        Número de cuenta: 187844/000
-//   Centro de costo: 1         Operativa: 472287 (Sucursal a Puerta —
-//   se despacha llevando las cajas a la sucursal, no van a buscarlas a domicilio)
+//   Centro de costo: 1         Operativa: 472288 (Sucursal a Sucursal —
+//   se despacha llevando las cajas a la sucursal de origen, y el cliente
+//   retira su pedido en la sucursal de OCA más cercana a él)
 //   Centro de Imposición de origen: 117 (Sucursal OCA Mendoza, Av. Juan B. Justo 130)
 //   Caja x6 botellas: 9 kg, 30 (alto) x 26 (ancho) x 16.5 (largo) cm
 var blobsStore = require("./blobs-store");
@@ -22,7 +25,7 @@ var blobsStore = require("./blobs-store");
 var CUIT = "27-28401090-1";
 var NRO_CUENTA = "187844/000";
 var CENTRO_COSTO = "1";
-var OPERATIVA = 472287;
+var OPERATIVA = 472288;
 var ID_CENTRO_IMPOSICION_ORIGEN = "117";
 var ORIGEN = {
   calle: "AV. JUAN B JUSTO",
@@ -32,6 +35,50 @@ var ORIGEN = {
   cp: "5500"
 };
 var CAJA = { peso: 9, alto: 30, ancho: 26, largo: 16.5 };
+
+// "Entrega de paquetes" — only branches offering this service can actually
+// hand a package to a customer; others only admit shipments or sell stamps.
+var SERVICIO_ENTREGA = "2";
+
+function extractTag(block, tag) {
+  var match = block.match(new RegExp("<" + tag + ">([\\s\\S]*?)<\\/" + tag + ">"));
+  return match ? match[1].trim() : "";
+}
+
+function parseBranches(xml) {
+  var blocks = xml.match(/<Centro>[\s\S]*?<\/Centro>/g) || [];
+  var branches = [];
+  blocks.forEach(function (block) {
+    var offersDelivery = new RegExp("<IdTipoServicio>" + SERVICIO_ENTREGA + "<\\/IdTipoServicio>").test(block);
+    if (!offersDelivery) return;
+    branches.push({
+      id: extractTag(block, "IdCentroImposicion"),
+      nombre: extractTag(block, "Sucursal"),
+      calle: extractTag(block, "Calle"),
+      numero: extractTag(block, "Numero"),
+      localidad: extractTag(block, "Localidad"),
+      provincia: extractTag(block, "Provincia"),
+      cp: extractTag(block, "CodigoPostal"),
+      horario: extractTag(block, "HorarioAtencion")
+    });
+  });
+  return branches;
+}
+
+// Always the real (production) endpoint, unlike shipment creation below —
+// this is a read-only public lookup with no side effects, and customers
+// need to see OCA's actual branches to choose where to pick up their
+// order, not whatever limited set exists in OCA's test sandbox.
+var BRANCHES_URL = "https://webservice.oca.com.ar/epak_tracking/Oep_TrackEPak.asmx/GetCentrosImposicionConServiciosByCP";
+
+async function getBranchesForCP(cp) {
+  cp = String(cp || "").replace(/\D/g, "");
+  if (!cp) return [];
+  var resp = await fetch(BRANCHES_URL + "?CodigoPostal=" + encodeURIComponent(cp));
+  if (!resp.ok) return [];
+  var xml = await resp.text();
+  return parseBranches(xml);
+}
 
 function shipmentsStore() {
   return blobsStore("oca-shipments");
@@ -69,10 +116,11 @@ function splitName(fullName) {
   };
 }
 
-// order: { nroremito, cantidadCajas, destinatario: { nombreCompleto, calle,
-// numero, pisoDepto, ciudad, provincia, cp, telefono, email } }
+// order: { nroremito, cantidadCajas, destinatario: { nombreCompleto,
+// telefono, email, sucursal: { id, calle, numero, localidad, provincia, cp } } }
 function buildEnvioXml(order) {
   var d = order.destinatario;
+  var suc = d.sucursal || {};
   var name = splitName(d.nombreCompleto);
   var cantidadCajas = Math.max(1, order.cantidadCajas || 1);
 
@@ -96,10 +144,13 @@ function buildEnvioXml(order) {
     "<envios>" +
     '<envio idoperativa="' + OPERATIVA + '" nroremito="' + xmlEscape(order.nroremito) + '">' +
     '<destinatario apellido="' + xmlEscape(name.apellido) + '" nombre="' + xmlEscape(name.nombre) +
-    '" calle="' + xmlEscape(d.calle) + '" nro="' + xmlEscape(d.numero) + '" piso="' + xmlEscape(d.pisoDepto || "") +
-    '" depto="" localidad="' + xmlEscape(d.ciudad) + '" provincia="' + xmlEscape(d.provincia) + '" cp="' + xmlEscape(d.cp) +
+    '" calle="' + xmlEscape(suc.calle) + '" nro="' + xmlEscape(suc.numero) + '" piso="' +
+    '" depto="" localidad="' + xmlEscape(suc.localidad) + '" provincia="' + xmlEscape(suc.provincia) + '" cp="' + xmlEscape(suc.cp) +
+    // idci = ID Centro Imposición: required when delivering to a branch
+    // ("entrega en Sucursal") — the customer picks up their order there.
+    '" idci="' + xmlEscape(suc.id) +
     '" telefono="' + xmlEscape(d.telefono) + '" email="' + xmlEscape(d.email) + '" celular="' + xmlEscape(d.telefono) +
-    '" observaciones="' + xmlEscape("Mil Volcanes - Pedido " + order.nroremito) + '" />' +
+    '" observaciones="' + xmlEscape("Mil Volcanes - Pedido " + order.nroremito + " — Retira en " + suc.nombre) + '" />' +
     "<paquetes>" + paquetes + "</paquetes>" +
     "</envio>" +
     "</envios>" +
@@ -157,5 +208,6 @@ module.exports = {
   buildEnvioXml: buildEnvioXml,
   createShipment: createShipment,
   hasShipmentBeenCreated: hasShipmentBeenCreated,
-  markShipmentCreated: markShipmentCreated
+  markShipmentCreated: markShipmentCreated,
+  getBranchesForCP: getBranchesForCP
 };

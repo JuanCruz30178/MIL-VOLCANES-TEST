@@ -60,6 +60,8 @@
     if (!modal) return;
     var sendBtn = $("[data-postpurchase-send]", modal);
     var closeBtn = $("[data-postpurchase-close]", modal);
+    var textEl = $("[data-postpurchase-text]", modal);
+    var baseText = textEl ? textEl.textContent : "";
 
     function close() {
       modal.hidden = true;
@@ -73,9 +75,15 @@
     });
 
     window.__mvShowPostPurchase = function () {
+      var ship = readShipping();
+      if (textEl) {
+        textEl.textContent = ship.sucursalNombre
+          ? baseText + " Retirás tu pedido en " + ship.sucursalNombre +
+            (ship.sucursalCalle ? " (" + ship.sucursalCalle + " " + ship.sucursalNumero + ", " + ship.sucursalLocalidad + ")" : "") + "."
+          : baseText;
+      }
       if (sendBtn) {
         var subject = "Comprobante de pago — Pedido Mil Volcanes";
-        var ship = readShipping();
         var body = "Hola! Les escribo para enviar el comprobante de mi compra realizada a través de Mercado Pago.\n\n(Adjuntar el comprobante o captura de pantalla del pago a este email.)";
         if (shippingIsComplete(ship)) body += "\n\nDatos de envío:\n" + formatShipping(ship);
         var email = (data.contact && data.contact.email) || "info@milvolcanes.net";
@@ -295,7 +303,7 @@
   }
 
   var SHIP_KEY = "mv_shipping_v1";
-  var SHIP_FIELDS = ["nombre", "email", "telefono", "dni", "calle", "numero", "ciudad", "cp", "provincia"];
+  var SHIP_FIELDS = ["nombre", "email", "telefono", "dni", "cp", "sucursalId"];
   function readShipping() {
     try { return JSON.parse(window.localStorage.getItem(SHIP_KEY)) || {}; }
     catch (e) { return {}; }
@@ -307,15 +315,18 @@
     return SHIP_FIELDS.every(function (key) { return ship && String(ship[key] || "").trim(); });
   }
   var SHIP_LABELS = {
-    nombre: "Nombre y apellido", email: "Email", telefono: "Teléfono", dni: "DNI",
-    calle: "Calle", numero: "Número", pisoDepto: "Piso/Depto",
-    ciudad: "Ciudad", cp: "Código postal", provincia: "Provincia"
+    nombre: "Nombre y apellido", email: "Email", telefono: "Teléfono", dni: "DNI", cp: "Código postal"
   };
-  var SHIP_DISPLAY_ORDER = ["nombre", "email", "telefono", "dni", "calle", "numero", "pisoDepto", "ciudad", "cp", "provincia"];
+  var SHIP_DISPLAY_ORDER = ["nombre", "email", "telefono", "dni", "cp"];
   function formatShipping(ship) {
-    return SHIP_DISPLAY_ORDER
+    var lines = SHIP_DISPLAY_ORDER
       .filter(function (key) { return ship && String(ship[key] || "").trim(); })
-      .map(function (key) { return SHIP_LABELS[key] + ": " + ship[key]; }).join("\n");
+      .map(function (key) { return SHIP_LABELS[key] + ": " + ship[key]; });
+    if (ship && ship.sucursalNombre) {
+      lines.push("Sucursal de retiro OCA: " + ship.sucursalNombre +
+        (ship.sucursalCalle ? " (" + ship.sucursalCalle + " " + ship.sucursalNumero + ", " + ship.sucursalLocalidad + ")" : ""));
+    }
+    return lines.join("\n");
   }
 
   var COUPON_KEY = "mv_coupon_v1";
@@ -403,11 +414,15 @@
     var savedShip = readShipping();
     var emailFieldEl = null;
     var dniFieldEl = null;
+    var cpFieldEl = null;
+    var sucursalSelectEl = null;
     shipFields.forEach(function (field) {
       var key = field.dataset.shipField;
       if (key === "email") emailFieldEl = field;
       if (key === "dni") dniFieldEl = field;
-      if (savedShip[key]) field.value = savedShip[key];
+      if (key === "cp") cpFieldEl = field;
+      if (key === "sucursalId") sucursalSelectEl = field;
+      if (savedShip[key] && key !== "sucursalId") field.value = savedShip[key];
       field.addEventListener("input", function () {
         var ship = readShipping();
         ship[key] = field.value;
@@ -427,6 +442,79 @@
       }
     });
     if (savedShip.email) checkFirstPurchase(savedShip.email, savedShip.dni);
+
+    // Pickup branch: looked up from OCA by postal code, since delivery is
+    // always to an OCA branch the customer picks (no home address needed).
+    var lastLoadedCp = "";
+    function populateSucursalOptions(branches, selectedId) {
+      if (!sucursalSelectEl) return;
+      sucursalSelectEl.innerHTML = "";
+      if (!branches.length) {
+        var noneOpt = document.createElement("option");
+        noneOpt.value = "";
+        noneOpt.selected = true;
+        noneOpt.hidden = true;
+        noneOpt.textContent = window.__mvT ? window.__mvT("ship-sucursal-none") : "No hay sucursales OCA para ese código postal";
+        sucursalSelectEl.appendChild(noneOpt);
+        sucursalSelectEl.disabled = true;
+        return;
+      }
+      var placeholder = document.createElement("option");
+      placeholder.value = "";
+      placeholder.hidden = true;
+      placeholder.selected = true;
+      placeholder.textContent = window.__mvT ? window.__mvT("ship-sucursal-choose") : "Elegí una sucursal";
+      sucursalSelectEl.appendChild(placeholder);
+      branches.forEach(function (b) {
+        var opt = document.createElement("option");
+        opt.value = b.id;
+        opt.textContent = b.nombre + " — " + b.calle + " " + b.numero + ", " + b.localidad;
+        opt.dataset.nombre = b.nombre;
+        opt.dataset.calle = b.calle;
+        opt.dataset.numero = b.numero;
+        opt.dataset.localidad = b.localidad;
+        opt.dataset.provincia = b.provincia;
+        opt.dataset.cp = b.cp;
+        if (selectedId && b.id === selectedId) { opt.selected = true; placeholder.selected = false; }
+        sucursalSelectEl.appendChild(opt);
+      });
+      sucursalSelectEl.disabled = false;
+      sucursalSelectEl.dispatchEvent(new Event("change"));
+    }
+    function loadBranches(cp, selectedId) {
+      cp = String(cp || "").replace(/\D/g, "");
+      if (!sucursalSelectEl) return;
+      if (cp.length < 4) {
+        lastLoadedCp = "";
+        sucursalSelectEl.disabled = true;
+        return;
+      }
+      if (cp === lastLoadedCp) return;
+      lastLoadedCp = cp;
+      fetch("/.netlify/functions/oca-branches?cp=" + encodeURIComponent(cp))
+        .then(function (resp) { return resp.json(); })
+        .then(function (result) { populateSucursalOptions((result && result.branches) || [], selectedId); })
+        .catch(function () { populateSucursalOptions([], selectedId); });
+    }
+    if (cpFieldEl) {
+      cpFieldEl.addEventListener("blur", function () { loadBranches(cpFieldEl.value); });
+    }
+    if (sucursalSelectEl) {
+      sucursalSelectEl.addEventListener("change", function () {
+        var opt = sucursalSelectEl.selectedOptions[0];
+        var ship = readShipping();
+        ship.sucursalId = sucursalSelectEl.value;
+        ship.sucursalNombre = (opt && opt.dataset.nombre) || "";
+        ship.sucursalCalle = (opt && opt.dataset.calle) || "";
+        ship.sucursalNumero = (opt && opt.dataset.numero) || "";
+        ship.sucursalLocalidad = (opt && opt.dataset.localidad) || "";
+        ship.sucursalProvincia = (opt && opt.dataset.provincia) || "";
+        ship.sucursalCp = (opt && opt.dataset.cp) || "";
+        writeShipping(ship);
+        if (shipErrorEl) shipErrorEl.hidden = true;
+      });
+    }
+    if (savedShip.cp) loadBranches(savedShip.cp, savedShip.sucursalId);
 
     var couponInput = $("[data-coupon-input]");
     var couponBtn = $("[data-coupon-apply]");
