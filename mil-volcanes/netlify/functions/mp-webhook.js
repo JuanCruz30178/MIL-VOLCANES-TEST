@@ -52,14 +52,19 @@ exports.handler = async function (event) {
       // Auto-create the OCA shipment. Guarded so a webhook retry (Mercado
       // Pago can call this more than once for the same payment) never
       // creates a second real shipment for the same order.
+      // Logged deliberately: check Netlify → Functions → mp-webhook →
+      // logs after a test purchase to see how this went.
       try {
         var alreadyCreated = await oca.hasShipmentBeenCreated(paymentId);
-        if (!alreadyCreated) {
+        if (alreadyCreated) {
+          console.log("[oca] shipment already created for payment " + paymentId + ", skipping.");
+        } else {
           var items = (payment.additional_info && payment.additional_info.items) || [];
           var cantidadCajas = items.reduce(function (sum, item) {
             return sum + (parseInt(item.quantity, 10) || 0);
           }, 0) || 1; // Fallback: assume 1 box if Mercado Pago didn't echo the items back.
 
+          console.log("[oca] creating shipment for payment " + paymentId + ", cantidadCajas=" + cantidadCajas);
           var result = await oca.createShipment({
             nroremito: String(paymentId),
             cantidadCajas: cantidadCajas,
@@ -75,12 +80,14 @@ exports.handler = async function (event) {
               email: metadata.shipping_email || ""
             }
           });
+          console.log("[oca] result ok=" + result.ok + " error=" + (result.error || "") + " raw=" + (result.raw || "").slice(0, 1000));
           await oca.markShipmentCreated(paymentId, { ok: result.ok, error: result.error || null });
         }
       } catch (e) {
         // Best-effort: never let an OCA problem break the webhook response
         // or the buyer/coupon bookkeeping above. Falls back to creating the
         // shipment by hand in the OCA panel for this order.
+        console.log("[oca] unexpected error: " + (e && e.message));
       }
     }
 
