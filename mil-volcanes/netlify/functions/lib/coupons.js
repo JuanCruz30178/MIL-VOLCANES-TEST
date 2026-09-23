@@ -13,4 +13,9 @@
 module.exports = [
   // Example (disabled) — copy this shape for a real promo:
   // { code: "BIENVENIDA15", percentOff: 15, label: "Bienvenida", active: true, expiresAt: null, maxUses: null }
+
+  // Internal test coupon for the OCA shipment integration — 99% off so the
+  // Mercado Pago charge still goes through normally (a $0 charge would be
+  // rejected). Deactivate or delete once the OCA test is confirmed working.
+  { code: "TESTOCA99", percentOff: 99, label: "Prueba OCA", active: true, expiresAt: null, maxUses: 10 }
 ];
