@@ -398,6 +398,7 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
 .cart-total-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1rem; font-family: var(--serif); font-size: 1.3rem; }
 .cart-total-row-sub { font-family: inherit; font-size: .86rem; color: var(--cream-3); margin-bottom: .5rem; }
 .cart-total-row-discount { color: var(--accent); }
+.cart-total-row[hidden] { display: none; }
 
 .cart-coupon { display: flex; gap: .6rem; margin-bottom: .5rem; }
 .cart-coupon-input {
