@@ -320,10 +320,48 @@
     var itemsBox = $("[data-cart-items]");
     var emptyMsg = $("[data-cart-empty]");
     var footBox = $("[data-cart-foot]");
+    var subtotalRowEl = $("[data-cart-subtotal-row]");
+    var subtotalEl = $("[data-cart-subtotal]");
+    var discountRowEl = $("[data-cart-discount-row]");
+    var discountEl = $("[data-cart-discount]");
     var totalEl = $("[data-cart-total]");
     var countEl = $("[data-cart-count]");
     var errorEl = $("[data-cart-error]");
     if (!drawer || !overlay) return;
+
+    // "20% off first order": shown live once the customer types an email we
+    // haven't seen an approved payment for. This is only a preview — the
+    // server (create-preference.js) decides and charges the real price.
+    var FIRST_PURCHASE_DISCOUNT = (data.shop && data.shop.firstPurchaseDiscount) || 0;
+    var firstPurchaseEligible = null;
+    var lastCheckedEmail = "";
+    function checkFirstPurchase(email) {
+      email = String(email || "").trim().toLowerCase();
+      if (!FIRST_PURCHASE_DISCOUNT || !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        firstPurchaseEligible = null;
+        renderCart();
+        return;
+      }
+      if (email === lastCheckedEmail) return;
+      lastCheckedEmail = email;
+      fetch("/.netlify/functions/check-buyer?email=" + encodeURIComponent(email))
+        .then(function (resp) { return resp.json(); })
+        .then(function (result) {
+          if (email !== lastCheckedEmail) return;
+          firstPurchaseEligible = !!(result && result.eligible);
+          renderCart();
+        })
+        .catch(function () { firstPurchaseEligible = null; });
+    }
+    function computeTotals(cart) {
+      var subtotal = cart.reduce(function (sum, line) {
+        var product = findProduct(line.id);
+        return sum + (product ? product.price * line.qty : 0);
+      }, 0);
+      var discountActive = FIRST_PURCHASE_DISCOUNT > 0 && firstPurchaseEligible === true && cart.length > 0;
+      var discount = discountActive ? Math.round(subtotal * FIRST_PURCHASE_DISCOUNT) : 0;
+      return { subtotal: subtotal, discount: discount, total: subtotal - discount, discountActive: discountActive };
+    }
 
     // Shipping details: restore from a previous visit, persist as the customer types.
     var shipFields = $$("[data-ship-field]");
@@ -344,7 +382,11 @@
         writeShipping(ship);
         if (shipErrorEl) shipErrorEl.hidden = true;
       });
+      if (key === "email") {
+        field.addEventListener("blur", function () { checkFirstPurchase(field.value); });
+      }
     });
+    if (savedShip.email) checkFirstPurchase(savedShip.email);
 
     function renderCart() {
       var cart = readCart();
@@ -359,12 +401,10 @@
       if (emptyMsg) emptyMsg.hidden = cart.length > 0;
       if (footBox) footBox.hidden = cart.length === 0;
 
-      var total = 0;
       cart.forEach(function (line) {
         var product = findProduct(line.id);
         if (!product) return;
         var lineTotal = product.price * line.qty;
-        total += lineTotal;
 
         var el = document.createElement("div");
         el.className = "cart-item";
@@ -387,7 +427,12 @@
         itemsBox.appendChild(el);
       });
 
-      if (totalEl) totalEl.textContent = money(total);
+      var totals = computeTotals(cart);
+      if (subtotalRowEl) subtotalRowEl.hidden = !totals.discountActive;
+      if (subtotalEl) subtotalEl.textContent = money(totals.subtotal);
+      if (discountRowEl) discountRowEl.hidden = !totals.discountActive;
+      if (discountEl) discountEl.textContent = "-" + money(totals.discount);
+      if (totalEl) totalEl.textContent = money(totals.total);
       if (errorEl) errorEl.hidden = true;
     }
 
@@ -527,14 +572,19 @@
       btn.addEventListener("click", function () { setPaymentMethod(btn.dataset.paymentBtn); });
     });
 
-    function buildTransferEmail(cart, total, ship) {
+    function buildTransferEmail(cart, totals, ship) {
       var lines = cart.map(function (line) {
         var product = findProduct(line.id);
         return product ? ("- " + product.name + " x" + line.qty + ": " + money(product.price * line.qty)) : null;
       }).filter(Boolean);
+      var totalLines = "Subtotal: " + money(totals.subtotal);
+      if (totals.discountActive) {
+        totalLines += "\nDescuento primera compra (20%): -" + money(totals.discount);
+      }
+      totalLines += "\nTotal: " + money(totals.total);
       var subject = "Comprobante de transferencia — Pedido Mil Volcanes";
       var body = "Hola! Les escribo para enviar el comprobante de mi pedido:\n\n" +
-        lines.join("\n") + "\n\nTotal: " + money(total) +
+        lines.join("\n") + "\n\n" + totalLines +
         "\n\n(Adjuntar el comprobante de la transferencia a este email.)" +
         "\n\nDatos de envío:\n" + formatShipping(ship);
       return "mailto:" + (data.contact && data.contact.email ? data.contact.email : "info@milvolcanes.net") +
@@ -557,11 +607,7 @@
         }
 
         if (paymentMethod === "transferencia") {
-          var total = cart.reduce(function (sum, line) {
-            var product = findProduct(line.id);
-            return sum + (product ? product.price * line.qty : 0);
-          }, 0);
-          window.location.href = buildTransferEmail(cart, total, ship);
+          window.location.href = buildTransferEmail(cart, computeTotals(cart), ship);
           return;
         }
 

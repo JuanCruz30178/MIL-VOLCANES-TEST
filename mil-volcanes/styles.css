@@ -396,6 +396,8 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
 .cart-item-price { font-weight: 700; font-size: .9rem; white-space: nowrap; }
 .cart-drawer-foot { padding: 1.2rem 1.5rem 1.5rem; border-top: 1px solid var(--line-soft); }
 .cart-total-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1rem; font-family: var(--serif); font-size: 1.3rem; }
+.cart-total-row-sub { font-family: inherit; font-size: .86rem; color: var(--cream-3); margin-bottom: .5rem; }
+.cart-total-row-discount { color: var(--accent); }
 .cart-note { margin-top: .8rem; font-size: .74rem; color: var(--cream-3); text-align: center; }
 .cart-error { margin-top: .6rem; font-size: .82rem; color: var(--accent); text-align: center; }
 

@@ -11,6 +11,11 @@
 // Prices are authoritative here — the server NEVER trusts a price sent by
 // the browser, only the product id and quantity. Keep this in sync with
 // the "shop.products" list in lib/manifest.js.
+var buyers = require("./lib/buyers");
+
+// Keep in sync with shop.firstPurchaseDiscount in lib/manifest.js.
+var FIRST_PURCHASE_DISCOUNT = 0.2;
+
 var PRODUCTS = {
   "premium-sauvblanc-torrontes": { title: "Mil Volcanes — Sauvignon Blanc & Torrontés (Caja x6)", price: 102000 },
   "premium-malbec-bonarda": { title: "Mil Volcanes — Malbec & Bonarda (Caja x6)", price: 102000 },
@@ -46,25 +51,6 @@ exports.handler = async function (event) {
     return { statusCode: 400, body: JSON.stringify({ error: "El carrito está vacío." }) };
   }
 
-  var items = [];
-  for (var i = 0; i < cart.length; i++) {
-    var line = cart[i] || {};
-    var product = PRODUCTS[line.id];
-    if (!product) {
-      return { statusCode: 400, body: JSON.stringify({ error: "Producto inválido: " + line.id }) };
-    }
-    var qty = Math.max(1, Math.min(24, parseInt(line.qty, 10) || 1));
-    items.push({
-      id: line.id,
-      title: product.title,
-      quantity: qty,
-      unit_price: product.price,
-      currency_id: "ARS"
-    });
-  }
-
-  var origin = (event.headers && (event.headers.origin || (event.headers.host && "https://" + event.headers.host))) || "";
-
   // Shipping details, entered by the customer on our own site (not Mercado
   // Pago's shipments product). Only plain strings, capped in length, are
   // accepted here — this never touches payment amounts.
@@ -73,6 +59,45 @@ exports.handler = async function (event) {
   ["nombre", "email", "telefono", "dni", "direccion", "ciudad", "cp", "provincia"].forEach(function (key) {
     var value = shipIn[key];
     shipping[key] = typeof value === "string" ? value.slice(0, 200) : "";
+  });
+
+  // "20% off first order": decided here, server-side, from our own record
+  // of past approved payments — never from anything the browser claims.
+  var firstPurchaseDiscount = false;
+  try {
+    firstPurchaseDiscount = shipping.email ? !(await buyers.hasPurchased(shipping.email)) : false;
+  } catch (e) {
+    firstPurchaseDiscount = false;
+  }
+
+  var items = [];
+  for (var i = 0; i < cart.length; i++) {
+    var line = cart[i] || {};
+    var product = PRODUCTS[line.id];
+    if (!product) {
+      return { statusCode: 400, body: JSON.stringify({ error: "Producto inválido: " + line.id }) };
+    }
+    var qty = Math.max(1, Math.min(24, parseInt(line.qty, 10) || 1));
+    var unitPrice = firstPurchaseDiscount
+      ? Math.round(product.price * (1 - FIRST_PURCHASE_DISCOUNT))
+      : product.price;
+    items.push({
+      id: line.id,
+      title: product.title,
+      quantity: qty,
+      unit_price: unitPrice,
+      currency_id: "ARS"
+    });
+  }
+
+  var origin = (event.headers && (event.headers.origin || (event.headers.host && "https://" + event.headers.host))) || "";
+
+  // Mercado Pago's metadata only reliably preserves flat string values, so
+  // shipping fields are stored as top-level "shipping_*" keys rather than a
+  // nested object.
+  var metadata = { first_purchase_discount: firstPurchaseDiscount };
+  Object.keys(shipping).forEach(function (key) {
+    metadata["shipping_" + key] = shipping[key];
   });
 
   var preference = {
@@ -84,7 +109,8 @@ exports.handler = async function (event) {
     },
     auto_return: "approved",
     statement_descriptor: "MIL VOLCANES",
-    metadata: { shipping: shipping }
+    notification_url: origin + "/.netlify/functions/mp-webhook",
+    metadata: metadata
   };
 
   if (shipping.nombre || shipping.email || shipping.telefono) {
