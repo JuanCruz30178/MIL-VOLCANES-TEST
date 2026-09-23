@@ -7,10 +7,10 @@
 // Customers are matched by email OR DNI (whichever was collected) — email
 // alone would let someone just type a new address each time to keep
 // re-using the discount; DNI is far harder to "renew".
-var { getStore } = require("@netlify/blobs");
+var blobsStore = require("./blobs-store");
 
 function store() {
-  return getStore("buyers");
+  return blobsStore("buyers");
 }
 
 function normalizeEmail(email) {

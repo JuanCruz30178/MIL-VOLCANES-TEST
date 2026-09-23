@@ -2,10 +2,10 @@
 // limit set in coupons.js can actually be enforced. Only incremented once
 // Mercado Pago confirms a payment was approved (see mp-webhook.js) — never
 // on merely starting checkout.
-var { getStore } = require("@netlify/blobs");
+var blobsStore = require("./blobs-store");
 
 function store() {
-  return getStore("coupon-usage");
+  return blobsStore("coupon-usage");
 }
 
 async function getUsage(code) {

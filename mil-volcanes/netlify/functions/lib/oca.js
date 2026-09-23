@@ -17,7 +17,7 @@
 //   se despacha llevando las cajas a la sucursal, no van a buscarlas a domicilio)
 //   Centro de Imposición de origen: 117 (Sucursal OCA Mendoza, Av. Juan B. Justo 130)
 //   Caja x6 botellas: 9 kg, 30 (alto) x 26 (ancho) x 16.5 (largo) cm
-var { getStore } = require("@netlify/blobs");
+var blobsStore = require("./blobs-store");
 
 var CUIT = "27-28401090-1";
 var NRO_CUENTA = "187844/000";
@@ -34,7 +34,7 @@ var ORIGEN = {
 var CAJA = { peso: 9, alto: 30, ancho: 26, largo: 16.5 };
 
 function shipmentsStore() {
-  return getStore("oca-shipments");
+  return blobsStore("oca-shipments");
 }
 
 async function hasShipmentBeenCreated(paymentId) {
