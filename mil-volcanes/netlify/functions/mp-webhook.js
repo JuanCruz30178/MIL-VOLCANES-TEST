@@ -5,6 +5,7 @@
 // with our own access token, so it can't be spoofed by hitting the
 // checkout's success page without actually paying.
 var buyers = require("./lib/buyers");
+var couponUsage = require("./lib/coupon-usage");
 
 exports.handler = async function (event) {
   try {
@@ -42,6 +43,9 @@ exports.handler = async function (event) {
       var dni = metadata.shipping_dni || "";
       if (email || dni) {
         await buyers.markPurchased({ email: email, dni: dni }, { paymentId: paymentId });
+      }
+      if (metadata.applied_coupon) {
+        await couponUsage.incrementUsage(metadata.applied_coupon);
       }
     }
 

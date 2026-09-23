@@ -12,9 +12,10 @@
 // the browser, only the product id and quantity. Keep this in sync with
 // the "shop.products" list in lib/manifest.js.
 var buyers = require("./lib/buyers");
+var couponValidate = require("./lib/coupon-validate");
 
 // Keep in sync with shop.firstPurchaseDiscount in lib/manifest.js.
-var FIRST_PURCHASE_DISCOUNT = 0.2;
+var FIRST_PURCHASE_DISCOUNT = 0.1;
 
 var PRODUCTS = {
   "premium-sauvblanc-torrontes": { title: "Mil Volcanes — Sauvignon Blanc & Torrontés (Caja x6)", price: 102000 },
@@ -61,7 +62,7 @@ exports.handler = async function (event) {
     shipping[key] = typeof value === "string" ? value.slice(0, 200) : "";
   });
 
-  // "20% off first order": decided here, server-side, from our own record
+  // "10% off first order": decided here, server-side, from our own record
   // of past approved payments — never from anything the browser claims.
   var firstPurchaseDiscount = false;
   try {
@@ -69,6 +70,21 @@ exports.handler = async function (event) {
   } catch (e) {
     firstPurchaseDiscount = false;
   }
+  var firstPurchaseRate = firstPurchaseDiscount ? FIRST_PURCHASE_DISCOUNT : 0;
+
+  // Coupon code: also validated here, never trusted from the browser. A
+  // coupon never stacks with the first-purchase discount — whichever of
+  // the two is bigger is the one applied.
+  var couponResult = { valid: false };
+  try {
+    couponResult = await couponValidate.validateCoupon(body.couponCode);
+  } catch (e) {
+    couponResult = { valid: false };
+  }
+  var couponRate = couponResult.valid ? couponResult.percentOff / 100 : 0;
+
+  var appliedRate = Math.max(firstPurchaseRate, couponRate);
+  var appliedCoupon = couponResult.valid && couponRate >= firstPurchaseRate ? couponResult.code : null;
 
   var items = [];
   for (var i = 0; i < cart.length; i++) {
@@ -78,8 +94,8 @@ exports.handler = async function (event) {
       return { statusCode: 400, body: JSON.stringify({ error: "Producto inválido: " + line.id }) };
     }
     var qty = Math.max(1, Math.min(24, parseInt(line.qty, 10) || 1));
-    var unitPrice = firstPurchaseDiscount
-      ? Math.round(product.price * (1 - FIRST_PURCHASE_DISCOUNT))
+    var unitPrice = appliedRate > 0
+      ? Math.round(product.price * (1 - appliedRate))
       : product.price;
     items.push({
       id: line.id,
@@ -95,7 +111,10 @@ exports.handler = async function (event) {
   // Mercado Pago's metadata only reliably preserves flat string values, so
   // shipping fields are stored as top-level "shipping_*" keys rather than a
   // nested object.
-  var metadata = { first_purchase_discount: firstPurchaseDiscount };
+  var metadata = {
+    first_purchase_discount: firstPurchaseDiscount,
+    applied_coupon: appliedCoupon || ""
+  };
   Object.keys(shipping).forEach(function (key) {
     metadata["shipping_" + key] = shipping[key];
   });

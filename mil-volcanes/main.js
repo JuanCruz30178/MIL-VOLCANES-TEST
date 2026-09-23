@@ -314,6 +314,18 @@
     return SHIP_FIELDS.map(function (key) { return SHIP_LABELS[key] + ": " + (ship[key] || ""); }).join("\n");
   }
 
+  var COUPON_KEY = "mv_coupon_v1";
+  function readCoupon() {
+    try { return JSON.parse(window.localStorage.getItem(COUPON_KEY)) || null; }
+    catch (e) { return null; }
+  }
+  function writeCoupon(coupon) {
+    try {
+      if (coupon) window.localStorage.setItem(COUPON_KEY, JSON.stringify(coupon));
+      else window.localStorage.removeItem(COUPON_KEY);
+    } catch (e) {}
+  }
+
   function initCart() {
     var overlay = $("[data-cart-overlay]");
     var drawer = $("[data-cart-drawer]");
@@ -324,6 +336,7 @@
     var subtotalEl = $("[data-cart-subtotal]");
     var discountRowEl = $("[data-cart-discount-row]");
     var discountEl = $("[data-cart-discount]");
+    var discountLabelEl = $("[data-discount-label]");
     var totalEl = $("[data-cart-total]");
     var countEl = $("[data-cart-count]");
     var errorEl = $("[data-cart-error]");
@@ -361,14 +374,23 @@
         })
         .catch(function () { firstPurchaseEligible = null; });
     }
+    // Coupon codes: also only a preview here — create-preference.js
+    // re-validates the same code and decides the real charged price. A
+    // coupon never stacks with the first-purchase discount, whichever of
+    // the two is bigger is the one applied (matches the server).
+    var appliedCoupon = readCoupon();
     function computeTotals(cart) {
       var subtotal = cart.reduce(function (sum, line) {
         var product = findProduct(line.id);
         return sum + (product ? product.price * line.qty : 0);
       }, 0);
-      var discountActive = FIRST_PURCHASE_DISCOUNT > 0 && firstPurchaseEligible === true && cart.length > 0;
-      var discount = discountActive ? Math.round(subtotal * FIRST_PURCHASE_DISCOUNT) : 0;
-      return { subtotal: subtotal, discount: discount, total: subtotal - discount, discountActive: discountActive };
+      var firstPurchaseRate = (FIRST_PURCHASE_DISCOUNT > 0 && firstPurchaseEligible === true) ? FIRST_PURCHASE_DISCOUNT : 0;
+      var couponRate = appliedCoupon ? appliedCoupon.percentOff / 100 : 0;
+      var rate = Math.max(firstPurchaseRate, couponRate);
+      var source = couponRate > 0 && couponRate >= firstPurchaseRate ? "coupon" : (firstPurchaseRate > 0 ? "first" : null);
+      var discountActive = rate > 0 && cart.length > 0;
+      var discount = discountActive ? Math.round(subtotal * rate) : 0;
+      return { subtotal: subtotal, discount: discount, total: subtotal - discount, discountActive: discountActive, source: discountActive ? source : null };
     }
 
     // Shipping details: restore from a previous visit, persist as the customer types.
@@ -401,6 +423,56 @@
       }
     });
     if (savedShip.email) checkFirstPurchase(savedShip.email, savedShip.dni);
+
+    var couponInput = $("[data-coupon-input]");
+    var couponBtn = $("[data-coupon-apply]");
+    var couponMsgEl = $("[data-coupon-msg]");
+    function showCouponMsg(text, kind) {
+      if (!couponMsgEl) return;
+      couponMsgEl.textContent = text;
+      couponMsgEl.className = "cart-coupon-msg" + (kind ? " is-" + kind : "");
+      couponMsgEl.hidden = !text;
+    }
+    function applyCouponCode(code, opts) {
+      code = String(code || "").trim();
+      var silent = !!(opts && opts.silent);
+      if (!code) return;
+      if (couponBtn) couponBtn.disabled = true;
+      if (!silent) showCouponMsg(window.__mvT ? window.__mvT("coupon-checking") : "Verificando…", null);
+      fetch("/.netlify/functions/check-coupon?code=" + encodeURIComponent(code))
+        .then(function (resp) { return resp.json(); })
+        .then(function (result) {
+          if (couponBtn) couponBtn.disabled = false;
+          if (result && result.valid) {
+            appliedCoupon = { code: result.code, percentOff: result.percentOff, label: result.label };
+            writeCoupon(appliedCoupon);
+            var msg = (window.__mvT ? window.__mvT("coupon-applied") : "¡Cupón aplicado!") + " (" + appliedCoupon.code + " -" + appliedCoupon.percentOff + "%)";
+            showCouponMsg(msg, "success");
+          } else {
+            appliedCoupon = null;
+            writeCoupon(null);
+            if (!silent) showCouponMsg(window.__mvT ? window.__mvT("coupon-invalid") : "Cupón inválido o vencido.", "error");
+            else showCouponMsg("", null);
+          }
+          renderCart();
+        })
+        .catch(function () {
+          if (couponBtn) couponBtn.disabled = false;
+          if (!silent) showCouponMsg(window.__mvT ? window.__mvT("coupon-invalid") : "Cupón inválido o vencido.", "error");
+        });
+    }
+    if (couponBtn) {
+      couponBtn.addEventListener("click", function () { applyCouponCode(couponInput ? couponInput.value : ""); });
+    }
+    if (couponInput) {
+      couponInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") { e.preventDefault(); applyCouponCode(couponInput.value); }
+      });
+    }
+    if (appliedCoupon && appliedCoupon.code) {
+      if (couponInput) couponInput.value = appliedCoupon.code;
+      applyCouponCode(appliedCoupon.code, { silent: true });
+    }
 
     function renderCart() {
       var cart = readCart();
@@ -446,6 +518,13 @@
       if (subtotalEl) subtotalEl.textContent = money(totals.subtotal);
       if (discountRowEl) discountRowEl.hidden = !totals.discountActive;
       if (discountEl) discountEl.textContent = "-" + money(totals.discount);
+      if (discountLabelEl) {
+        if (totals.source === "coupon" && appliedCoupon) {
+          discountLabelEl.textContent = (appliedCoupon.label || appliedCoupon.code) + " (" + appliedCoupon.percentOff + "%)";
+        } else if (window.__mvT) {
+          discountLabelEl.textContent = window.__mvT("cart-discount-label");
+        }
+      }
       if (totalEl) totalEl.textContent = money(totals.total);
       if (errorEl) errorEl.hidden = true;
     }
@@ -593,7 +672,10 @@
       }).filter(Boolean);
       var totalLines = "Subtotal: " + money(totals.subtotal);
       if (totals.discountActive) {
-        totalLines += "\nDescuento primera compra (20%): -" + money(totals.discount);
+        var discountLabel = totals.source === "coupon" && appliedCoupon
+          ? (appliedCoupon.label || appliedCoupon.code) + " (" + appliedCoupon.percentOff + "%)"
+          : "Descuento primera compra (" + Math.round(FIRST_PURCHASE_DISCOUNT * 100) + "%)";
+        totalLines += "\n" + discountLabel + ": -" + money(totals.discount);
       }
       totalLines += "\nTotal: " + money(totals.total);
       var subject = "Comprobante de transferencia — Pedido Mil Volcanes";
@@ -632,7 +714,7 @@
         fetch("/.netlify/functions/create-preference", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ items: cart, shipping: ship })
+          body: JSON.stringify({ items: cart, shipping: ship, couponCode: appliedCoupon ? appliedCoupon.code : "" })
         })
           .then(function (resp) {
             return resp.json().then(function (data) { return { ok: resp.ok, data: data }; });
@@ -660,6 +742,7 @@
     var compra = params.get("compra");
     if (compra === "exito") {
       writeCart([]);
+      writeCoupon(null);
       if (window.__mvShowPostPurchase) window.__mvShowPostPurchase();
       else window.alert(window.__mvT ? window.__mvT("alert-exito") : "¡Gracias por tu compra! Te vamos a escribir por email para coordinar el envío.");
     } else if (compra === "pendiente") {

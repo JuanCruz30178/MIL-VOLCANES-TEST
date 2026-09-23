@@ -398,6 +398,18 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.05; font-family: var(--serif
 .cart-total-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1rem; font-family: var(--serif); font-size: 1.3rem; }
 .cart-total-row-sub { font-family: inherit; font-size: .86rem; color: var(--cream-3); margin-bottom: .5rem; }
 .cart-total-row-discount { color: var(--accent); }
+
+.cart-coupon { display: flex; gap: .6rem; margin-bottom: .5rem; }
+.cart-coupon-input {
+  flex: 1; min-width: 0; padding: .7rem .9rem; border-radius: 999px;
+  border: 1px solid var(--line-soft); background: transparent; color: var(--cream);
+  font-family: inherit; font-size: .85rem;
+}
+.cart-coupon-input::placeholder { color: var(--cream-3); }
+.cart-coupon-btn { padding: .7rem 1.3rem; font-size: .8rem; white-space: nowrap; }
+.cart-coupon-msg { margin: -.1rem 0 1rem; font-size: .78rem; }
+.cart-coupon-msg.is-success { color: var(--cream); }
+.cart-coupon-msg.is-error { color: var(--accent); }
 .cart-note { margin-top: .8rem; font-size: .74rem; color: var(--cream-3); text-align: center; }
 .cart-error { margin-top: .6rem; font-size: .82rem; color: var(--accent); text-align: center; }
 

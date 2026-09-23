@@ -75,7 +75,12 @@
     "cart-empty-html": "Todavía no agregaste vinos. Elegí alguno en <a href=\"#coleccion\" data-cart-close-link>nuestra colección</a>.",
     "cart-total-label": "Total",
     "cart-subtotal-label": "Subtotal",
-    "cart-discount-label": "Descuento primera compra (20%)",
+    "cart-discount-label": "Descuento primera compra (10%)",
+    "coupon-placeholder": "Código de descuento",
+    "coupon-apply": "Aplicar",
+    "coupon-checking": "Verificando…",
+    "coupon-invalid": "Cupón inválido o vencido.",
+    "coupon-applied": "¡Cupón aplicado!",
     "btn-checkout": "Finalizar compra",
     "cart-note": "Pago seguro con Mercado Pago. Envíos a coordinar por email tras la compra.",
     "cart-note-transfer": "Realizá la transferencia y enviá el comprobante para coordinar el envío.",
@@ -126,7 +131,7 @@
     "mix-sv-origin": "Selección de nuestra línea Single Vineyard",
     "mix-sv-note": "3 botellas de Malbec Single Vineyard y 3 de Cabernet Franc Single Vineyard.",
     "mix-origin": "Selección de nuestras tres etiquetas",
-    "promo-badge-text": "20% OFF por primera compra"
+    "promo-badge-text": "10% OFF por primera compra"
   },
   "en": {
     "skip-link": "Skip to content",
@@ -199,7 +204,12 @@
     "cart-empty-html": "You haven't added any wines yet. Choose one from <a href=\"#coleccion\" data-cart-close-link>the collection</a>.",
     "cart-total-label": "Total",
     "cart-subtotal-label": "Subtotal",
-    "cart-discount-label": "First order discount (20%)",
+    "cart-discount-label": "First order discount (10%)",
+    "coupon-placeholder": "Discount code",
+    "coupon-apply": "Apply",
+    "coupon-checking": "Checking…",
+    "coupon-invalid": "Invalid or expired code.",
+    "coupon-applied": "Coupon applied!",
     "btn-checkout": "Complete Purchase",
     "cart-note": "Secure payment with Mercado Pago. Shipping arranged by email after purchase.",
     "cart-note-transfer": "Make the bank transfer and send us the receipt to arrange shipping.",
@@ -250,7 +260,7 @@
     "mix-sv-origin": "A selection of our Single Vineyard line",
     "mix-sv-note": "3 bottles of Malbec Single Vineyard and 3 of Cabernet Franc Single Vineyard.",
     "mix-origin": "A selection of our three labels",
-    "promo-badge-text": "20% OFF on your first order"
+    "promo-badge-text": "10% OFF on your first order"
   },
   "pt": {
     "skip-link": "Pular para o conteúdo",
@@ -323,7 +333,12 @@
     "cart-empty-html": "Você ainda não adicionou vinhos. Escolha um na <a href=\"#coleccion\" data-cart-close-link>coleção</a>.",
     "cart-total-label": "Total",
     "cart-subtotal-label": "Subtotal",
-    "cart-discount-label": "Desconto primeira compra (20%)",
+    "cart-discount-label": "Desconto primeira compra (10%)",
+    "coupon-placeholder": "Código de desconto",
+    "coupon-apply": "Aplicar",
+    "coupon-checking": "Verificando…",
+    "coupon-invalid": "Cupom inválido ou vencido.",
+    "coupon-applied": "Cupom aplicado!",
     "btn-checkout": "Finalizar Compra",
     "cart-note": "Pagamento seguro com Mercado Pago. Envio a combinar por e-mail após a compra.",
     "cart-note-transfer": "Faça a transferência e envie o comprovante para combinar o envio.",
@@ -374,7 +389,7 @@
     "mix-sv-origin": "Seleção da nossa linha Single Vineyard",
     "mix-sv-note": "3 garrafas de Malbec Single Vineyard e 3 de Cabernet Franc Single Vineyard.",
     "mix-origin": "Uma seleção dos nossos três rótulos",
-    "promo-badge-text": "20% OFF na primeira compra"
+    "promo-badge-text": "10% OFF na primeira compra"
   }
 };
 
@@ -407,6 +422,14 @@
       var key = nodes[i].getAttribute("data-i18n");
       if (dict && Object.prototype.hasOwnProperty.call(dict, key)) {
         nodes[i].innerHTML = dict[key];
+      }
+    }
+
+    var placeholderNodes = document.querySelectorAll("[data-i18n-placeholder]");
+    for (var p = 0; p < placeholderNodes.length; p++) {
+      var pKey = placeholderNodes[p].getAttribute("data-i18n-placeholder");
+      if (dict && Object.prototype.hasOwnProperty.call(dict, pKey)) {
+        placeholderNodes[p].setAttribute("placeholder", dict[pKey]);
       }
     }
 
