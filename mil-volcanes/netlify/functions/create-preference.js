@@ -57,7 +57,7 @@ exports.handler = async function (event) {
   // accepted here — this never touches payment amounts.
   var shipIn = body.shipping || {};
   var shipping = {};
-  ["nombre", "email", "telefono", "dni", "direccion", "ciudad", "cp", "provincia"].forEach(function (key) {
+  ["nombre", "email", "telefono", "dni", "calle", "numero", "pisoDepto", "ciudad", "cp", "provincia"].forEach(function (key) {
     var value = shipIn[key];
     shipping[key] = typeof value === "string" ? value.slice(0, 200) : "";
   });

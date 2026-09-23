@@ -6,6 +6,7 @@
 // checkout's success page without actually paying.
 var buyers = require("./lib/buyers");
 var couponUsage = require("./lib/coupon-usage");
+var oca = require("./lib/oca");
 
 exports.handler = async function (event) {
   try {
@@ -46,6 +47,40 @@ exports.handler = async function (event) {
       }
       if (metadata.applied_coupon) {
         await couponUsage.incrementUsage(metadata.applied_coupon);
+      }
+
+      // Auto-create the OCA shipment. Guarded so a webhook retry (Mercado
+      // Pago can call this more than once for the same payment) never
+      // creates a second real shipment for the same order.
+      try {
+        var alreadyCreated = await oca.hasShipmentBeenCreated(paymentId);
+        if (!alreadyCreated) {
+          var items = (payment.additional_info && payment.additional_info.items) || [];
+          var cantidadCajas = items.reduce(function (sum, item) {
+            return sum + (parseInt(item.quantity, 10) || 0);
+          }, 0) || 1; // Fallback: assume 1 box if Mercado Pago didn't echo the items back.
+
+          var result = await oca.createShipment({
+            nroremito: String(paymentId),
+            cantidadCajas: cantidadCajas,
+            destinatario: {
+              nombreCompleto: metadata.shipping_nombre || "",
+              calle: metadata.shipping_calle || "",
+              numero: metadata.shipping_numero || "",
+              pisoDepto: metadata.shipping_pisoDepto || "",
+              ciudad: metadata.shipping_ciudad || "",
+              provincia: metadata.shipping_provincia || "",
+              cp: metadata.shipping_cp || "",
+              telefono: metadata.shipping_telefono || "",
+              email: metadata.shipping_email || ""
+            }
+          });
+          await oca.markShipmentCreated(paymentId, { ok: result.ok, error: result.error || null });
+        }
+      } catch (e) {
+        // Best-effort: never let an OCA problem break the webhook response
+        // or the buyer/coupon bookkeeping above. Falls back to creating the
+        // shipment by hand in the OCA panel for this order.
       }
     }
 

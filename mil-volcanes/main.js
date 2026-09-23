@@ -295,7 +295,7 @@
   }
 
   var SHIP_KEY = "mv_shipping_v1";
-  var SHIP_FIELDS = ["nombre", "email", "telefono", "dni", "direccion", "ciudad", "cp", "provincia"];
+  var SHIP_FIELDS = ["nombre", "email", "telefono", "dni", "calle", "numero", "ciudad", "cp", "provincia"];
   function readShipping() {
     try { return JSON.parse(window.localStorage.getItem(SHIP_KEY)) || {}; }
     catch (e) { return {}; }
@@ -308,10 +308,14 @@
   }
   var SHIP_LABELS = {
     nombre: "Nombre y apellido", email: "Email", telefono: "Teléfono", dni: "DNI",
-    direccion: "Dirección", ciudad: "Ciudad", cp: "Código postal", provincia: "Provincia"
+    calle: "Calle", numero: "Número", pisoDepto: "Piso/Depto",
+    ciudad: "Ciudad", cp: "Código postal", provincia: "Provincia"
   };
+  var SHIP_DISPLAY_ORDER = ["nombre", "email", "telefono", "dni", "calle", "numero", "pisoDepto", "ciudad", "cp", "provincia"];
   function formatShipping(ship) {
-    return SHIP_FIELDS.map(function (key) { return SHIP_LABELS[key] + ": " + (ship[key] || ""); }).join("\n");
+    return SHIP_DISPLAY_ORDER
+      .filter(function (key) { return ship && String(ship[key] || "").trim(); })
+      .map(function (key) { return SHIP_LABELS[key] + ": " + ship[key]; }).join("\n");
   }
 
   var COUPON_KEY = "mv_coupon_v1";
