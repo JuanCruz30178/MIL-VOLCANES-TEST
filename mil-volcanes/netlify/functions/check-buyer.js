@@ -9,10 +9,12 @@ exports.handler = async function (event) {
     return { statusCode: 405, body: JSON.stringify({ error: "Method not allowed" }) };
   }
 
-  var email = (event.queryStringParameters && event.queryStringParameters.email) || "";
+  var qs = event.queryStringParameters || {};
+  var email = qs.email || "";
+  var dni = qs.dni || "";
 
   try {
-    var purchased = await buyers.hasPurchased(email);
+    var purchased = await buyers.hasPurchased({ email: email, dni: dni });
     return { statusCode: 200, body: JSON.stringify({ eligible: !purchased }) };
   } catch (err) {
     // If the store is unreachable, fail closed: no discount shown rather

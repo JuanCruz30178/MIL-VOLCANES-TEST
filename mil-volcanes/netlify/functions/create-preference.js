@@ -65,7 +65,7 @@ exports.handler = async function (event) {
   // of past approved payments — never from anything the browser claims.
   var firstPurchaseDiscount = false;
   try {
-    firstPurchaseDiscount = shipping.email ? !(await buyers.hasPurchased(shipping.email)) : false;
+    firstPurchaseDiscount = !(await buyers.hasPurchased({ email: shipping.email, dni: shipping.dni }));
   } catch (e) {
     firstPurchaseDiscount = false;
   }

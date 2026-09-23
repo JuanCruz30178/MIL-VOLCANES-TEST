@@ -334,20 +334,28 @@
     // server (create-preference.js) decides and charges the real price.
     var FIRST_PURCHASE_DISCOUNT = (data.shop && data.shop.firstPurchaseDiscount) || 0;
     var firstPurchaseEligible = null;
-    var lastCheckedEmail = "";
-    function checkFirstPurchase(email) {
+    var lastCheckedKey = "";
+    // Matches by email AND DNI (both already required in the shipping form)
+    // — email alone would let someone just type a new address each time to
+    // keep re-using the discount. The server re-checks this for real when
+    // creating the payment preference; this is only a live preview.
+    function checkFirstPurchase(email, dni) {
       email = String(email || "").trim().toLowerCase();
-      if (!FIRST_PURCHASE_DISCOUNT || !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      dni = String(dni || "").replace(/\D/g, "");
+      if (!FIRST_PURCHASE_DISCOUNT || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         firstPurchaseEligible = null;
         renderCart();
         return;
       }
-      if (email === lastCheckedEmail) return;
-      lastCheckedEmail = email;
-      fetch("/.netlify/functions/check-buyer?email=" + encodeURIComponent(email))
+      var key = email + "|" + dni;
+      if (key === lastCheckedKey) return;
+      lastCheckedKey = key;
+      var url = "/.netlify/functions/check-buyer?email=" + encodeURIComponent(email);
+      if (dni) url += "&dni=" + encodeURIComponent(dni);
+      fetch(url)
         .then(function (resp) { return resp.json(); })
         .then(function (result) {
-          if (email !== lastCheckedEmail) return;
+          if (key !== lastCheckedKey) return;
           firstPurchaseEligible = !!(result && result.eligible);
           renderCart();
         })
@@ -367,8 +375,12 @@
     var shipFields = $$("[data-ship-field]");
     var shipErrorEl = $("[data-ship-error]");
     var savedShip = readShipping();
+    var emailFieldEl = null;
+    var dniFieldEl = null;
     shipFields.forEach(function (field) {
       var key = field.dataset.shipField;
+      if (key === "email") emailFieldEl = field;
+      if (key === "dni") dniFieldEl = field;
       if (savedShip[key]) field.value = savedShip[key];
       field.addEventListener("input", function () {
         var ship = readShipping();
@@ -382,11 +394,13 @@
         writeShipping(ship);
         if (shipErrorEl) shipErrorEl.hidden = true;
       });
-      if (key === "email") {
-        field.addEventListener("blur", function () { checkFirstPurchase(field.value); });
+      if (key === "email" || key === "dni") {
+        field.addEventListener("blur", function () {
+          checkFirstPurchase(emailFieldEl ? emailFieldEl.value : "", dniFieldEl ? dniFieldEl.value : "");
+        });
       }
     });
-    if (savedShip.email) checkFirstPurchase(savedShip.email);
+    if (savedShip.email) checkFirstPurchase(savedShip.email, savedShip.dni);
 
     function renderCart() {
       var cart = readCart();

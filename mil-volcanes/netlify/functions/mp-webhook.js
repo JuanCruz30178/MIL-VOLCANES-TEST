@@ -39,8 +39,9 @@ exports.handler = async function (event) {
     if (payment.status === "approved") {
       var metadata = payment.metadata || {};
       var email = metadata.shipping_email || (payment.payer && payment.payer.email) || "";
-      if (email) {
-        await buyers.markPurchased(email, { paymentId: paymentId });
+      var dni = metadata.shipping_dni || "";
+      if (email || dni) {
+        await buyers.markPurchased({ email: email, dni: dni }, { paymentId: paymentId });
       }
     }
 
