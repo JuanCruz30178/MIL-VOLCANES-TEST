@@ -445,25 +445,34 @@
 
     // Pickup branch: looked up from OCA by postal code, since delivery is
     // always to an OCA branch the customer picks (no home address needed).
+    var sucursalMsgEl = $("[data-ship-sucursal-msg]");
+    function showSucursalMsg(text) {
+      if (!sucursalMsgEl) return;
+      sucursalMsgEl.textContent = text || "";
+      sucursalMsgEl.hidden = !text;
+    }
     var lastLoadedCp = "";
     function populateSucursalOptions(branches, selectedId) {
       if (!sucursalSelectEl) return;
       sucursalSelectEl.innerHTML = "";
+      // Placeholder options are left with no visible text (like the
+      // Provincia select) so they don't overlap the floating label —
+      // any guidance goes in the hint paragraph below instead.
       if (!branches.length) {
         var noneOpt = document.createElement("option");
         noneOpt.value = "";
         noneOpt.selected = true;
         noneOpt.hidden = true;
-        noneOpt.textContent = window.__mvT ? window.__mvT("ship-sucursal-none") : "No hay sucursales OCA para ese código postal";
         sucursalSelectEl.appendChild(noneOpt);
         sucursalSelectEl.disabled = true;
+        showSucursalMsg(window.__mvT ? window.__mvT("ship-sucursal-none") : "No hay sucursales OCA para ese código postal.");
         return;
       }
+      showSucursalMsg("");
       var placeholder = document.createElement("option");
       placeholder.value = "";
       placeholder.hidden = true;
       placeholder.selected = true;
-      placeholder.textContent = window.__mvT ? window.__mvT("ship-sucursal-choose") : "Elegí una sucursal";
       sucursalSelectEl.appendChild(placeholder);
       branches.forEach(function (b) {
         var opt = document.createElement("option");
